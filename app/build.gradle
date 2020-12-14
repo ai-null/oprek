@@ -67,4 +67,9 @@ dependencies {
     // Material design
     implementation 'com.google.android.material:material:1.2.1'
 
+    // Fragment screen navigation
+    def nav_version = "2.3.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
 }
