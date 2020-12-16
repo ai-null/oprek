@@ -1,17 +1,23 @@
 <resources>
     <string name="app_name">Oprek</string>
+    <string name="app_desc">Manage projects with no worries.</string>
 
     <!--  Login & Register screen  -->
     <!--  Register screen SubHead & placeholders  -->
-    <string name="username_and_email"><![CDATA[Username & email address]]></string>
+    <string name="regist_form_title1">Account information</string>
     <string name="email_address">Email address</string>
     <string name="username">Username</string>
+
     <!--  Login screen Subhead & placeholders  -->
     <string name="pin_password">Pin password</string>
+    <string name="pin_number">Pin number</string>
     <string name="set_pin_number">Set pin number</string>
     <string name="repeat_pin_number">Repeat pin number</string>
+
     <!--  next button  -->
     <string name="next">Next</string>
     <string name="search">search</string>
     <string name="about">About</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
 </resources>
