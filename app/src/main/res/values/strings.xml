@@ -2,6 +2,9 @@
     <string name="app_name">Oprek</string>
     <string name="app_desc">Manage projects with no worries.</string>
 
+    <!--  Screens label  -->
+    <string name="label_register">Set up an account</string>
+
     <!--  Login & Register screen  -->
     <!--  Register screen SubHead & placeholders  -->
     <string name="regist_form_title1">Account information</string>

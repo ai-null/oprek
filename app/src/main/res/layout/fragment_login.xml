@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:transitionGroup="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
@@ -36,7 +37,7 @@
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/app_desc" />
         </LinearLayout>
 
@@ -131,6 +132,7 @@
                     tools:ignore="KeyboardInaccessibleWidget" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_login"
                     style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
