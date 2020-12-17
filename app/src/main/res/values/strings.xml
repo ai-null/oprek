@@ -23,4 +23,10 @@
     <string name="about">About</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="done">Done</string>
+    <string name="pending">Pending</string>
+    <string name="cancel">Cancel</string>
+    <string name="progress">Progress</string>
+    <string name="projects">Projects</string>
+    <string name="recent_projects">Recent projects</string>
 </resources>
