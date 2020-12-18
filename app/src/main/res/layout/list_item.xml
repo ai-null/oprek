@@ -4,42 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="@dimen/medium_margin"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="@dimen/medium_margin"
         android:src="@drawable/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginBottom="@dimen/medium_margin"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
+        android:id="@+id/data_container"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/medium_margin"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/thumbnail"
         app:layout_constraintTop_toTopOf="@id/thumbnail">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="?attr/textAppearanceSubtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Merek" />
+            android:background="@color/colorYellow"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="2dp"
+            android:text="@string/progress"
+            android:textColor="@color/colorWhite2" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/margin"-->
+        <!--            android:text="Pelanggan"-->
+        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:text="Muhammad Ainul Yaqin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textStyle="bold" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/description_subhead"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/margin"-->
+        <!--            android:text="Kerusakan"-->
+        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+        <!--            android:textStyle="bold" />-->
+
+        <TextView
+            android:id="@+id/brand"
+            style="?attr/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="bottom"
+            android:maxLines="2"
+            android:text="Samsung" />
+
+        <TextView
+            android:id="@+id/description"
+            style="?attr/textAppearanceListItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="bottom"
+            android:maxLines="2"
+            tools:text="@tools:sample/lorem/random" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#656565"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
