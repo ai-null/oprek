@@ -27,6 +27,6 @@
     <string name="pending">Pending</string>
     <string name="cancel">Cancel</string>
     <string name="progress">Progress</string>
-    <string name="projects">Projects</string>
+    <string name="header_title">Income</string>
     <string name="recent_projects">Recent projects</string>
 </resources>
