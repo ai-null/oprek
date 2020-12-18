@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.transition.Slide
 import com.ainul.oprek.R
 import com.ainul.oprek.databinding.FragmentLoginBinding
-import com.ainul.oprek.ui.activities.DashboardActivity
-import androidx.transition.Transition
-import com.google.android.material.transition.MaterialContainerTransform
+import com.ainul.oprek.ui.activities.MainActivity
 import com.google.android.material.transition.MaterialSharedAxis
 
 class LoginFragment : Fragment() {
@@ -37,7 +34,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.buttonLogin.setOnClickListener {
-            val intent = Intent(this.activity, DashboardActivity::class.java)
+            val intent = Intent(this.activity, MainActivity::class.java)
             this.startActivity(intent)
         }
 

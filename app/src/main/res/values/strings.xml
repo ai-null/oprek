@@ -29,4 +29,8 @@
     <string name="progress">Progress</string>
     <string name="header_title">Income</string>
     <string name="recent_projects">Recent projects</string>
+
+    <!--  DetailFragment  -->
+    <string name="item_transition_name">item_%1$s</string>
+    <string name="item_detail_transition_name">item_detail</string>
 </resources>

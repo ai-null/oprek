@@ -5,7 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.DashboardFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,13 +26,13 @@
                 android:layout_margin="16dp"
                 android:text="@string/recent_projects"
                 android:textColor="@color/colorBlack2"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recent_projects_list"
-                app:fastScrollEnabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:fastScrollEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:listitem="@layout/list_item" />
