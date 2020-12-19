@@ -6,12 +6,12 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 enum class Status(val status: String) {
-    PENDING("pending"),
     PROGRESS("progress"),
-    DONE("done")
+    DONE("done"),
+    CANCEL("cancel")
 }
 
-@Entity(tableName = "user")
+@Entity(tableName = "table_user")
 data class User(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = 0,
@@ -20,7 +20,7 @@ data class User(
     val pin: Int
 )
 
-@Entity(tableName = "project")
+@Entity(tableName = "table_project")
 data class Project(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = 0,
@@ -34,7 +34,7 @@ data class Project(
     val userId: Int,
     @ColumnInfo(name = "customer_name")
     val customerName: String,
-    val status: Status = Status.PENDING,
+    val status: Status = Status.PROGRESS,
     val description: String?,
     val brand: String?,
     @ColumnInfo(name = "due_date")

@@ -9,7 +9,7 @@
         android:title="@string/search"
         android:tooltipText="Search project"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom"
+        app:showAsAction="collapseActionView|ifRoom"
         tools:ignore="UnusedAttribute" />
     <item
         android:id="@+id/item_about"
