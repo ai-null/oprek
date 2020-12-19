@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:transitionGroup="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
@@ -16,21 +17,28 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:orientation="vertical"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_undraw_mobile_testing_reah" />
+                android:layout_width="200dp"
+                android:layout_height="180dp"
+                android:src="@drawable/messydoodle"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:text="@string/app_name"/>
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Subhead"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="Managing projects made easy." />
+                android:text="@string/app_desc" />
         </LinearLayout>
 
         <View
@@ -54,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:text="Login"
+                android:text="@string/login"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -74,7 +82,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Email address"
+                    android:hint="@string/email_address"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +102,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Pin number"
+                    android:hint="@string/pin_number"
                     android:imeOptions="actionDone"
                     android:inputType="numberPassword"
                     android:maxLength="6" />
@@ -117,17 +125,18 @@
                     android:gravity="center"
                     android:includeFontPadding="true"
                     android:paddingHorizontal="16dp"
-                    android:text="Register"
+                    android:text="@string/register"
                     android:textAllCaps="true"
                     android:textColor="#5C5C5C"
                     android:textStyle="bold"
                     tools:ignore="KeyboardInaccessibleWidget" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_login"
                     style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Login"
+                    android:text="@string/login"
                     android:textColor="@color/colorWhite2"
                     app:backgroundTint="#2196F3"
                     app:cornerRadius="4dp"

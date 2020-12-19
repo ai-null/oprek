@@ -1,12 +1,63 @@
 package com.ainul.oprek.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.ainul.oprek.R
+import com.ainul.oprek.adapter.ListItemAdapter
+import com.ainul.oprek.adapter.listener.ListItemListener
+import com.ainul.oprek.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+private const val ADD_PROJECT_REQUEST_CODE = 1
+private const val DETAIL_PROJECT_REQUEST_CODE = 2
+
+class MainActivity : AppCompatActivity(), ListItemListener {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        val adapter = ListItemAdapter(this)
+        val data = mutableListOf<String>()
+        val tempData = listOf("halo1", "halo2", "halo3", "halo4", "halo5")
+        tempData.forEach {
+            data.add(it)
+        }
+
+        binding.recentProjectsList.adapter = adapter
+        adapter.data = data
+
+        binding.addProjectFab.setOnClickListener {
+            val intent = Intent(this, AddProjectActivity::class.java)
+            startActivityForResult(intent, ADD_PROJECT_REQUEST_CODE)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.dashboard_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_about -> {
+                Toast.makeText(this, "under construction", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onClick(view: View) {
+        val intent = Intent(this, DetailProjectActivity::class.java)
+        startActivityForResult(intent, DETAIL_PROJECT_REQUEST_CODE)
     }
 }
