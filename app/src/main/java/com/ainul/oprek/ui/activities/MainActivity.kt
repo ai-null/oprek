@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
 
         val adapter = ListItemAdapter(this)
         val data = mutableListOf<String>()

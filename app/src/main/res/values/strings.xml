@@ -17,20 +17,25 @@
     <string name="set_pin_number">Set pin number</string>
     <string name="repeat_pin_number">Repeat pin number</string>
 
-    <!--  next button  -->
-    <string name="next">Next</string>
+    <!--  buttons  -->
     <string name="search">search</string>
     <string name="about">About</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+
+    <!-- === DetailFragment === -->
+    <string name="item_transition_name">item_%1$s</string>
+    <string name="item_detail_transition_name">item_detail</string>
+    <!--  === DetailFragment ===  -->
+
+    <!-- === Dashboard Activity === -->
     <string name="done">Done</string>
     <string name="pending">Pending</string>
     <string name="cancel">Cancel</string>
     <string name="progress">Progress</string>
+
+    <!--  SubHead title  -->
     <string name="header_title">Income</string>
     <string name="recent_projects">Recent projects</string>
-
-    <!--  DetailFragment  -->
-    <string name="item_transition_name">item_%1$s</string>
-    <string name="item_detail_transition_name">item_detail</string>
+    <!--  === Dashboard Activity :: END === -->
 </resources>

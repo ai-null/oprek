@@ -13,11 +13,19 @@ import com.ainul.oprek.ui.activities.MainActivity
 import com.google.android.material.transition.MaterialSharedAxis
 
 class LoginFragment : Fragment() {
+    private lateinit var binding: FragmentLoginBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Binding onclick
+        binding = FragmentLoginBinding.inflate(inflater)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Screen navigation animations
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
             duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
@@ -27,8 +35,6 @@ class LoginFragment : Fragment() {
             duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
         }
 
-        // Binding onclick
-        val binding = FragmentLoginBinding.inflate(inflater)
         binding.buttonRegister.setOnClickListener {
             this.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -37,7 +43,5 @@ class LoginFragment : Fragment() {
             val intent = Intent(this.activity, MainActivity::class.java)
             this.startActivity(intent)
         }
-
-        return binding.root
     }
 }
