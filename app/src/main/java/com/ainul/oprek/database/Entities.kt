@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-enum class Status(val status: String) {
+enum class Status(private val status: String) {
     PROGRESS("progress"),
     DONE("done"),
-    CANCEL("cancel")
+    CANCEL("cancel");
 }
 
 @Entity(tableName = "table_user")
 data class User(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    val id: Long = 0L,
     val username: String,
     val email: String,
     val pin: Int
@@ -23,7 +23,7 @@ data class User(
 @Entity(tableName = "table_project")
 data class Project(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    val id: Long = 0L,
     @ColumnInfo(name = "user_id")
     @ForeignKey(
         entity = User::class,
@@ -31,13 +31,15 @@ data class Project(
         parentColumns = ["id"],
         onDelete = ForeignKey.CASCADE
     )
-    val userId: Int,
+    val userId: Long,
     @ColumnInfo(name = "customer_name")
     val customerName: String,
-    val status: Status = Status.PROGRESS,
+    @ColumnInfo(name = "phone_number")
+    val phoneNumber: Int? = 0,
+    val status: String = Status.PROGRESS.name,
     val description: String?,
     val brand: String?,
     @ColumnInfo(name = "due_date")
     val dueDate: String?,
-    val cost: Int? = 0
+    val cost: Double? = 0.0
 )
