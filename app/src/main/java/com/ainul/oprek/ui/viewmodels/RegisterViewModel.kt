@@ -43,15 +43,30 @@ class RegisterViewModel(app: Application) : ViewModel() {
         }
     }
 
+    init {
+        uiScope.launch {
+            Log.i("user_data", "${repository.getAllUsers()}")
+        }
+    }
+
     fun onClick() {
         if (!isInputEmpty()) {
             registerAccount()
         }
     }
 
-    private val _successRegister = MutableLiveData<Boolean>(false)
+
+    private val _successRegister = MutableLiveData(false)
     val successRegister: LiveData<Boolean> get() = _successRegister
 
+    /**
+     * register account
+     * checking whether there's none to have the same email address throws error otherwise
+     *
+     * this will set _successRegister state to true if program successfully compiled without error
+     *
+     * @throws Exception
+     */
     private fun registerAccount() {
         uiScope.launch {
             try {
@@ -62,43 +77,53 @@ class RegisterViewModel(app: Application) : ViewModel() {
                         pin = pin.toInt()
                     )
                 )
+
+                // the throw callback always break the code and not run the rest.
+                // set to success after register successfully compiled, otherwise throw error
+                _successRegister.value = true
             } catch (e: Exception) {
-                Log.i("error", "${e.message}")
                 _error.value = e.message
             }
-            _successRegister.value = true
         }
     }
 
     /**
-     * called on onDestroy, cancel all thread process
+     * called on `onDestroy`, cancel all thread processes
      */
     fun onFinish() {
         job.cancel()
     }
 
-    // this liveData only holds error and send it to the UI
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
+    /**
+     * registration input checker,
+     * throws and error on empty value and when pin doesn't match the repeated pin
+     *
+     * map all list into an set of array and do a loop to check through each input
+     *
+     * @return Boolean
+     */
     private fun isInputEmpty(): Boolean {
-        return if (username.isEmpty() || email.isEmpty()) {
-            _error.value = "username & email can't be empty"
-            true
-        } else {
-            return if (pin.isEmpty()) {
-                _error.value = "Pin can't be empty"
-                true
-            } else {
-                return if (pin != repeatedPin) {
-                    _error.value = "Pin doesn't match"
-                    true
-                } else {
-                    _error.value = null
-                    false
+        val inputs = mapOf(1 to username, 1 to email, 2 to pin)
+
+        for (i in inputs) {
+            val key = i.key
+            val value = i.value
+            if (value.isEmpty()) {
+                when (key) {
+                    1 -> _error.value = "Username and Email address can't be empty"
+                    2 -> _error.value = "Pin can't be empty"
                 }
+                break
+            } else {
+                if (key == 2 && value != repeatedPin) _error.value = "Pin doesn't match"
+                else _error.value = null
             }
         }
+
+        return _error.value != null
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

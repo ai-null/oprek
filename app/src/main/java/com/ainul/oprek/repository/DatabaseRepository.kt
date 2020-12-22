@@ -1,11 +1,12 @@
 package com.ainul.oprek.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ainul.oprek.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DatabaseRepository(private val database: OprekDatabase) {
+class DatabaseRepository(database: OprekDatabase) {
     private val dao = database.oprekDao
 
     /**
@@ -33,7 +34,7 @@ class DatabaseRepository(private val database: OprekDatabase) {
             if (checkAvailability(data.email)) {
                 dao.registerUser(data)
             } else {
-                throw Exception("Row already exist, use another email!")
+                throw Exception("user already exist")
             }
         }
     }
@@ -46,7 +47,7 @@ class DatabaseRepository(private val database: OprekDatabase) {
      * @return Boolean
      */
     private fun checkAvailability(email: String): Boolean {
-        return dao.getUser(email = email).email.isNotEmpty()
+        return dao.getUser(email = email) == null
     }
 
     /**

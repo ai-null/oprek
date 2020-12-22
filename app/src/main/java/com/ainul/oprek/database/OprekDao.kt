@@ -39,7 +39,7 @@ interface OprekDao {
      * @return User
      */
     @Query("SELECT * FROM table_user WHERE email = :email LIMIT 1")
-    fun getUser(email: String): User
+    fun getUser(email: String): User?
 
     /**
      * Delete all users from database
