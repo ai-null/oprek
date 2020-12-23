@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 
+        // set up adapter for recyclerView and dummy data
         val adapter = ListItemAdapter(this)
         val data = mutableListOf<String>()
         val tempData = listOf("halo1", "halo2", "halo3", "halo4", "halo5")
@@ -33,9 +34,11 @@ class MainActivity : AppCompatActivity(), ListItemListener {
             data.add(it)
         }
 
+        // assign adapter & data we created above
         binding.recentProjectsList.adapter = adapter
         adapter.data = data
 
+        // FloatingActionButton to add project clickListener
         binding.addProjectFab.setOnClickListener {
             val intent = Intent(this, AddProjectActivity::class.java)
             startActivityForResult(intent, ADD_PROJECT_REQUEST_CODE)

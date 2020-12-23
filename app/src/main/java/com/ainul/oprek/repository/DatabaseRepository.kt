@@ -1,6 +1,5 @@
 package com.ainul.oprek.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ainul.oprek.database.*
 import kotlinx.coroutines.Dispatchers

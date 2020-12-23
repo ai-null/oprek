@@ -1,14 +1,12 @@
 package com.ainul.oprek.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.ainul.oprek.R
 import com.ainul.oprek.databinding.FragmentRegisterBinding
 import com.ainul.oprek.ui.viewmodels.RegisterViewModel
 import com.ainul.oprek.utils.showSnackBar
@@ -29,7 +27,7 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = viewmodel
@@ -47,6 +45,7 @@ class RegisterFragment : Fragment() {
             duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
         }
 
+        // Error snackBar handler, shows on state update
         viewmodel.error.observe(viewLifecycleOwner, {
             val activityView = requireActivity().findViewById<View>(android.R.id.content)
             it?.let { message ->

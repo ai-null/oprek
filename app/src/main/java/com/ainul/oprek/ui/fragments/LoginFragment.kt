@@ -18,8 +18,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Binding onclick
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater)
 
         return binding.root
@@ -35,10 +34,12 @@ class LoginFragment : Fragment() {
             duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
         }
 
+        // navigate to register screen
         binding.buttonRegister.setOnClickListener {
             this.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        // navigate to main screen
         binding.buttonLogin.setOnClickListener {
             val intent = Intent(this.activity, MainActivity::class.java)
             this.startActivity(intent)
