@@ -47,12 +47,12 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_username"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    onTextChanged="@{model}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/username"
                     android:imeOptions="actionNext"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="@={model.username}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,12 +72,12 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    onTextChanged="@{model}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/email_address"
                     android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:text="@={model.email}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -104,13 +104,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_pin"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    onTextChanged="@{model}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/set_pin_number"
                     android:imeOptions="actionNext"
                     android:inputType="numberPassword"
-                    android:maxLength="6" />
+                    android:maxLength="6"
+                    android:text="@={model.pin}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -132,13 +132,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_pin_repeat"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    onTextChanged="@{model}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/repeat_pin_number"
                     android:imeOptions="actionDone"
                     android:inputType="numberPassword"
-                    android:maxLength="6" />
+                    android:maxLength="6"
+                    android:text="@={model.repeatedPin}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -153,8 +153,8 @@
                     style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> model.onClick()}"
                     android:text="@string/register"
+                    android:onClick="@{() -> model.onClick()}"
                     android:textColor="@color/colorWhite"
                     app:backgroundTint="@color/buttonPrimary"
                     app:cornerRadius="4dp"

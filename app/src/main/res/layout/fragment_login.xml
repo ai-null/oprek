@@ -3,12 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ainul.oprek.ui.viewmodels.LoginViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:transitionGroup="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        android:transitionGroup="true"
         tools:context=".ui.fragments.LoginFragment">
 
         <LinearLayout
@@ -16,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header">
 
@@ -28,10 +35,10 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:text="@string/app_name"/>
+                android:text="@string/app_name" />
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Subhead"
@@ -79,9 +86,11 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:text="@={viewmodel.email}"
                     android:hint="@string/email_address"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress" />
@@ -99,8 +108,10 @@
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_pin"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
+                    android:text="@={viewmodel.pin}"
                     android:layout_height="match_parent"
                     android:hint="@string/pin_number"
                     android:imeOptions="actionDone"
@@ -136,6 +147,7 @@
                     style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewmodel.onClick()}"
                     android:text="@string/login"
                     android:textColor="@color/colorWhite2"
                     app:backgroundTint="#2196F3"

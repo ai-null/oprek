@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.databinding.FragmentRegisterBinding
 import com.ainul.oprek.ui.viewmodels.RegisterViewModel
-import com.ainul.oprek.utils.showSnackBar
+import com.ainul.oprek.utils.Util
 import com.google.android.material.transition.MaterialSharedAxis
 
 class RegisterFragment : Fragment() {
@@ -32,10 +32,6 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = viewmodel
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Screen navigation animations
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
             duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
@@ -45,11 +41,15 @@ class RegisterFragment : Fragment() {
             duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
         }
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Error snackBar handler, shows on state update
         viewmodel.error.observe(viewLifecycleOwner, {
             val activityView = requireActivity().findViewById<View>(android.R.id.content)
             it?.let { message ->
-                showSnackBar(activityView, message)
+                Util.showSnackBar(activityView, message)
             }
         })
 

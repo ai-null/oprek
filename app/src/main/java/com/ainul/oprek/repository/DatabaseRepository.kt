@@ -1,5 +1,6 @@
 package com.ainul.oprek.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ainul.oprek.database.*
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +34,7 @@ class DatabaseRepository(database: OprekDatabase) {
             if (checkAvailability(data.email)) {
                 dao.registerUser(data)
             } else {
-                throw Exception("user already exist")
+                throw Exception("Email already used")
             }
         }
     }
@@ -47,6 +48,12 @@ class DatabaseRepository(database: OprekDatabase) {
      */
     private fun checkAvailability(email: String): Boolean {
         return dao.getUser(email = email) == null
+    }
+
+    suspend fun validateUser(email: String, pin: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            return@withContext dao.validateUser(email, pin) != null
+        }
     }
 
     /**

@@ -40,6 +40,9 @@ interface OprekDao {
      */
     @Query("SELECT * FROM table_user WHERE email = :email LIMIT 1")
     fun getUser(email: String): User?
+    
+    @Query("SELECT * FROM table_user WHERE email = :email AND pin = :pin")
+    fun validateUser(email: String, pin: Int): User?
 
     /**
      * Delete all users from database

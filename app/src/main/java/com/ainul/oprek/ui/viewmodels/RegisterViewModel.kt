@@ -2,18 +2,21 @@ package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
 import android.util.Log
+import androidx.databinding.Bindable
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ainul.oprek.R
+import com.ainul.oprek.BR
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.User
 import com.ainul.oprek.repository.DatabaseRepository
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class RegisterViewModel(app: Application) : ViewModel() {
+class RegisterViewModel(app: Application) : ViewModel(), Observable {
     private val database = OprekDatabase.getDatabase(app)
     private val repository = DatabaseRepository(database)
 
@@ -22,26 +25,17 @@ class RegisterViewModel(app: Application) : ViewModel() {
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     // these mutable variables contains user data to register
-    private var username: String = ""
-    private var email: String = ""
-    private var pin: String = ""
-    private var repeatedPin: String = ""
+    @get:Bindable
+    var username: String = ""
 
-    /**
-     * Called whenever input changed, and set the data according to its View.id
-     * this method will be called in BindingAdapter
-     *
-     * @param viewId Int - View.id
-     * @param text String? - EditText value
-     */
-    fun onInputChanged(viewId: Int, text: String?) {
-        when (viewId) {
-            R.id.input_username -> username = text!!
-            R.id.input_email -> email = text!!
-            R.id.input_pin -> pin = text!!
-            R.id.input_pin_repeat -> repeatedPin = text!!
-        }
-    }
+    @get:Bindable
+    var repeatedPin: String = ""
+
+    @get:Bindable
+    var email: String = ""
+
+    @get:Bindable
+    var pin: String = ""
 
     init {
         uiScope.launch {
@@ -56,6 +50,7 @@ class RegisterViewModel(app: Application) : ViewModel() {
     }
 
 
+    // SuccessRegister state holder
     private val _successRegister = MutableLiveData(false)
     val successRegister: LiveData<Boolean> get() = _successRegister
 
@@ -134,5 +129,15 @@ class RegisterViewModel(app: Application) : ViewModel() {
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
+    }
+
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
+
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.add(callback)
+    }
+
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.remove(callback)
     }
 }
