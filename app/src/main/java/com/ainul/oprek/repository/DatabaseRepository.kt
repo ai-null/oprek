@@ -50,9 +50,16 @@ class DatabaseRepository(database: OprekDatabase) {
         return dao.getUser(email = email) == null
     }
 
+    /**
+     * used to validate user before go into `MainActivity`
+     *
+     * @param email String - {@see Entities}
+     * @param pin Int - {@see Entities}
+     * @return Boolean
+     */
     suspend fun validateUser(email: String, pin: Int): Boolean {
         return withContext(Dispatchers.IO) {
-            return@withContext dao.validateUser(email, pin) != null
+            dao.validateUser(email, pin) != null
         }
     }
 

@@ -1,7 +1,6 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -9,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ainul.oprek.BR
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.repository.DatabaseRepository
 import kotlinx.coroutines.CoroutineScope
@@ -32,40 +30,19 @@ class LoginViewModel(app: Application): ViewModel(), Observable {
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
-    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
-
     @get:Bindable
     var email: String = ""
-        set(value) {
-            field = value
-            callbacks.notifyChange(this, BR.email)
-        }
 
     @get:Bindable
     var pin: String = ""
-        set(value) {
-            field = value
-            callbacks.notifyChange(this, BR.pin)
-        }
-
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.add(callback)
-    }
-
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.remove(callback)
-    }
 
     // Error state holder
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
     fun onClick() {
-        if (email.isNotBlank() && pin.isNotBlank()) {
-            login()
-        } else {
-            _error.value = "Email or pin is required"
-        }
+        if (email.isNotBlank() && pin.isNotBlank()) login()
+        else _error.value = "Email or pin is required"
     }
 
     /**
@@ -79,6 +56,7 @@ class LoginViewModel(app: Application): ViewModel(), Observable {
         }
     }
 
+    // Authentication state holder, tell the UI whether user is authenticated or not
     private val _authenticationState = MutableLiveData(AuthenticationState.UNAUTHENTICATED)
     val authenticationState: LiveData<AuthenticationState> get() = _authenticationState
 
@@ -98,5 +76,15 @@ class LoginViewModel(app: Application): ViewModel(), Observable {
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
+    }
+
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
+
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.add(callback)
+    }
+
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.remove(callback)
     }
 }

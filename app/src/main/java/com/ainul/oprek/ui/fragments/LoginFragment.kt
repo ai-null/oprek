@@ -51,15 +51,19 @@ class LoginFragment : Fragment() {
         // Error watcher
         viewmodel.error.observe(viewLifecycleOwner, {
             it?.let { message ->
-                val activityView = requireNotNull(activity).findViewById<View>(android.R.id.content)
-                Util.showSnackBar(activityView, message)
+                Util.showSnackBar(view, message)
             }
         })
 
+        // Authentication state, if true go to main activity
+        // destroy current activity
         viewmodel.authenticationState.observe(viewLifecycleOwner, {
             if (it == AuthenticationState.AUTHENTICATED) {
+                // proceed to go to main activity
                 val intent = Intent(this.activity, MainActivity::class.java)
                 this.startActivity(intent)
+
+                // tasks done, finish activity
                 activity?.finish()
             }
         })

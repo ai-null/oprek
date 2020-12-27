@@ -1,12 +1,14 @@
 package com.ainul.oprek.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.ainul.oprek.databinding.FragmentRegisterBinding
 import com.ainul.oprek.ui.viewmodels.RegisterViewModel
 import com.ainul.oprek.utils.Util
@@ -53,9 +55,19 @@ class RegisterFragment : Fragment() {
             }
         })
 
+        // register state watcher, shows a toast when user registered successfully
         viewmodel.successRegister.observe(viewLifecycleOwner, {
             if (it) {
-                Toast.makeText(this.context, "Success created account", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT).show()
+                Log.i("Register:", "success")
+            }
+        })
+
+        // navigateBack state watcher, delay 700ms then navigateBack after toast gone
+        viewmodel.navigateBack.observe(viewLifecycleOwner, {
+            if (it) {
+                this.findNavController().navigateUp()
+                viewmodel.navigateComplete()
             }
         })
     }

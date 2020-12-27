@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ainul.oprek.BR
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.User
 import com.ainul.oprek.repository.DatabaseRepository
@@ -49,6 +48,15 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
         }
     }
 
+    // contains state to navigateBack, fragment should be navigateBack when its true
+    private val _navigateBack = MutableLiveData(false)
+    val navigateBack: LiveData<Boolean> get() = _navigateBack
+
+    // to prevent registerScreen to navigateBack when user open it again
+    fun navigateComplete() {
+        _navigateBack.value = false
+    }
+
 
     // SuccessRegister state holder
     private val _successRegister = MutableLiveData(false)
@@ -76,6 +84,10 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
                 // the throw callback always break the code and not run the rest.
                 // set to success after register successfully compiled, otherwise throw error
                 _successRegister.value = true
+
+                // delayed screen navigateUp()
+                delay(7000L)
+                _navigateBack.value = true
             } catch (e: Exception) {
                 _error.value = e.message
             }
