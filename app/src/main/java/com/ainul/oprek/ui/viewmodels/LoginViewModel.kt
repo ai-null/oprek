@@ -1,6 +1,8 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -15,10 +17,30 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class LoginViewModel(app: Application): ViewModel(), Observable {
+class LoginViewModel(private val app: Application) : ViewModel(), Observable {
     companion object {
         enum class AuthenticationState {
             AUTHENTICATED, UNAUTHENTICATED
+        }
+    }
+
+    // Error state holder
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> get() = _error
+
+    // Authentication state holder, tell the UI whether user is authenticated or not
+    private val _authenticationState = MutableLiveData(AuthenticationState.UNAUTHENTICATED)
+    val authenticationState: LiveData<AuthenticationState> get() = _authenticationState
+
+    init {
+        val sharedPref = app.getSharedPreferences("com.ainul.oprek.data", Context.MODE_PRIVATE)
+        val defaultValue = setOf<String?>(null)
+        val userAccount = sharedPref.getStringSet("user_account", defaultValue)
+
+        if (userAccount != defaultValue) {
+            _authenticationState.value = AuthenticationState.AUTHENTICATED
+            Log.i("login: user_data", "$userAccount")
+            Log.i("login: user_data", "$defaultValue")
         }
     }
 
@@ -36,10 +58,6 @@ class LoginViewModel(app: Application): ViewModel(), Observable {
     @get:Bindable
     var pin: String = ""
 
-    // Error state holder
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> get() = _error
-
     fun onClick() {
         if (email.isNotBlank() && pin.isNotBlank()) login()
         else _error.value = "Email or pin is required"
@@ -56,15 +74,19 @@ class LoginViewModel(app: Application): ViewModel(), Observable {
         }
     }
 
-    // Authentication state holder, tell the UI whether user is authenticated or not
-    private val _authenticationState = MutableLiveData(AuthenticationState.UNAUTHENTICATED)
-    val authenticationState: LiveData<AuthenticationState> get() = _authenticationState
-
     /**
      * Save email & pin to the app,
      * so user won't need to login every time they open the app
+     *
+     * TODO: update using `EncryptedSharedPreferences`
      */
     private fun saveSession() {
+        val sharedPref = app.getSharedPreferences("com.ainul.oprek.data", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putStringSet("user_account", setOf(email, pin))
+            apply()
+        }
+
         _authenticationState.value = AuthenticationState.AUTHENTICATED
     }
 
