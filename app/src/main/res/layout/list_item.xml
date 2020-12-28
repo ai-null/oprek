@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,92 +13,98 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
+        android:background="@color/colorWhite2"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
         android:transitionName="@{@string/item_transition_name(id)}">
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <LinearLayout
+            android:id="@+id/status_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
-            android:src="@drawable/ic_launcher_background"
+            android:background="@drawable/tag_background"
+            android:backgroundTint="@color/backgroundGreen"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/margin"
+            android:paddingVertical="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginBottom="@dimen/medium_margin"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/tag_icon_size"
+                android:layout_height="@dimen/tag_icon_size"
+                android:src="@drawable/ic_done"
+                app:tint="@color/textGreen"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_gravity="center"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/done"
+                android:textAllCaps="true"
+                android:textColor="@color/textGreen"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="@dimen/thumbnail_size"
+            android:layout_height="@dimen/thumbnail_size"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/status_tag"
+            app:layout_constraintVertical_bias="1"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:id="@+id/data_container"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginEnd="@dimen/medium_margin"
-            android:layout_marginBottom="@dimen/medium_margin"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+            app:layout_constraintEnd_toStartOf="@id/thumbnail"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/thumbnail">
-
-            <TextView
-                style="?attr/textAppearanceSubtitle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorYellow"
-                android:paddingHorizontal="5dp"
-                android:paddingVertical="2dp"
-                android:text="@string/progress"
-                android:textColor="@color/colorWhite2" />
-
-            <!--        <TextView-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginTop="@dimen/margin"-->
-            <!--            android:text="Pelanggan"-->
-            <!--            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
-            <!--            android:textStyle="bold"-->
-            <!--            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />-->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:text="Muhammad Ainul Yaqin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textStyle="bold" />
 
-            <!--        <TextView-->
-            <!--            android:id="@+id/description_subhead"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginTop="@dimen/margin"-->
-            <!--            android:text="Kerusakan"-->
-            <!--            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
-            <!--            android:textStyle="bold" />-->
-
             <TextView
                 android:id="@+id/brand"
-                style="?attr/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/small_margin"
                 android:gravity="bottom"
-                android:maxLines="2"
-                android:text="Samsung" />
+                android:maxLines="1"
+                android:text="Samsung"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/description"
-                style="?attr/textAppearanceListItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/small_margin"
                 android:gravity="bottom"
+                android:lineHeight="20dp"
                 android:maxLines="2"
+                android:textColor="@color/colorBlack2"
                 tools:text="@tools:sample/lorem/random" />
         </LinearLayout>
 
@@ -106,6 +112,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGray"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/data_container"
+            app:layout_constraintVertical_bias="1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
