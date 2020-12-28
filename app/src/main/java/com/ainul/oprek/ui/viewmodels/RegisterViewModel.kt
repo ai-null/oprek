@@ -86,7 +86,7 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
                 _successRegister.value = true
 
                 // delayed screen navigateUp()
-                delay(7000L)
+                delay(3000L)
                 _navigateBack.value = true
             } catch (e: Exception) {
                 _error.value = e.message

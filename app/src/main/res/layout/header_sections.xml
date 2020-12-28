@@ -88,7 +88,7 @@
                         <ImageView
                             style="@style/section_icon"
                             android:src="@drawable/ic_done"
-                            app:tint="@color/colorGreen"
+                            app:tint="@color/colorBlue"
                             tools:ignore="ContentDescription" />
 
                         <TextView

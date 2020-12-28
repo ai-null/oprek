@@ -15,7 +15,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite2"
+                android:background="@color/colorWhite"
                 android:orientation="vertical">
 
                 <include
@@ -27,7 +27,8 @@
                     style="@style/TextAppearance.AppCompat.Subhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:layout_marginBottom="@dimen/medium_margin"
                     android:text="@string/recent_projects"
                     android:textColor="@color/colorBlack2"
                     android:textStyle="bold" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
     <data>
 
@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite2"
+        android:background="@color/colorWhite"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -26,7 +26,7 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
             android:background="@drawable/tag_background"
-            android:backgroundTint="@color/backgroundGreen"
+            android:backgroundTint="@color/backgroundBlue"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/margin"
             android:paddingVertical="5dp"
@@ -37,18 +37,18 @@
                 android:layout_width="@dimen/tag_icon_size"
                 android:layout_height="@dimen/tag_icon_size"
                 android:src="@drawable/ic_done"
-                app:tint="@color/textGreen"
+                app:tint="@color/textBlue"
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:layout_marginStart="@dimen/small_margin"
-                android:layout_gravity="center"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/small_margin"
                 android:text="@string/done"
                 android:textAllCaps="true"
-                android:textColor="@color/textGreen"
+                android:textColor="@color/textBlue"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -104,8 +104,8 @@
                 android:gravity="bottom"
                 android:lineHeight="20dp"
                 android:maxLines="2"
-                android:textColor="@color/colorBlack2"
-                tools:text="@tools:sample/lorem/random" />
+                android:text="Kerusakan LCD dan keyboard yang tidak terdetect oleh perangkat"
+                android:textColor="@color/colorBlack2" />
         </LinearLayout>
 
         <View
