@@ -51,6 +51,9 @@ dependencies {
     // kotlin coroutines for threading
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.0'
 
+    // encryptor
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
+
     // room (database)
     def room_version = "2.2.5"
     //noinspection GradleDependency

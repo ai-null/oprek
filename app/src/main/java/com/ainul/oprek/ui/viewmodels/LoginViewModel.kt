@@ -1,7 +1,6 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -12,37 +11,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.repository.DatabaseRepository
+import com.ainul.oprek.utils.Util
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val app: Application) : ViewModel(), Observable {
+class LoginViewModel(app: Application) : ViewModel(), Observable {
     companion object {
         enum class AuthenticationState {
             AUTHENTICATED, UNAUTHENTICATED
         }
     }
 
-    // Error state holder
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> get() = _error
-
-    // Authentication state holder, tell the UI whether user is authenticated or not
-    private val _authenticationState = MutableLiveData(AuthenticationState.UNAUTHENTICATED)
-    val authenticationState: LiveData<AuthenticationState> get() = _authenticationState
-
-    init {
-        val sharedPref = app.getSharedPreferences("com.ainul.oprek.data", Context.MODE_PRIVATE)
-        val defaultValue = setOf<String?>(null)
-        val userAccount = sharedPref.getStringSet("user_account", defaultValue)
-
-        if (userAccount != defaultValue) {
-            _authenticationState.value = AuthenticationState.AUTHENTICATED
-            Log.i("login: user_data", "$userAccount")
-            Log.i("login: user_data", "$defaultValue")
-        }
-    }
+    // Encryption manager util class
+    private val encryptManager = Util.EncryptManager(app)
 
     // defines database and repository
     private val database = OprekDatabase.getDatabase(app)
@@ -51,6 +34,28 @@ class LoginViewModel(private val app: Application) : ViewModel(), Observable {
     // thread handler
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
+
+    // Authentication state holder, tell the UI whether user is authenticated or not
+    private val _authenticationState = MutableLiveData(AuthenticationState.UNAUTHENTICATED)
+
+    init {
+        val currentSession = encryptManager.getSession()
+
+        uiScope.launch {
+            Log.i("Login: ", "data. $currentSession")
+            if (currentSession != null &&
+                repository.validateUser(currentSession.email!!, currentSession.pin)) {
+                Log.i("Login: ", "data. $currentSession")
+                _authenticationState.value = AuthenticationState.AUTHENTICATED
+            }
+        }
+    }
+
+    val authenticationState: LiveData<AuthenticationState> get() = _authenticationState
+
+    // Error state holder
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> get() = _error
 
     @get:Bindable
     var email: String = ""
@@ -77,15 +82,12 @@ class LoginViewModel(private val app: Application) : ViewModel(), Observable {
     /**
      * Save email & pin to the app,
      * so user won't need to login every time they open the app
-     *
-     * TODO: update using `EncryptedSharedPreferences`
      */
     private fun saveSession() {
-        val sharedPref = app.getSharedPreferences("com.ainul.oprek.data", Context.MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            putStringSet("user_account", setOf(email, pin))
-            apply()
-        }
+        encryptManager.saveSession(
+            email = email,
+            pin = pin.toInt()
+        )
 
         _authenticationState.value = AuthenticationState.AUTHENTICATED
     }

@@ -13,6 +13,7 @@
         tools:ignore="UnusedAttribute" />
     <item
         android:icon="@drawable/ic_baseline_more_vert_24"
+        android:iconTint="?colorControlNormal"
         android:title=""
         android:tooltipText="More options"
         app:showAsAction="always">
