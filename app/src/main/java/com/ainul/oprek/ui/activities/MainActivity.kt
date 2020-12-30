@@ -8,10 +8,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.adapter.ListItemAdapter
 import com.ainul.oprek.adapter.listener.ListItemListener
 import com.ainul.oprek.databinding.ActivityMainBinding
+import com.ainul.oprek.ui.viewmodels.MainViewModel
 
 private const val ADD_PROJECT_REQUEST_CODE = 1
 private const val DETAIL_PROJECT_REQUEST_CODE = 2
@@ -19,6 +21,12 @@ private const val DETAIL_PROJECT_REQUEST_CODE = 2
 class MainActivity : AppCompatActivity(), ListItemListener {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(
+            this,
+            MainViewModel.Factory(this.application)
+        ).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +51,18 @@ class MainActivity : AppCompatActivity(), ListItemListener {
             val intent = Intent(this, AddProjectActivity::class.java)
             startActivityForResult(intent, ADD_PROJECT_REQUEST_CODE)
         }
+
+        updateLiveData()
+    }
+
+    private fun updateLiveData() {
+        viewModel.logoutState.observe(this, {
+            if (it) {
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -54,6 +74,9 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         when (item.itemId) {
             R.id.item_about -> {
                 Toast.makeText(this, "under construction", Toast.LENGTH_SHORT).show()
+            }
+            R.id.item_logout -> {
+                viewModel.logout()
             }
         }
 

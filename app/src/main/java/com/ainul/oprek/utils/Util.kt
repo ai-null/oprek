@@ -67,18 +67,19 @@ class Util {
          * @param pin Int
          * @return Boolean returns false when there's an error occurring during process
          */
-        fun saveSession(email: String, pin: Int): Boolean {
-            return try {
-                with(sharedPref.edit()) {
-                    putString("email", email)
-                    putInt("pin", pin)
-                    apply()
-                }
+        fun saveSession(email: String, pin: Int) {
+            with(sharedPref.edit()) {
+                putString("email", email)
+                putInt("pin", pin)
+                apply()
+            }
+        }
 
-                true
-            } catch (e: Exception) {
-                Log.e("SESSION:", " error saving data, with error: $e.message")
-                false
+        fun removeSession() {
+            with(sharedPref.edit()) {
+                remove("email")
+                remove("pin")
+                apply()
             }
         }
 
