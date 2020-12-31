@@ -32,4 +32,12 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="info_section_container">
+        <item name="android:layout_marginTop">@dimen/medium_margin</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/medium_margin</item>
+        <item name="android:layout_marginEnd">@dimen/medium_margin</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
 </resources>
