@@ -16,9 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.MainActivity" android:launchMode="singleTop" />
-        <activity android:name=".ui.activities.DetailProjectActivity" />
-        <activity android:name=".ui.activities.AddProjectActivity" />
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activities.DetailProjectActivity"
+            android:label="@string/detail_project"
+            android:parentActivityName=".ui.activities.MainActivity" />
+        <activity
+            android:name=".ui.activities.AddProjectActivity"
+            android:label="@string/add_project"
+            android:parentActivityName=".ui.activities.MainActivity" />
     </application>
 
 </manifest>

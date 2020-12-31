@@ -17,153 +17,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/main_information_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <include
+                    layout="@layout/header_section_activity_detail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/medium_margin">
-
-                        <ImageView
-                            android:id="@+id/cover_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:scaleType="centerCrop"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"
-                            android:src="@drawable/pp" />
-
-                        <TextView
-                            android:id="@+id/title_text"
-                            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/medium_margin"
-                            android:layout_marginTop="@dimen/medium_margin"
-                            android:text="Bapak Suryadi"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/cover_image" />
-
-                        <LinearLayout
-                            android:id="@+id/status_tag"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/medium_margin"
-                            android:background="@drawable/tag_background"
-                            android:backgroundTint="@color/backgroundYellow"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/margin"
-                            android:paddingVertical="5dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/title_text">
-
-                            <ImageView
-                                android:layout_width="@dimen/tag_icon_size"
-                                android:layout_height="@dimen/tag_icon_size"
-                                android:src="@drawable/ic_done"
-                                app:tint="@color/textYellow"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="@dimen/small_margin"
-                                android:text="@string/progress"
-                                android:textAllCaps="true"
-                                android:textColor="@color/textYellow"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/brand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin"
-                            android:text="SAMSUNG"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@id/title_text"
-                            app:layout_constraintTop_toBottomOf="@id/title_text" />
-
-                        <View
-                            android:id="@+id/divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="@dimen/medium_margin"
-                            android:layout_marginTop="@dimen/medium_margin"
-                            android:layout_marginEnd="@dimen/medium_margin"
-                            android:background="@color/colorGray"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/brand" />
-
-                        <LinearLayout
-                            android:id="@+id/cost_section"
-                            style="@style/info_section_container"
-                            android:layout_width="match_parent"
-                            app:layout_constraintTop_toBottomOf="@id/divider">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_money" />
-
-                            <TextView
-                                android:id="@+id/cost"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
-                                android:text="Rp. 200.000" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/due_section"
-                            style="@style/info_section_container"
-                            android:layout_width="match_parent"
-                            app:layout_constraintTop_toBottomOf="@id/cost_section">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_clock_alt" />
-
-                            <TextView
-                                android:id="@+id/due"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
-                                android:text="Due date at 02 January" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/phone_section"
-                            style="@style/info_section_container"
-                            android:layout_width="match_parent"
-                            app:layout_constraintTop_toBottomOf="@id/due_section">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_phone" />
-
-                            <TextView
-                                android:id="@+id/phone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
-                                android:text="+62 822 6485 4113" />
-                        </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/description_subhead"
@@ -172,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:text="Description"
+                    android:text="@string/description"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/main_information_card" />
@@ -184,14 +42,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/medium_margin"
+                    android:layout_marginBottom="72dp"
+                    android:text="@string/sample_description"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/description_subhead"
                     app:lineHeight="24dp"
-                    tools:lines="5"
-                    android:layout_marginBottom="72dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="@tools:sample/lorem/random" />
+                    tools:lines="5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -205,7 +63,7 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_round_add_24"
-            android:text="update"
+            android:text="@string/update"
             android:textColor="@color/colorWhite"
             app:backgroundTint="@color/textBlue"
             app:elevation="5dp"

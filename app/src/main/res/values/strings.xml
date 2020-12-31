@@ -4,38 +4,44 @@
 
     <!--  Screens label  -->
     <string name="label_register">Set up an account</string>
+    <string name="detail_project">Detail project</string>
+    <string name="add_project">Add new project</string>
 
-    <!--  Login & Register screen  -->
-    <!--  Register screen SubHead & placeholders  -->
-    <string name="regist_form_title1">Account information</string>
+    <!--  placeholders  -->
+    <string name="pin_password">Pin password</string>
+    <string name="pin_number">Pin number</string>
     <string name="email_address">Email address</string>
     <string name="username">Username</string>
 
-    <!--  Login screen Subhead & placeholders  -->
-    <string name="pin_password">Pin password</string>
-    <string name="pin_number">Pin number</string>
+    <!--  Titles  -->
+    <string name="header_title">Income</string>
+    <string name="recent_projects">Recent projects</string>
     <string name="set_pin_number">Set pin number</string>
     <string name="repeat_pin_number">Repeat pin number</string>
+    <string name="regist_form_title1">Account information</string>
 
-    <!--  buttons  -->
+    <!--  Misc.  -->
+    <string name="done">Done</string>
+    <string name="pending">Pending</string>
+    <string name="cancel">Cancel</string>
+    <string name="progress">Progress</string>
+    <string name="description">Description</string>
+    <string name="update">Update</string>
     <string name="search">search</string>
     <string name="about">About</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
 
+    <!--  Dummy data  -->
+    <string name="sample_device_name">Laptop Lenovo G450</string>
+    <string name="sample_customer_name">Muhammad Ainul Yaqin</string>
+    <string name="sample_description">Kerusakan LCD dan keyboard yang tidak terdetect oleh perangkat</string>
+    <string name="sample_costs">Rp. 200.000</string>
+    <string name="sample_due_date">Due date at 02 January</string>
+    <string name="sample_customer_phone">+62 822 6485 4113</string>
+
     <!-- === DetailFragment === -->
     <string name="item_transition_name">item_%1$s</string>
     <string name="item_detail_transition_name">item_detail</string>
-    <!--  === DetailFragment ===  -->
-
-    <!-- === Dashboard Activity === -->
-    <string name="done">Done</string>
-    <string name="pending">Pending</string>
-    <string name="cancel">Cancel</string>
-    <string name="progress">Progress</string>
-
-    <!--  SubHead title  -->
-    <string name="header_title">Income</string>
-    <string name="recent_projects">Recent projects</string>
-    <!--  === Dashboard Activity :: END === -->
+    <!--  === DetailFragment::END ===  -->
 </resources>

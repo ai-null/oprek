@@ -9,4 +9,7 @@
     <!--  list_item  -->
     <dimen name="tag_icon_size">17dp</dimen>
     <dimen name="thumbnail_size">100dp</dimen>
+
+    <!--  icon size  -->
+    <dimen name="small_icon_size">22dp</dimen>
 </resources>

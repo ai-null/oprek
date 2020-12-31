@@ -16,8 +16,7 @@
         android:background="@color/colorWhite"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:transitionName="@{@string/item_transition_name(id)}">
+        android:foreground="?attr/selectableItemBackground">
 
         <LinearLayout
             android:id="@+id/status_tag"
@@ -26,7 +25,7 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
             android:background="@drawable/tag_background"
-            android:backgroundTint="@color/backgroundBlue"
+            android:backgroundTint="@color/backgroundYellow"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/margin"
             android:paddingVertical="5dp"
@@ -36,8 +35,8 @@
             <ImageView
                 android:layout_width="@dimen/tag_icon_size"
                 android:layout_height="@dimen/tag_icon_size"
-                android:src="@drawable/ic_done"
-                app:tint="@color/textBlue"
+                android:src="@drawable/ic_progress"
+                app:tint="@color/textYellow"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -46,9 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/small_margin"
-                android:text="@string/done"
+                android:text="@string/progress"
                 android:textAllCaps="true"
-                android:textColor="@color/textBlue"
+                android:textColor="@color/textYellow"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -79,22 +78,25 @@
             app:layout_constraintTop_toTopOf="@id/thumbnail">
 
             <TextView
+                android:id="@+id/device"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="Muhammad Ainul Yaqin"
+                android:text="@string/sample_device_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/brand"
+                android:id="@+id/customer_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
                 android:gravity="bottom"
                 android:maxLines="1"
-                android:text="Samsung"
+                android:text="@string/sample_customer_name"
                 android:textStyle="bold" />
+
+            <!--TODO: remove ignore on view below && override resource layout-28-->
 
             <TextView
                 android:id="@+id/description"
@@ -104,8 +106,9 @@
                 android:gravity="bottom"
                 android:lineHeight="20dp"
                 android:maxLines="2"
-                android:text="Kerusakan LCD dan keyboard yang tidak terdetect oleh perangkat"
-                android:textColor="@color/colorBlack2" />
+                android:text="@string/sample_description"
+                android:textColor="@color/colorBlack2"
+                tools:ignore="UnusedAttribute" />
         </LinearLayout>
 
         <View
