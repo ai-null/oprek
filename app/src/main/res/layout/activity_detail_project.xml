@@ -24,7 +24,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/description_subhead"
+                    android:id="@+id/description_layout"
                     style="@style/TextAppearance.AppCompat.Subhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/description_subhead"
+                    app:layout_constraintTop_toBottomOf="@id/description_layout"
                     app:lineHeight="24dp"
                     tools:lines="5" />
             </androidx.constraintlayout.widget.ConstraintLayout>

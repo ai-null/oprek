@@ -1,13 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <TextView
-        style="@style/TextAppearance.MaterialComponents.Headline5"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Activity Add Layout" />
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_margin"
+            android:theme="@style/Theme.MaterialComponents.Light">
+
+            <TextView
+                android:id="@+id/device_subhead"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/input_no_icon_margin"
+                android:text="@string/add_form_title1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/device_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/input_no_icon_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:background="@drawable/background_gray"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/medium_margin"
+                android:src="@drawable/ic_round_add_photo_alternate_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/device_subhead"
+                tools:ignore="contentDescription" />
+
+            <LinearLayout
+                android:id="@+id/device_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/device_image">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_devices_24"
+                    tools:ignore="contentDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_margin">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/device_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/device_name"
+                        android:imeOptions="actionNext" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/description_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/device_name_layout"
+                app:layout_constraintStart_toStartOf="@id/device_name_layout"
+                app:layout_constraintTop_toBottomOf="@id/device_name_layout">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/device_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/input_no_icon_margin"
+                        android:gravity="start"
+                        android:hint="@string/description"
+                        android:lines="3"
+                        android:maxLines="3" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/customer_subhead"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/input_no_icon_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="Customer information"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_layout" />
+
+            <LinearLayout
+                android:id="@+id/customer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/device_name_layout"
+                app:layout_constraintStart_toStartOf="@id/device_name_layout"
+                app:layout_constraintTop_toBottomOf="@id/customer_subhead">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_round_person_24"
+                    tools:ignore="contentDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/customer_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:gravity="start"
+                        android:imeOptions="actionNext"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:hint="@string/customer_name" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contact_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/device_name_layout"
+                app:layout_constraintStart_toStartOf="@id/device_name_layout"
+                app:layout_constraintTop_toBottomOf="@id/customer_layout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_phone"
+                    tools:ignore="contentDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:gravity="start"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:hint="@string/phone_number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/extra_subhead"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/input_no_icon_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="Extra"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/contact_layout" />
+
+            <LinearLayout
+                android:id="@+id/cost_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/device_name_layout"
+                app:layout_constraintStart_toStartOf="@id/device_name_layout"
+                app:layout_constraintTop_toBottomOf="@id/extra_subhead">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/input_no_icon_margin"
+                        android:gravity="start"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:hint="@string/cost" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:endIconDrawable="@drawable/ic_round_event_24"
+                    app:endIconMode="custom">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:gravity="start"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:hint="@string/due" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/due_layout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/margin"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                app:layout_constraintEnd_toEndOf="@id/device_name_layout"-->
+            <!--                app:layout_constraintStart_toStartOf="@id/device_name_layout"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/cost_layout">-->
+
+            <!--                <ImageView-->
+            <!--                    android:layout_width="@dimen/input_icon_size"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_gravity="center"-->
+            <!--                    android:src="@drawable/ic_clock_alt"-->
+            <!--                    tools:ignore="contentDescription" />-->
+
+            <!--                <com.google.android.material.textfield.TextInputLayout-->
+            <!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content">-->
+
+            <!--                    <com.google.android.material.textfield.TextInputEditText-->
+            <!--                        android:id="@+id/due"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="match_parent"-->
+            <!--                        android:layout_marginStart="@dimen/medium_margin"-->
+            <!--                        android:gravity="start"-->
+            <!--                        android:lines="1"-->
+            <!--                        android:maxLines="1"-->
+            <!--                        android:text="@string/due" />-->
+            <!--                </com.google.android.material.textfield.TextInputLayout>-->
+            <!--            </LinearLayout>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
