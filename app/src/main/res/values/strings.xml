@@ -22,6 +22,7 @@
     <string name="set_pin_number">Set pin number</string>
     <string name="repeat_pin_number">Repeat pin number</string>
     <string name="regist_form_title1">Account information</string>
+    <string name="add_project_subhead2">Customer information</string>
 
     <!--  Misc.  -->
     <string name="done">Done</string>
@@ -36,6 +37,15 @@
     <string name="register">Register</string>
     <string name="cost">Cost</string>
     <string name="due">Due date</string>
+    <string name="status">Status</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="extra">Extra</string>
+    <string name="save">Save</string>
+
+    <!--  Menu tooltips  -->
+    <string name="menu_edit">Edit project</string>
+    <string name="menu_delete">Delete project</string>
 
     <!--  Dummy data  -->
     <string name="sample_device_name">Laptop Lenovo G450</string>
@@ -50,5 +60,6 @@
     <string name="item_detail_transition_name">item_detail</string>
     <string name="log_out">Log out</string>
     <string name="add_form_title1">Device information</string>
+    <string name="dialog_title">Update status</string>
     <!--  === DetailFragment::END ===  -->
 </resources>

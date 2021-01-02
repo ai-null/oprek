@@ -49,9 +49,8 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Error snackBar handler, shows on state update
         viewmodel.error.observe(viewLifecycleOwner, {
-            val activityView = requireActivity().findViewById<View>(android.R.id.content)
             it?.let { message ->
-                Util.showSnackBar(activityView, message)
+                Util.showSnackBar(view, message)
             }
         })
 

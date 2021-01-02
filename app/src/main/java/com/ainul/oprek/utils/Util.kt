@@ -1,12 +1,10 @@
 package com.ainul.oprek.utils
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.android.material.snackbar.Snackbar
-import java.lang.Exception
 
 class Util {
     companion object {
