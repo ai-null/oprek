@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
-            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginEnd="@dimen/medium_margin"
             app:cardCornerRadius="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

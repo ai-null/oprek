@@ -21,7 +21,7 @@ interface OprekDao {
      *
      * @param project Project - {@see Entities}
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun addProject(project: Project)
 
     /**
@@ -42,7 +42,7 @@ interface OprekDao {
     fun getUser(email: String): User?
     
     @Query("SELECT * FROM table_user WHERE email = :email AND pin = :pin")
-    fun validateUser(email: String, pin: Int): User?
+    fun validateUser(email: String, pin: String): User?
 
     /**
      * Delete all users from database
@@ -64,5 +64,8 @@ interface OprekDao {
      * @return listOf(Project)
      */
     @Query("SELECT * FROM table_project WHERE id = :userId")
-    fun getProjects(userId: Int): LiveData<List<Project>>
+    fun getProjects(userId: Long): LiveData<List<Project>>
+
+    @Query("SELECT * FROM table_project")
+    fun getAllProjects(): List<Project>
 }

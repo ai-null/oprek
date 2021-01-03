@@ -48,13 +48,14 @@ class Util {
          * @return CurrentSession? nullable data class contains user data
          */
         fun getSession(): CurrentSession? {
+            val id = sharedPref.getLong("userId", -1L)
             val email = sharedPref.getString("email", null)
-            val pin = sharedPref.getInt("pin", 0)
+            val pin = sharedPref.getString("pin", null)
 
-            return if (email == null && pin == 0) {
-                null
+            return if (email != null && pin != null) {
+                CurrentSession(id, email, pin)
             } else {
-                CurrentSession(email, pin)
+                null
             }
         }
 
@@ -65,22 +66,24 @@ class Util {
          * @param pin Int
          * @return Boolean returns false when there's an error occurring during process
          */
-        fun saveSession(email: String, pin: Int) {
+        fun saveSession(userId: Long, email: String, pin: String) {
             with(sharedPref.edit()) {
+                putLong("userId", userId)
                 putString("email", email)
-                putInt("pin", pin)
+                putString("pin", pin)
                 apply()
             }
         }
 
         fun removeSession() {
             with(sharedPref.edit()) {
+                remove("userId")
                 remove("email")
                 remove("pin")
                 apply()
             }
         }
 
-        data class CurrentSession(val email: String?, val pin: Int)
+        data class CurrentSession(val userId: Long, val email: String, val pin: String)
     }
 }

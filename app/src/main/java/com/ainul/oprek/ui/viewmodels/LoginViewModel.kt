@@ -12,10 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.repository.DatabaseRepository
 import com.ainul.oprek.utils.Util
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class LoginViewModel(app: Application) : ViewModel(), Observable {
     companion object {
@@ -44,7 +41,8 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
         uiScope.launch {
             Log.i("Login: ", "data. $currentSession")
             if (currentSession != null &&
-                repository.validateUser(currentSession.email!!, currentSession.pin)) {
+                repository.validateUser(currentSession.email, currentSession.pin)
+            ) {
                 Log.i("Login: ", "data. $currentSession")
                 _authenticationState.value = AuthenticationState.AUTHENTICATED
             }
@@ -74,7 +72,7 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
      */
     private fun login() {
         uiScope.launch {
-            if (repository.validateUser(email, pin.toInt())) saveSession()
+            if (repository.validateUser(email, pin)) saveSession()
             else _error.value = "email or pin is incorrect"
         }
     }
@@ -84,10 +82,13 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
      * so user won't need to login every time they open the app
      */
     private fun saveSession() {
-        encryptManager.saveSession(
-            email = email,
-            pin = pin.toInt()
-        )
+        uiScope.launch {
+            encryptManager.saveSession(
+                userId = repository.getUserByEmail(email, pin)!!.id,
+                email = email,
+                pin = pin
+            )
+        }
 
         _authenticationState.value = AuthenticationState.AUTHENTICATED
     }

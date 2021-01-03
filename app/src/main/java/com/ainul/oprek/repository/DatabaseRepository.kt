@@ -16,7 +16,7 @@ class DatabaseRepository(database: OprekDatabase) {
      * @param userId Int - User.id {@see Entities}
      * @return LiveData
      */
-    suspend fun getAllProjects(userId: Int): LiveData<List<Project>> {
+    suspend fun getAllProjects(userId: Long): LiveData<List<Project>> {
         return withContext(Dispatchers.IO) {
             dao.getProjects(userId)
         }
@@ -57,9 +57,15 @@ class DatabaseRepository(database: OprekDatabase) {
      * @param pin Int - {@see Entities}
      * @return Boolean
      */
-    suspend fun validateUser(email: String, pin: Int): Boolean {
+    suspend fun validateUser(email: String, pin: String): Boolean {
         return withContext(Dispatchers.IO) {
             dao.validateUser(email, pin) != null
+        }
+    }
+
+    suspend fun getUserByEmail(email: String, pin: String): User? {
+        return withContext(Dispatchers.IO) {
+            dao.validateUser(email, pin)
         }
     }
 
@@ -93,6 +99,12 @@ class DatabaseRepository(database: OprekDatabase) {
     suspend fun addProjectToDatabase(data: Project) {
         withContext(Dispatchers.IO) {
             dao.addProject(data)
+        }
+    }
+
+    suspend fun getAllProject(): List<Project> {
+        return withContext(Dispatchers.IO) {
+            dao.getAllProjects()
         }
     }
 

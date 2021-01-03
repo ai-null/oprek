@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ainul.oprek.ui.viewmodels.AddProjectViewModel" />
+    </data>
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -68,7 +75,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/device_name"
-                        android:imeOptions="actionNext" />
+                        android:imeOptions="actionNext"
+                        android:text="@={viewmodel.deviceName}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -92,6 +100,7 @@
                         android:id="@+id/device_description"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="@={viewmodel.description}"
                         android:gravity="start"
                         android:hint="@string/description"
                         android:lines="3"
@@ -139,6 +148,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="start"
+                        android:text="@={viewmodel.customerName}"
                         android:hint="@string/customer_name"
                         android:imeOptions="actionNext"
                         android:lines="1"
@@ -178,6 +188,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:lines="1"
+                        android:text="@={viewmodel.phoneNumber}"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -219,6 +230,7 @@
                         android:gravity="start"
                         android:hint="@string/cost"
                         android:lines="1"
+                        android:text="@={viewmodel.cost}"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -236,6 +248,7 @@
                         android:layout_height="match_parent"
                         android:gravity="start"
                         android:hint="@string/due"
+                        android:text="@={viewmodel.dueDate}"
                         android:lines="1"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -243,12 +256,13 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button"
-                app:backgroundTint="@color/colorPrimary"
-                android:text="@string/save"
-                app:icon="@drawable/ic_outline_save_alt_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
+                android:onClick="@{() -> viewmodel.onClick()}"
+                android:text="@string/save"
+                app:backgroundTint="@color/colorPrimary"
+                app:icon="@drawable/ic_outline_save_alt_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cost_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,6 @@
 package com.ainul.oprek.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 enum class Status(val value: Int) {
     PROGRESS(0),
@@ -20,24 +17,26 @@ data class User(
     val pin: Int
 )
 
-@Entity(tableName = "table_project")
+@Entity(
+    tableName = "table_project",
+    foreignKeys = [ForeignKey(
+        entity = User::class,
+        childColumns = ["user_id"],
+        parentColumns = ["id"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class Project(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     @ColumnInfo(name = "user_id")
-    @ForeignKey(
-        entity = User::class,
-        childColumns = ["userId"],
-        parentColumns = ["id"],
-        onDelete = ForeignKey.CASCADE
-    )
     val userId: Long,
-    @ColumnInfo(name="device_name")
+    @ColumnInfo(name = "device_name")
     val deviceName: String,
     @ColumnInfo(name = "customer_name")
     val customerName: String,
     @ColumnInfo(name = "phone_number")
-    val phoneNumber: Int? = 0,
+    val phoneNumber: String?,
     val status: Int = Status.PROGRESS.value,
     val description: String?,
     @ColumnInfo(name = "due_date")
