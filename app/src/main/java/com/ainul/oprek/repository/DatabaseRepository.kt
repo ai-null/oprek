@@ -1,6 +1,5 @@
 package com.ainul.oprek.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ainul.oprek.database.*
 import kotlinx.coroutines.Dispatchers
@@ -8,19 +7,6 @@ import kotlinx.coroutines.withContext
 
 class DatabaseRepository(database: OprekDatabase) {
     private val dao = database.oprekDao
-
-    /**
-     * grep all rows from `table_project`.
-     * returns list of Project{@see Entities}
-     *
-     * @param userId Int - User.id {@see Entities}
-     * @return LiveData
-     */
-    suspend fun getAllProjects(userId: Long): LiveData<List<Project>> {
-        return withContext(Dispatchers.IO) {
-            dao.getProjects(userId)
-        }
-    }
 
     /**
      * this will register user to database
@@ -70,17 +56,6 @@ class DatabaseRepository(database: OprekDatabase) {
     }
 
     /**
-     * !! WARNING !!
-     * This method only meant for development purposes, erase or comment this method
-     * and all of its instance when build on production
-     */
-    suspend fun deleteAllUser() {
-        withContext(Dispatchers.IO) {
-            dao.deleteAllUsers()
-        }
-    }
-
-    /**
      * grep all rows from `table_user` {@see Entities}, returns as listOf<User>
      *
      * @return List<User>
@@ -102,12 +77,6 @@ class DatabaseRepository(database: OprekDatabase) {
         }
     }
 
-    suspend fun getAllProject(): List<Project> {
-        return withContext(Dispatchers.IO) {
-            dao.getAllProjects()
-        }
-    }
-
     /**
      * update data of the existing project, {@see Dao.updateProject}
      *
@@ -116,6 +85,23 @@ class DatabaseRepository(database: OprekDatabase) {
     suspend fun updateProjectToDatabase(data: Project) {
         withContext(Dispatchers.IO) {
             dao.updateProject(data)
+        }
+    }
+
+    /**
+     * !! WARNING !!
+     * This method only meant for development purposes, erase or comment this method
+     * and all of its instance when build on production
+     */
+    suspend fun deleteAllUser() {
+        withContext(Dispatchers.IO) {
+            dao.deleteAllUsers()
+        }
+    }
+
+    suspend fun deleteAllProject() {
+        withContext(Dispatchers.IO) {
+            dao.deleteAllProjects()
         }
     }
 }

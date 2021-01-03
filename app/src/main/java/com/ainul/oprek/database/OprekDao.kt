@@ -40,7 +40,7 @@ interface OprekDao {
      */
     @Query("SELECT * FROM table_user WHERE email = :email LIMIT 1")
     fun getUser(email: String): User?
-    
+
     @Query("SELECT * FROM table_user WHERE email = :email AND pin = :pin")
     fun validateUser(email: String, pin: String): User?
 
@@ -49,6 +49,9 @@ interface OprekDao {
      */
     @Query("DELETE FROM table_user")
     fun deleteAllUsers()
+
+    @Query("DELETE FROM table_project")
+    fun deleteAllProjects()
 
     /**
      * update project data, changing status, etc.
@@ -61,11 +64,8 @@ interface OprekDao {
      * get list of projects from database
      *
      * @param userId Int - user id from user table
-     * @return listOf(Project)
+     * @return nullable listOf(Project) since there will be case when user doesn't have any project yet
      */
-    @Query("SELECT * FROM table_project WHERE id = :userId")
-    fun getProjects(userId: Long): LiveData<List<Project>>
-
-    @Query("SELECT * FROM table_project")
-    fun getAllProjects(): List<Project>
+    @Query("SELECT * FROM table_project WHERE user_id = :userId ORDER BY id DESC")
+    fun getProjects(userId: Long): LiveData<List<Project>?>
 }

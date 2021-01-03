@@ -2,6 +2,8 @@ package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
 import androidx.databinding.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
@@ -13,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class AddProjectViewModel constructor(private val app: Application) : ViewModel(), Observable {
+class AddProjectViewModel constructor(app: Application) : ViewModel(), Observable {
 
     private val database = OprekDatabase.getDatabase(app)
     private val repository = DatabaseRepository(database)
@@ -47,15 +49,20 @@ class AddProjectViewModel constructor(private val app: Application) : ViewModel(
             userId = userId,
             deviceName = deviceName,
             customerName = customerName,
-            description = null,
-            phoneNumber = null,
-            dueDate = null
+            description = description,
+            phoneNumber = phoneNumber,
+            dueDate = dueDate,
+            cost = cost.toDouble()
         )
 
         uiScope.launch {
             repository.addProjectToDatabase(projectData)
+            _successAddProject.value = true
         }
     }
+
+    private val _successAddProject = MutableLiveData(false)
+    val successAddProject: LiveData<Boolean> get() = _successAddProject
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 

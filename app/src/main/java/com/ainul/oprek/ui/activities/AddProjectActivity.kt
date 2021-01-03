@@ -26,5 +26,11 @@ class AddProjectActivity : AppCompatActivity() {
         // and attach the viewmodel to the UI
         binding.lifecycleOwner = this
         binding.viewmodel = viewmodel
+
+        viewmodel.successAddProject.observe(this, {
+            if (it) {
+                finish()
+            }
+        })
     }
 }

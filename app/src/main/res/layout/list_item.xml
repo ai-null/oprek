@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <!--  TODO: create bindingAdapter fun for tags and thumbnail  -->
+
     <data>
 
         <variable
-            name="id"
-            type="String" />
+            name="project"
+            type="com.ainul.oprek.database.Project" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -82,9 +84,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="@string/sample_device_name"
+                android:text="@{project.deviceName}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/sample_device_name" />
 
             <TextView
                 android:id="@+id/customer_name"
@@ -93,8 +96,9 @@
                 android:layout_marginTop="@dimen/small_margin"
                 android:gravity="bottom"
                 android:maxLines="1"
-                android:text="@string/sample_customer_name"
-                android:textStyle="bold" />
+                android:text="@{project.customerName}"
+                android:textStyle="bold"
+                tools:text="@string/sample_customer_name" />
 
             <!--TODO: remove ignore on view below && override resource layout-28-->
 
@@ -106,9 +110,10 @@
                 android:gravity="bottom"
                 android:lineHeight="20dp"
                 android:maxLines="2"
-                android:text="@string/sample_description"
+                android:text="@{project.description}"
                 android:textColor="@color/colorBlack2"
-                tools:ignore="UnusedAttribute" />
+                tools:ignore="UnusedAttribute"
+                tools:text="@string/sample_description" />
         </LinearLayout>
 
         <View
