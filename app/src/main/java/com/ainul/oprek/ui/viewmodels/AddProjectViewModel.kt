@@ -16,13 +16,14 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class AddProjectViewModel constructor(app: Application) : ViewModel(), Observable {
-
     private val database = OprekDatabase.getDatabase(app)
     private val repository = DatabaseRepository(database)
 
+    // thread handler
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
+    // defines encryptManager to get current userId
     private val encryptManager = Util.EncryptManager(app)
     private val userId = encryptManager.getSession()!!.userId
 
@@ -44,25 +45,49 @@ class AddProjectViewModel constructor(app: Application) : ViewModel(), Observabl
     @get:Bindable
     var dueDate: String = ""
 
-    fun onClick() {
-        val projectData = Project(
-            userId = userId,
-            deviceName = deviceName,
-            customerName = customerName,
-            description = description,
-            phoneNumber = phoneNumber,
-            dueDate = dueDate,
-            cost = cost.toDouble()
-        )
+    // error state handler
+    private val _error = MutableLiveData<String?>(null)
+    val error: LiveData<String?> get() = _error
 
-        uiScope.launch {
-            repository.addProjectToDatabase(projectData)
-            _successAddProject.value = true
+    fun onClick() {
+        if (deviceName.isNotBlank() and customerName.isNotBlank()) {
+            val costCheck = if (cost.isBlank()) 0.0 else cost.toDouble()
+            saveProject(
+                Project(
+                    userId = userId,
+                    deviceName = deviceName,
+                    customerName = customerName,
+                    description = description,
+                    phoneNumber = phoneNumber,
+                    dueDate = dueDate,
+                    cost = costCheck
+                )
+            )
+        } else {
+            _error.value = "Device name and Customer name can't be empty"
         }
     }
 
+    // when its true, tell the UI to navigateBack to parent-activity
     private val _successAddProject = MutableLiveData(false)
     val successAddProject: LiveData<Boolean> get() = _successAddProject
+
+    /**
+     * save project to database using repository
+     * the repository throws an error when deviceName and customerName is blank
+     *
+     * @param projectData [Project]
+     */
+    private fun saveProject(projectData: Project) {
+        uiScope.launch {
+            try {
+                repository.addProjectToDatabase(projectData)
+                _successAddProject.value = true // compiled successfully
+            } catch (e: NullPointerException) {
+                _error.value = e.message // Error while saving the project
+            }
+        }
+    }
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.adapter.ListItemAdapter
 import com.ainul.oprek.adapter.listener.ListItemListener
+import com.ainul.oprek.database.Project
 import com.ainul.oprek.databinding.ActivityMainBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
 
@@ -21,13 +21,14 @@ private const val DETAIL_PROJECT_REQUEST_CODE = 2
 class MainActivity : AppCompatActivity(), ListItemListener {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by lazy {
+    private val viewmodel: MainViewModel by lazy {
         ViewModelProvider(
             this,
             MainViewModel.Factory(this.application)
         ).get(MainViewModel::class.java)
     }
 
+    // Adapter used for recyclerView
     private lateinit var adapter: ListItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +47,13 @@ class MainActivity : AppCompatActivity(), ListItemListener {
             startActivityForResult(intent, ADD_PROJECT_REQUEST_CODE)
         }
 
+        // state-change watcher
         updateLiveData()
     }
 
     private fun updateLiveData() {
-        viewModel.logoutState.observe(this, {
+        // called after state change from logout menu clicked
+        viewmodel.logoutState.observe(this, {
             if (it) {
                 val intent = Intent(this, AuthActivity::class.java)
                 startActivity(intent)
@@ -58,7 +61,9 @@ class MainActivity : AppCompatActivity(), ListItemListener {
             }
         })
 
-        viewModel.projects.observe(this, {
+        // this will automatically called (deleted/added) when there's change on the database
+        // since the dao returns it as LiveData
+        viewmodel.projects.observe(this, {
             it?.let {
                 adapter.submitList(it)
             }
@@ -73,18 +78,23 @@ class MainActivity : AppCompatActivity(), ListItemListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_about -> {
+                // Navigate to about screen
                 Toast.makeText(this, "under construction", Toast.LENGTH_SHORT).show()
             }
             R.id.item_logout -> {
-                viewModel.logout()
+                // navigate to login screen. called logout method in the viewmodel, update state,
+                // tell the state-change watcher to proceed to logout
+                viewmodel.logout()
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClick(view: View) {
+    override fun onClick(project: Project) {
         val intent = Intent(this, DetailProjectActivity::class.java)
+        intent.putExtra("PROJECT_ID", project.id)
+
         startActivityForResult(intent, DETAIL_PROJECT_REQUEST_CODE)
     }
 }

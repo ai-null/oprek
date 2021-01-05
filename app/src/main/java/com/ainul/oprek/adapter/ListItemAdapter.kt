@@ -24,14 +24,17 @@ class ListItemAdapter(private val clickListener: ListItemListener) :
     ListAdapter<Project, ListItemAdapter.ListItemViewHolder>(ProjectDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
-        return ListItemViewHolder.from(parent)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val holder = ListItemBinding.inflate(layoutInflater, parent, false)
+
+        return ListItemViewHolder(holder)
     }
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            clickListener.onClick(it)
+            clickListener.onClick(item)
         }
     }
 
@@ -40,15 +43,6 @@ class ListItemAdapter(private val clickListener: ListItemListener) :
         fun bind(data: Project) {
             binding.project = data
             binding.executePendingBindings()
-        }
-
-        companion object {
-            fun from(parent: ViewGroup): ListItemViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val holder = ListItemBinding.inflate(layoutInflater, parent, false)
-
-                return ListItemViewHolder(holder)
-            }
         }
     }
 }

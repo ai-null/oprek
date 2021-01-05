@@ -45,7 +45,7 @@ class Util {
          * Retrieve session from local, and decrypt the data
          * returns null when there's no session
          *
-         * @return CurrentSession? nullable data class contains user data
+         * @return [CurrentSession]? nullable data class contains user data
          */
         fun getSession(): CurrentSession? {
             val id = sharedPref.getLong("userId", -1L)

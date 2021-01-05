@@ -1,7 +1,6 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -39,11 +38,9 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
         val currentSession = encryptManager.getSession()
 
         uiScope.launch {
-            Log.i("Login: ", "data. $currentSession")
             if (currentSession != null &&
                 repository.validateUser(currentSession.email, currentSession.pin)
             ) {
-                Log.i("Login: ", "data. $currentSession")
                 _authenticationState.value = AuthenticationState.AUTHENTICATED
             }
         }

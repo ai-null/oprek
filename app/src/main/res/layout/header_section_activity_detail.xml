@@ -1,149 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_information_card"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <variable
+            name="project"
+            type="com.ainul.oprek.database.Project" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_information_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/medium_margin">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/cover_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/pp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="contentDescription" />
-
-        <TextView
-            android:id="@+id/device_name"
-            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_margin"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:text="@string/sample_device_name"
-            android:textColor="@color/colorBlack2"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cover_image" />
-
-        <LinearLayout
-            android:id="@+id/status_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_margin"
-            android:background="@drawable/tag_background"
-            android:backgroundTint="@color/backgroundYellow"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/margin"
-            android:paddingVertical="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/device_name">
+            android:paddingBottom="@dimen/medium_margin">
 
             <ImageView
-                android:layout_width="@dimen/tag_icon_size"
-                android:layout_height="@dimen/tag_icon_size"
-                android:src="@drawable/ic_progress"
-                app:tint="@color/textYellow"
-                tools:ignore="ContentDescription" />
+                android:id="@+id/cover_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="contentDescription" />
 
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:id="@+id/device_name"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/small_margin"
-                android:text="@string/progress"
-                android:textAllCaps="true"
-                android:textColor="@color/textYellow"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="@{project.deviceName}"
+                android:textColor="@color/colorBlack2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cover_image"
+                tools:text="@string/sample_device_name" />
 
-        <TextView
-            android:id="@+id/customer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
-            android:text="@string/sample_customer_name"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/device_name"
-            app:layout_constraintTop_toBottomOf="@id/device_name" />
+            <LinearLayout
+                android:id="@+id/status_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:background="@drawable/tag_background"
+                android:backgroundTint="@color/backgroundYellow"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/margin"
+                android:paddingVertical="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/device_name">
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="@dimen/medium_margin"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:layout_marginEnd="@dimen/medium_margin"
-            android:background="@color/colorGray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/customer_name" />
+                <ImageView
+                    android:layout_width="@dimen/tag_icon_size"
+                    android:layout_height="@dimen/tag_icon_size"
+                    android:src="@drawable/ic_progress"
+                    app:tint="@color/textYellow"
+                    tools:ignore="ContentDescription" />
 
-        <LinearLayout
-            android:id="@+id/cost_section"
-            style="@style/info_section_container"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="@dimen/small_icon_size"
-                android:layout_height="@dimen/small_icon_size"
-                android:src="@drawable/ic_money"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/cost"
-                style="@style/section_text"
-                android:text="@string/sample_costs" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/phone_section"
-            style="@style/info_section_container"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/cost_section"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="@dimen/small_icon_size"
-                android:layout_height="@dimen/small_icon_size"
-                android:src="@drawable/ic_phone"
-                tools:ignore="ContentDescription" />
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:text="@string/progress"
+                    android:textAllCaps="true"
+                    android:textColor="@color/textYellow"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/phone"
-                style="@style/section_text"
-                android:text="@string/sample_customer_phone" />
-        </LinearLayout>
+                android:id="@+id/customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:text="@{project.customerName}"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/device_name"
+                app:layout_constraintTop_toBottomOf="@id/device_name"
+                tools:text="@string/sample_customer_name" />
 
-        <LinearLayout
-            android:id="@+id/due_section"
-            style="@style/info_section_container"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/phone_section"
-            tools:ignore="UseCompoundDrawables">
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:background="@color/colorGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customer_name" />
 
-            <ImageView
-                android:layout_width="@dimen/small_icon_size"
-                android:layout_height="@dimen/small_icon_size"
-                android:src="@drawable/ic_clock_alt"
-                tools:ignore="ContentDescription" />
+            <LinearLayout
+                android:id="@+id/cost_section"
+                style="@style/info_section_container"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                tools:ignore="UseCompoundDrawables">
 
-            <TextView
-                android:id="@+id/due"
-                style="@style/section_text"
-                android:text="@string/sample_due_date" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+                <ImageView
+                    android:layout_width="@dimen/small_icon_size"
+                    android:layout_height="@dimen/small_icon_size"
+                    android:src="@drawable/ic_money"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/cost"
+                    style="@style/section_text"
+                    android:text="@{String.valueOf(project.cost)}"
+                    tools:text="@string/sample_costs" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/phone_section"
+                style="@style/info_section_container"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/cost_section"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="@dimen/small_icon_size"
+                    android:layout_height="@dimen/small_icon_size"
+                    android:src="@drawable/ic_phone"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    style="@style/section_text"
+                    android:text="@{project.phoneNumber}"
+                    tools:text="@string/sample_customer_phone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/due_section"
+                style="@style/info_section_container"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/phone_section"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="@dimen/small_icon_size"
+                    android:layout_height="@dimen/small_icon_size"
+                    android:src="@drawable/ic_clock_alt"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/due"
+                    style="@style/section_text"
+                    android:text="@{project.dueDate}"
+                    tools:text="@string/sample_due_date" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

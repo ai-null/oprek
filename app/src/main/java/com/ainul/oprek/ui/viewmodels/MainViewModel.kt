@@ -13,11 +13,15 @@ import java.lang.IllegalArgumentException
 class MainViewModel(app: Application) : ViewModel() {
     private val database = OprekDatabase.getDatabase(app)
 
+    // defines encryptManager to get current userId
     private val encryptManager = Util.EncryptManager(app)
     private val userId = encryptManager.getSession()!!.userId
 
+    // no need to make this into a method in repo, since it returns LiveData
+    // LiveData will automatically handle the project from background-thread
     val projects: LiveData<List<Project>?> = database.oprekDao.getProjects(userId)
 
+    // remove current session
     fun logout() {
         encryptManager.removeSession()
         _logoutState.value = true

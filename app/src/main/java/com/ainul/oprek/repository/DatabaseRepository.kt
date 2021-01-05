@@ -1,6 +1,5 @@
 package com.ainul.oprek.repository
 
-import androidx.lifecycle.LiveData
 import com.ainul.oprek.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,9 +9,9 @@ class DatabaseRepository(database: OprekDatabase) {
 
     /**
      * this will register user to database
-     * User.email {@see Entities} must be unique, can't be same as other user
+     * [User.email] must be unique, can't be same as other user
      *
-     * @param data User - {@see Entities}
+     * @param data [User]
      * @throws Exception
      */
     suspend fun registerUserToDatabase(data: User) {
@@ -26,10 +25,22 @@ class DatabaseRepository(database: OprekDatabase) {
     }
 
     /**
+     * delete project from database
+     *
+     * @param projectId Long - [Project.id]
+     * @return Boolean
+     */
+    suspend fun deleteProject(projectId: Long) {
+        withContext(Dispatchers.IO) {
+            dao.deleteProject(projectId)
+        }
+    }
+
+    /**
      * this method used to check email of new user, if it same as other
      * returns `false`, otherwise `true`
      *
-     * @param email String - {@see Entities} User.email
+     * @param email String - [User.email]
      * @return Boolean
      */
     private fun checkAvailability(email: String): Boolean {
@@ -38,9 +49,10 @@ class DatabaseRepository(database: OprekDatabase) {
 
     /**
      * used to validate user before go into `MainActivity`
+     * TODO: check pin in the parameter. pin supposed to be Int, this ain't using Int but String
      *
-     * @param email String - {@see Entities}
-     * @param pin Int - {@see Entities}
+     * @param email String [User.email]
+     * @param pin Int [User.pin]
      * @return Boolean
      */
     suspend fun validateUser(email: String, pin: String): Boolean {
@@ -52,6 +64,12 @@ class DatabaseRepository(database: OprekDatabase) {
     suspend fun getUserByEmail(email: String, pin: String): User? {
         return withContext(Dispatchers.IO) {
             dao.validateUser(email, pin)
+        }
+    }
+
+    suspend fun getProject(id: Long): Project? {
+        return withContext(Dispatchers.IO) {
+            dao.getProject(id)
         }
     }
 
@@ -67,20 +85,25 @@ class DatabaseRepository(database: OprekDatabase) {
     }
 
     /**
-     * create new project, {@see Dao.addProject}
+     * create new project
      *
-     * @param data Project - {@see Entities}
+     * @param data [Project]
+     * @throws NullPointerException throws `NullPointerException` when the condition's not met
      */
     suspend fun addProjectToDatabase(data: Project) {
         withContext(Dispatchers.IO) {
-            dao.addProject(data)
+            if (data.deviceName.isNotBlank() and data.customerName.isNotBlank()) {
+                dao.addProject(data)
+            } else {
+                throw NullPointerException("Error setting null value to non-null property")
+            }
         }
     }
 
     /**
-     * update data of the existing project, {@see Dao.updateProject}
+     * update data of the existing project
      *
-     * @param data Project - {@see Entities}
+     * @param data [Project]
      */
     suspend fun updateProjectToDatabase(data: Project) {
         withContext(Dispatchers.IO) {

@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ainul.oprek.ui.viewmodels.DetailViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +28,8 @@
                     layout="@layout/header_section_activity_detail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:project="@{viewmodel.projectData}" />
 
                 <TextView
                     android:id="@+id/description_layout"
@@ -43,13 +51,14 @@
                     android:layout_marginHorizontal="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="72dp"
-                    android:text="@string/sample_description"
+                    android:text="@{viewmodel.projectData.description}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/description_layout"
                     app:lineHeight="24dp"
-                    tools:lines="5" />
+                    tools:lines="5"
+                    tools:text="@string/sample_description" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 

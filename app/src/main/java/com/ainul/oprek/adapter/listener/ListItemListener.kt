@@ -1,7 +1,7 @@
 package com.ainul.oprek.adapter.listener
 
-import android.view.View
+import com.ainul.oprek.database.Project
 
 interface  ListItemListener {
-    fun onClick(view: View)
+    fun onClick(project: Project)
 }

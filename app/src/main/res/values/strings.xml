@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Oprek</string>
     <string name="app_desc">Manage projects with no worries.</string>
+    <string name="new_start">No data entries at the moment.</string>
 
     <!--  Screens label  -->
     <string name="label_register">Set up an account</string>
