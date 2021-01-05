@@ -17,6 +17,7 @@ class DetailProjectActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailProjectBinding
     private lateinit var viewmodel: DetailViewModel
+    private var projectId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +25,10 @@ class DetailProjectActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_project)
 
         // get the userId, assign it to the viewmodel
-        val projectId = intent.extras!!.get(Constants.PROJECT_ID)
+        projectId = intent.extras!!.getLong(Constants.PROJECT_ID)
         viewmodel = ViewModelProvider(
             this,
-            DetailViewModel.Factory(application, projectId.toString().toLong())
+            DetailViewModel.Factory(application, projectId)
         ).get(DetailViewModel::class.java)
 
         // set the viewmodel in the xml, and attach the activity as lifecycleOwner
@@ -52,6 +53,9 @@ class DetailProjectActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.item_edit -> {
                 val intent = Intent(this, AddProjectActivity::class.java)
+                intent.putExtra(Constants.PROJECT_ID, projectId)
+
+                // start activity for updating project
                 startActivityForResult(intent, Constants.UPDATE_PROJECT_REQUEST_CODE)
             }
             R.id.item_delete -> {

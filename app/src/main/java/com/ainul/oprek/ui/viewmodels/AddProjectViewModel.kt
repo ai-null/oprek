@@ -1,6 +1,7 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.databinding.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class AddProjectViewModel constructor(app: Application) : ViewModel(), Observable {
+class AddProjectViewModel constructor(
+    app: Application,
+    private val projectId: Long? = null
+) : ViewModel(), Observable {
     private val database = OprekDatabase.getDatabase(app)
     private val repository = DatabaseRepository(database)
 
@@ -23,27 +27,47 @@ class AddProjectViewModel constructor(app: Application) : ViewModel(), Observabl
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
-    // defines encryptManager to get current userId
-    private val encryptManager = Util.EncryptManager(app)
-    private val userId = encryptManager.getSession()!!.userId
-
     @get:Bindable
     var deviceName: String = ""
 
     @get:Bindable
-    var description: String = ""
+    var description: String? = ""
 
     @get:Bindable
     var customerName: String = ""
 
     @get:Bindable
-    var phoneNumber: String = ""
+    var phoneNumber: String? = ""
 
     @get:Bindable
     var cost: String = ""
 
     @get:Bindable
-    var dueDate: String = ""
+    var dueDate: String? = ""
+
+    init {
+        if (projectId != null) {
+            uiScope.launch {
+                val project = repository.getProject(projectId)!!
+
+                deviceName = project.deviceName
+                description = project.description
+                customerName = project.customerName
+                phoneNumber = project.phoneNumber
+                cost = project.cost.toString()
+                dueDate = project.dueDate
+
+                Log.i(
+                    "project_data",
+                    deviceName + description + customerName + phoneNumber + cost + dueDate
+                )
+            }
+        }
+    }
+
+    // defines encryptManager to get current userId
+    private val encryptManager = Util.EncryptManager(app)
+    private val userId = encryptManager.getSession()!!.userId
 
     // error state handler
     private val _error = MutableLiveData<String?>(null)
@@ -54,6 +78,7 @@ class AddProjectViewModel constructor(app: Application) : ViewModel(), Observabl
             val costCheck = if (cost.isBlank()) 0.0 else cost.toDouble()
             saveProject(
                 Project(
+                    id = projectId?: 0L,
                     userId = userId,
                     deviceName = deviceName,
                     customerName = customerName,
@@ -81,7 +106,11 @@ class AddProjectViewModel constructor(app: Application) : ViewModel(), Observabl
     private fun saveProject(projectData: Project) {
         uiScope.launch {
             try {
-                repository.addProjectToDatabase(projectData)
+                if (projectId == null) {
+                    repository.addProjectToDatabase(projectData)
+                } else {
+                    repository.updateProjectToDatabase(projectData)
+                }
                 _successAddProject.value = true // compiled successfully
             } catch (e: NullPointerException) {
                 _error.value = e.message // Error while saving the project
@@ -99,11 +128,12 @@ class AddProjectViewModel constructor(app: Application) : ViewModel(), Observabl
         callbacks.remove(callback)
     }
 
-    class Factory(private val app: Application) : ViewModelProvider.Factory {
+    class Factory(private val app: Application, private val projectId: Long? = null) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AddProjectViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return AddProjectViewModel(app) as T
+                return AddProjectViewModel(app, projectId) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
