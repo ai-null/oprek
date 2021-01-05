@@ -1,6 +1,8 @@
 package com.ainul.oprek.ui.activities
 
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +30,20 @@ class AddProjectActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewmodel = viewmodel
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        updateLiveData()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateLiveData() {
         // when add project compiled successfully, proceed to finish the activity
         viewmodel.successAddProject.observe(this, {
             if (it) {

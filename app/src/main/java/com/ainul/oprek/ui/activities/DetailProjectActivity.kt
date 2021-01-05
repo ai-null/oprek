@@ -11,8 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.databinding.ActivityDetailProjectBinding
 import com.ainul.oprek.ui.viewmodels.DetailViewModel
-
-private const val UPDATE_PROJECT_REQUEST_CODE = 4
+import com.ainul.oprek.utils.Constants
 
 class DetailProjectActivity : AppCompatActivity() {
 
@@ -25,7 +24,7 @@ class DetailProjectActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_project)
 
         // get the userId, assign it to the viewmodel
-        val projectId = intent.extras!!.get("PROJECT_ID")
+        val projectId = intent.extras!!.get(Constants.PROJECT_ID)
         viewmodel = ViewModelProvider(
             this,
             DetailViewModel.Factory(application, projectId.toString().toLong())
@@ -53,7 +52,7 @@ class DetailProjectActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.item_edit -> {
                 val intent = Intent(this, AddProjectActivity::class.java)
-                startActivityForResult(intent, UPDATE_PROJECT_REQUEST_CODE)
+                startActivityForResult(intent, Constants.UPDATE_PROJECT_REQUEST_CODE)
             }
             R.id.item_delete -> {
                 Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show()

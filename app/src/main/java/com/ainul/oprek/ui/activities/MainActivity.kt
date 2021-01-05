@@ -14,9 +14,7 @@ import com.ainul.oprek.adapter.listener.ListItemListener
 import com.ainul.oprek.database.Project
 import com.ainul.oprek.databinding.ActivityMainBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
-
-private const val ADD_PROJECT_REQUEST_CODE = 1
-private const val DETAIL_PROJECT_REQUEST_CODE = 2
+import com.ainul.oprek.utils.Constants
 
 class MainActivity : AppCompatActivity(), ListItemListener {
 
@@ -44,7 +42,7 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         // FloatingActionButton to add project clickListener
         binding.addProjectFab.setOnClickListener {
             val intent = Intent(this, AddProjectActivity::class.java)
-            startActivityForResult(intent, ADD_PROJECT_REQUEST_CODE)
+            startActivity(intent)
         }
 
         // state-change watcher
@@ -93,8 +91,8 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     override fun onClick(project: Project) {
         val intent = Intent(this, DetailProjectActivity::class.java)
-        intent.putExtra("PROJECT_ID", project.id)
+        intent.putExtra(Constants.PROJECT_ID, project.id)
 
-        startActivityForResult(intent, DETAIL_PROJECT_REQUEST_CODE)
+        startActivityForResult(intent, Constants.DETAIL_PROJECT_REQUEST_CODE)
     }
 }

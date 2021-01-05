@@ -1,12 +1,7 @@
 package com.ainul.oprek.database
 
 import androidx.room.*
-
-enum class Status(val value: Int) {
-    PROGRESS(0),
-    DONE(1),
-    CANCEL(-1);
-}
+import com.ainul.oprek.utils.Constants
 
 @Entity(tableName = "table_user")
 data class User(
@@ -37,7 +32,7 @@ data class Project(
     val customerName: String,
     @ColumnInfo(name = "phone_number")
     val phoneNumber: String?,
-    val status: Int = Status.PROGRESS.value,
+    val status: Int = Constants.Status.PROGRESS.value,
     val description: String?,
     @ColumnInfo(name = "due_date")
     val dueDate: String?,
