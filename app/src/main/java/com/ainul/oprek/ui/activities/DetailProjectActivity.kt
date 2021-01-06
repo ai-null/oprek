@@ -2,6 +2,7 @@ package com.ainul.oprek.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -40,6 +41,13 @@ class DetailProjectActivity : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constants.UPDATE_PROJECT_REQUEST_CODE && resultCode == Constants.PROJECT_UPDATED) {
+            viewmodel.refresh()
+        }
     }
 
     // Override to create options for edit and delete project

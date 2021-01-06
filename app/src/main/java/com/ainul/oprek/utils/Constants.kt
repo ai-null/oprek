@@ -15,5 +15,10 @@ class Constants {
         // Screen data pass id
         const val USER_ID = "USER_ID"
         const val PROJECT_ID = "PROJECT_ID"
+
+        // AddProjectSave status
+        // this will tell whether addProject just updated existing data or create new data
+        const val PROJECT_ADDED = 1
+        const val PROJECT_UPDATED = 2
     }
 }

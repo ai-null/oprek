@@ -24,6 +24,14 @@ class DetailViewModel constructor(app: Application, private val projectId: Long)
     val projectData: LiveData<Project> get() = _projectData
 
     init {
+        refresh()
+    }
+
+    fun refresh() {
+        getProject()
+    }
+
+    private fun getProject() {
         uiScope.launch {
             _projectData.value = repository.getProject(projectId)
         }

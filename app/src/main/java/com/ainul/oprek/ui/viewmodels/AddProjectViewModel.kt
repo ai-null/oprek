@@ -1,15 +1,16 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.ainul.oprek.BR
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.Project
 import com.ainul.oprek.repository.DatabaseRepository
+import com.ainul.oprek.utils.Constants
 import com.ainul.oprek.utils.Util
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,21 +30,45 @@ class AddProjectViewModel constructor(
 
     @get:Bindable
     var deviceName: String = ""
+        set(value) {
+            field = value
+            callbacks.notifyChange(this, BR.deviceName)
+        }
 
-    @get:Bindable
+    @Bindable
     var description: String? = ""
+        set(value) {
+            field = value
+            callbacks.notifyChange(this, BR.description)
+        }
 
     @get:Bindable
     var customerName: String = ""
+        set(value) {
+            field = value
+            callbacks.notifyChange(this, BR.customerName)
+        }
 
     @get:Bindable
     var phoneNumber: String? = ""
+        set(value) {
+            field = value
+            callbacks.notifyChange(this, BR.phoneNumber)
+        }
 
     @get:Bindable
     var cost: String = ""
+        set(value) {
+            field = value
+            callbacks.notifyChange(this, BR.cost)
+        }
 
     @get:Bindable
     var dueDate: String? = ""
+        set(value) {
+            field = value
+            callbacks.notifyChange(this, BR.dueDate)
+        }
 
     init {
         if (projectId != null) {
@@ -56,11 +81,6 @@ class AddProjectViewModel constructor(
                 phoneNumber = project.phoneNumber
                 cost = project.cost.toString()
                 dueDate = project.dueDate
-
-                Log.i(
-                    "project_data",
-                    deviceName + description + customerName + phoneNumber + cost + dueDate
-                )
             }
         }
     }
@@ -76,9 +96,10 @@ class AddProjectViewModel constructor(
     fun onClick() {
         if (deviceName.isNotBlank() and customerName.isNotBlank()) {
             val costCheck = if (cost.isBlank()) 0.0 else cost.toDouble()
+
             saveProject(
                 Project(
-                    id = projectId?: 0L,
+                    id = projectId ?: 0L,
                     userId = userId,
                     deviceName = deviceName,
                     customerName = customerName,
@@ -94,8 +115,8 @@ class AddProjectViewModel constructor(
     }
 
     // when its true, tell the UI to navigateBack to parent-activity
-    private val _successAddProject = MutableLiveData(false)
-    val successAddProject: LiveData<Boolean> get() = _successAddProject
+    private val _successAddProject = MutableLiveData<Number>()
+    val successAddProject: LiveData<Number> get() = _successAddProject
 
     /**
      * save project to database using repository
@@ -108,10 +129,11 @@ class AddProjectViewModel constructor(
             try {
                 if (projectId == null) {
                     repository.addProjectToDatabase(projectData)
+                    _successAddProject.value = Constants.PROJECT_ADDED
                 } else {
                     repository.updateProjectToDatabase(projectData)
+                    _successAddProject.value = Constants.PROJECT_UPDATED
                 }
-                _successAddProject.value = true // compiled successfully
             } catch (e: NullPointerException) {
                 _error.value = e.message // Error while saving the project
             }

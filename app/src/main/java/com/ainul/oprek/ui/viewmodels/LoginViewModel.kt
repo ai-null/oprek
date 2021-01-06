@@ -59,8 +59,11 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
     var pin: String = ""
 
     fun onClick() {
-        if (email.isNotBlank() && pin.isNotBlank()) login()
-        else _error.value = "Email or pin is required"
+        if (email.isNotBlank() && pin.isNotBlank()) {
+            login()
+        } else {
+            _error.value = "Email and pin is required"
+        }
     }
 
     /**

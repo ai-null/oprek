@@ -93,6 +93,6 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         val intent = Intent(this, DetailProjectActivity::class.java)
         intent.putExtra(Constants.PROJECT_ID, project.id)
 
-        startActivityForResult(intent, Constants.DETAIL_PROJECT_REQUEST_CODE)
+        startActivity(intent)
     }
 }
