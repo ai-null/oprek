@@ -7,6 +7,9 @@ import kotlinx.coroutines.withContext
 class DatabaseRepository(database: OprekDatabase) {
     private val dao = database.oprekDao
 
+    // ===== USER =====
+    // ================
+
     /**
      * this will register user to database
      * [User.email] must be unique, can't be same as other user
@@ -25,23 +28,11 @@ class DatabaseRepository(database: OprekDatabase) {
     }
 
     /**
-     * delete project from database
-     *
-     * @param projectId Long - [Project.id]
-     * @return Boolean
-     */
-    suspend fun deleteProject(projectId: Long) {
-        withContext(Dispatchers.IO) {
-            dao.deleteProject(projectId)
-        }
-    }
-
-    /**
      * this method used to check email of new user, if it same as other
      * returns `false`, otherwise `true`
      *
      * @param email String - [User.email]
-     * @return Boolean
+     * @return [Boolean]
      */
     private fun checkAvailability(email: String): Boolean {
         return dao.getUser(email = email) == null
@@ -53,7 +44,7 @@ class DatabaseRepository(database: OprekDatabase) {
      *
      * @param email String [User.email]
      * @param pin Int [User.pin]
-     * @return Boolean
+     * @return [Boolean]
      */
     suspend fun validateUser(email: String, pin: String): Boolean {
         return withContext(Dispatchers.IO) {
@@ -67,12 +58,6 @@ class DatabaseRepository(database: OprekDatabase) {
         }
     }
 
-    suspend fun getProject(id: Long): Project? {
-        return withContext(Dispatchers.IO) {
-            dao.getProject(id)
-        }
-    }
-
     /**
      * grep all rows from `table_user` {@see Entities}, returns as listOf<User>
      *
@@ -81,6 +66,21 @@ class DatabaseRepository(database: OprekDatabase) {
     suspend fun getAllUsers(): List<User> {
         return withContext(Dispatchers.IO) {
             dao.getUsers()
+        }
+    }
+
+    // ===== PROJECT =====
+    // ===================
+
+    suspend fun getProject(id: Long): Project? {
+        return withContext(Dispatchers.IO) {
+            dao.getProject(id)
+        }
+    }
+
+    suspend fun deleteProject(projectId: Long) {
+        withContext(Dispatchers.IO) {
+            dao.deleteProject(projectId)
         }
     }
 

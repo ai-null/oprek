@@ -52,6 +52,7 @@ class AddProjectActivity : AppCompatActivity() {
         viewmodel.successAddProject.observe(this, {
             it?.let {
                 if (it == Constants.PROJECT_UPDATED) {
+                    // to tell parent-activity this is an updated data
                     setResult(Constants.PROJECT_UPDATED)
                 }
 

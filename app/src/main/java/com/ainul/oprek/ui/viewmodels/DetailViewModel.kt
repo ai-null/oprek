@@ -24,19 +24,30 @@ class DetailViewModel constructor(app: Application, private val projectId: Long)
     val projectData: LiveData<Project> get() = _projectData
 
     init {
-        refresh()
+        refresh() // init project data
     }
 
     fun refresh() {
         getProject()
     }
 
+    /**
+     * grep project data from database
+     * this used for initial load or refresh data only after update
+     */
     private fun getProject() {
         uiScope.launch {
             _projectData.value = repository.getProject(projectId)
         }
     }
 
+    /**
+     * Delete project
+     *
+     * this method called via menu-item, it delay 700ms before set [_navigateBack] to true,
+     * so snackBar can be showed properly.
+     * {@see [com.ainul.oprek.ui.activities.DetailProjectActivity]}
+     */
     fun onDelete() {
         uiScope.launch {
             repository.deleteProject(projectId)
@@ -45,6 +56,7 @@ class DetailViewModel constructor(app: Application, private val projectId: Long)
         }
     }
 
+    // activity cycle UI state, when set to true will trigger `finish()` method
     private val _navigateBack = MutableLiveData(false)
     val navigateBack: LiveData<Boolean> get() = _navigateBack
 

@@ -93,6 +93,10 @@ class AddProjectViewModel constructor(
     private val _error = MutableLiveData<String?>(null)
     val error: LiveData<String?> get() = _error
 
+    /**
+     * on-save button clicked, will execute [saveProject].
+     * set an error when [Project.deviceName] & [Project.customerName] is blank
+     */
     fun onClick() {
         if (deviceName.isNotBlank() and customerName.isNotBlank()) {
             val costCheck = if (cost.isBlank()) 0.0 else cost.toDouble()
@@ -120,7 +124,7 @@ class AddProjectViewModel constructor(
 
     /**
      * save project to database using repository
-     * the repository throws an error when deviceName and customerName is blank
+     * the repository throws an error when [Project.deviceName] and [Project.customerName] is blank
      *
      * @param projectData [Project]
      */

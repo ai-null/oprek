@@ -2,7 +2,6 @@ package com.ainul.oprek.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -35,7 +34,12 @@ class DetailProjectActivity : AppCompatActivity() {
         // set the viewmodel in the xml, and attach the activity as lifecycleOwner
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = this
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        // finish the activity and back to the previous screen whenever `navigateBack` set to true
         viewmodel.navigateBack.observe(this, {
             if (it) {
                 finish()
@@ -46,7 +50,7 @@ class DetailProjectActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Constants.UPDATE_PROJECT_REQUEST_CODE && resultCode == Constants.PROJECT_UPDATED) {
-            viewmodel.refresh()
+            viewmodel.refresh() // refresh data after update
         }
     }
 
@@ -61,7 +65,7 @@ class DetailProjectActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.item_edit -> {
                 val intent = Intent(this, AddProjectActivity::class.java)
-                intent.putExtra(Constants.PROJECT_ID, projectId)
+                intent.putExtra(Constants.PROJECT_ID, projectId) // send project_id to update
 
                 // start activity for updating project
                 startActivityForResult(intent, Constants.UPDATE_PROJECT_REQUEST_CODE)

@@ -68,7 +68,7 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
 
     /**
      * login user to the app,
-     * throws an error using `_error` state when email / pin is incorrect
+     * throws an error using [_error] state when email / pin is incorrect
      */
     private fun login() {
         uiScope.launch {
