@@ -2,12 +2,10 @@ package com.ainul.oprek.utils
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.ainul.oprek.R
 import com.ainul.oprek.utils.Constants.Status
@@ -17,7 +15,7 @@ import com.ainul.oprek.utils.Constants.Status
 @BindingAdapter("statusBackground")
 fun LinearLayout.statusBackground(status: Int) {
     val color: Int = when (status) {
-        Status.DONE.value -> R.color.backgroundBlue
+        Status.DONE.value -> R.color.backgroundGreen
         Status.CANCEL.value -> R.color.backgroundRed
         else -> R.color.backgroundYellow
     }
@@ -34,7 +32,7 @@ fun TextView.statusText(status: Int) {
 
     when (status) {
         Status.DONE.value -> {
-            color = R.color.textBlue
+            color = R.color.textGreen
             text = R.string.done
         }
         Status.CANCEL.value -> {

@@ -73,7 +73,7 @@
             android:focusable="true"
             android:text="@string/status"
             android:textColor="@color/colorWhite"
-            app:backgroundTint="@color/textBlue"
+            app:backgroundTint="@color/colorPrimary"
             app:elevation="5dp"
             app:icon="@drawable/ic_baseline_edit_24"
             app:iconTint="@color/colorWhite" />
