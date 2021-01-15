@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <!--  TODO: create bindingAdapter fun for tags and thumbnail  -->
+    <!--  TODO: create bindingAdapter for thumbnail  -->
 
     <data>
 
@@ -20,38 +20,15 @@
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground">
 
-        <LinearLayout
-            android:id="@+id/status_tag"
+        <include
+            layout="@layout/status_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:status="@{project.status}"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
-            android:background="@drawable/tag_background"
-            android:backgroundTint="@color/backgroundYellow"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/margin"
-            android:paddingVertical="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="@dimen/tag_icon_size"
-                android:layout_height="@dimen/tag_icon_size"
-                android:src="@drawable/ic_progress"
-                app:tint="@color/textYellow"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/small_margin"
-                android:text="@string/progress"
-                android:textAllCaps="true"
-                android:textColor="@color/textYellow"
-                android:textStyle="bold" />
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/thumbnail"
