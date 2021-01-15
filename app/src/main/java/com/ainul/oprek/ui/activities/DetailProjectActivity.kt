@@ -1,9 +1,15 @@
 package com.ainul.oprek.ui.activities
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,6 +18,7 @@ import com.ainul.oprek.R
 import com.ainul.oprek.databinding.ActivityDetailProjectBinding
 import com.ainul.oprek.ui.viewmodels.DetailViewModel
 import com.ainul.oprek.utils.Constants
+import com.ainul.oprek.utils.Constants.Status
 
 class DetailProjectActivity : AppCompatActivity() {
 
@@ -45,6 +52,52 @@ class DetailProjectActivity : AppCompatActivity() {
                 finish()
             }
         })
+
+        binding.updateStatusFab.setOnClickListener {
+            showUpdateStatusDialog()
+        }
+    }
+
+    private fun showUpdateStatusDialog() {
+        val dialog = AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(
+            R.layout.dialog_status,
+            findViewById(R.id.dialog_container)
+        )
+
+        // set view to dialog
+        dialog.setView(view)
+        // create dialog from the inflated layout
+        val updateDialog = dialog.create()
+
+        // show dialog
+        updateDialog.window?.run {
+            setBackgroundDrawable(ColorDrawable(0))
+            updateDialog.show()
+        }
+
+        updateStatus(updateDialog ,view)
+    }
+
+    private fun updateStatus(dialog: AlertDialog, view: View) {
+        val itemDone: LinearLayout = view.findViewById(R.id.dialog_item_done)
+        val itemCancel: LinearLayout = view.findViewById(R.id.dialog_item_cancel)
+        val itemProgress: LinearLayout = view.findViewById(R.id.dialog_item_progress)
+
+        itemDone.setOnClickListener {
+            viewmodel.updateStatus(Status.DONE.value)
+            dialog.hide()
+        }
+
+        itemCancel.setOnClickListener {
+            viewmodel.updateStatus(Status.CANCEL.value)
+            dialog.hide()
+        }
+
+        itemProgress.setOnClickListener {
+            viewmodel.updateStatus(Status.PROGRESS.value)
+            dialog.hide()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

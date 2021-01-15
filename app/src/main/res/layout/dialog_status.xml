@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.Light"
     tools:layout_margin="@dimen/medium_margin">
 
     <LinearLayout
@@ -12,14 +13,14 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/medium_margin"
-            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_margin="@dimen/medium_margin"
             android:text="@string/dialog_title" />
 
         <LinearLayout
+            android:id="@+id/dialog_item_progress"
             style="@style/selectable_item_layout"
             tools:ignore="UseCompoundDrawables">
 
@@ -27,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_progress"
-                app:tint="@color/textYellow"
                 tools:ignore="contentDescription" />
 
             <TextView
@@ -36,6 +36,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/dialog_item_done"
             style="@style/selectable_item_layout"
             tools:ignore="UseCompoundDrawables">
 
@@ -43,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_done"
-                app:tint="@color/textBlue"
                 tools:ignore="contentDescription" />
 
             <TextView
@@ -52,14 +52,15 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/dialog_item_cancel"
             style="@style/selectable_item_layout"
+            android:layout_marginBottom="@dimen/medium_margin"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_cancel"
-                app:tint="@color/textRed"
                 tools:ignore="contentDescription" />
 
             <TextView

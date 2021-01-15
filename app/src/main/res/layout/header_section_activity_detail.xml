@@ -44,37 +44,14 @@
                 app:layout_constraintTop_toBottomOf="@id/cover_image"
                 tools:text="@string/sample_device_name" />
 
-            <LinearLayout
-                android:id="@+id/status_tag"
+            <include
+                layout="@layout/status_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/medium_margin"
-                android:background="@drawable/tag_background"
-                android:backgroundTint="@color/backgroundYellow"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/margin"
-                android:paddingVertical="5dp"
+                app:status="@{project.status}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/device_name">
-
-                <ImageView
-                    android:layout_width="@dimen/tag_icon_size"
-                    android:layout_height="@dimen/tag_icon_size"
-                    android:src="@drawable/ic_progress"
-                    app:tint="@color/textYellow"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    style="@style/TextAppearance.MaterialComponents.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/small_margin"
-                    android:text="@string/progress"
-                    android:textAllCaps="true"
-                    android:textColor="@color/textYellow"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="@id/device_name" />
 
             <TextView
                 android:id="@+id/customer_name"

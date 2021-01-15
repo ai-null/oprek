@@ -135,7 +135,7 @@ class AddProjectViewModel constructor(
                     repository.addProjectToDatabase(projectData)
                     _successAddProject.value = Constants.PROJECT_ADDED
                 } else {
-                    repository.updateProjectToDatabase(projectData)
+                    repository.updateProject(projectData)
                     _successAddProject.value = Constants.PROJECT_UPDATED
                 }
             } catch (e: NullPointerException) {

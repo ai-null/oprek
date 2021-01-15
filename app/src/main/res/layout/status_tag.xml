@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="status"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/status_tag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/tag_background"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/margin"
+        android:paddingVertical="5dp"
+        app:statusBackground="@{status}"
+        tools:backgroundTint="@color/backgroundYellow"
+        tools:layout_height="wrap_content"
+        tools:layout_width="wrap_content">
+
+        <ImageView
+            android:id="@+id/status_icon"
+            android:layout_width="@dimen/tag_icon_size"
+            android:layout_height="@dimen/tag_icon_size"
+            app:statusIcon="@{status}"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_progress" />
+
+        <TextView
+            android:id="@+id/status_text"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/small_margin"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            app:statusText="@{status}"
+            tools:text="@string/progress"
+            tools:textColor="@color/textYellow" />
+    </LinearLayout>
+</layout>

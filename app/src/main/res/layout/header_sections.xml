@@ -88,7 +88,6 @@
                         <ImageView
                             style="@style/section_icon"
                             android:src="@drawable/ic_done"
-                            app:tint="@color/colorBlue"
                             tools:ignore="ContentDescription" />
 
                         <TextView
@@ -137,7 +136,6 @@
                         <ImageView
                             style="@style/section_icon"
                             android:src="@drawable/ic_progress"
-                            app:tint="@color/colorYellow"
                             tools:ignore="ContentDescription" />
 
                         <TextView
@@ -185,7 +183,6 @@
                         <ImageView
                             style="@style/section_icon"
                             android:src="@drawable/ic_cancel"
-                            app:tint="@color/colorRed"
                             tools:ignore="ContentDescription" />
 
                         <TextView

@@ -105,9 +105,15 @@ class DatabaseRepository(database: OprekDatabase) {
      *
      * @param data [Project]
      */
-    suspend fun updateProjectToDatabase(data: Project) {
+    suspend fun updateProject(data: Project) {
         withContext(Dispatchers.IO) {
             dao.updateProject(data)
+        }
+    }
+
+    suspend fun updateStatus(projectId: Long, status: Int) {
+        withContext(Dispatchers.IO) {
+            dao.updateProjectStatus(projectId, status)
         }
     }
 

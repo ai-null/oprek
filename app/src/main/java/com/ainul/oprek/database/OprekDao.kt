@@ -49,6 +49,10 @@ interface OprekDao {
     @Query("DELETE FROM table_project WHERE id = :projectId")
     fun deleteProject(projectId: Long)
 
+    // Update status by id
+    @Query("UPDATE table_project SET status = :status WHERE id = :projectId")
+    fun updateProjectStatus(projectId: Long, status: Int)
+
     /**
      * grep project data from provided id, returns project data class
      *
@@ -69,7 +73,7 @@ interface OprekDao {
     fun getProjects(userId: Long): LiveData<List<Project>?>
 
     /**
-     * !! WARNING !!
+     * =======!! WARNING !!========
      * this methods only meant for development purposes
      */
     @Query("DELETE FROM table_user")

@@ -56,6 +56,13 @@ class DetailViewModel constructor(app: Application, private val projectId: Long)
         }
     }
 
+    fun updateStatus(status: Int) {
+        uiScope.launch {
+            repository.updateStatus(projectId, status)
+            refresh() // refresh data after status updated
+        }
+    }
+
     // activity cycle UI state, when set to true will trigger `finish()` method
     private val _navigateBack = MutableLiveData(false)
     val navigateBack: LiveData<Boolean> get() = _navigateBack
