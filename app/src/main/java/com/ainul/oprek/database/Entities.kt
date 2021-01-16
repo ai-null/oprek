@@ -26,6 +26,8 @@ data class Project(
     val id: Long = 0L,
     @ColumnInfo(name = "user_id")
     val userId: Long,
+    @ColumnInfo(name = "device_img")
+    val deviceImage: String?,
     @ColumnInfo(name = "device_name")
     val deviceName: String,
     @ColumnInfo(name = "customer_name")

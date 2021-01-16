@@ -1,3 +1,6 @@
+@file:Suppress("DEPRECATION")
+@file:SuppressLint("UseCompatLoadingForDrawables")
+
 package com.ainul.oprek.utils
 
 import android.annotation.SuppressLint
@@ -9,7 +12,18 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ainul.oprek.R
 import com.ainul.oprek.utils.Constants.Status
+import com.bumptech.glide.Glide
+import java.io.File
 
+
+@BindingAdapter("path")
+fun ImageView.path(e: String?) {
+    if (e == null) {
+        setImageDrawable(resources.getDrawable(R.drawable.ic_round_add_photo_alternate_24))
+    } else {
+        Glide.with(this.context).load(File(e)).override(480).into(this)
+    }
+}
 
 // set background of LinearLayout from [status_tag.xml]
 @BindingAdapter("statusBackground")
@@ -20,7 +34,6 @@ fun LinearLayout.statusBackground(status: Int) {
         else -> R.color.backgroundYellow
     }
 
-    @Suppress("DEPRECATION")
     backgroundTintList = ColorStateList.valueOf(resources.getColor(color))
 }
 
@@ -45,13 +58,11 @@ fun TextView.statusText(status: Int) {
         }
     }
 
-    @Suppress("DEPRECATION")
     setTextColor(resources.getColor(color))
     setText(text)
 }
 
 // set drawable of ImageView from [status_tag.xml]
-@SuppressLint("UseCompatLoadingForDrawables")
 @BindingAdapter("statusIcon")
 fun ImageView.statusIcon(status: Int) {
     val icon: Drawable? = resources.getDrawable(

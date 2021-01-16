@@ -70,19 +70,28 @@ class AddProjectViewModel constructor(
             callbacks.notifyChange(this, BR.dueDate)
         }
 
+    private val _deviceImage = MutableLiveData<String?>(null)
+    val deviceImage: LiveData<String?> get() = _deviceImage
+
     init {
         if (projectId != null) {
             uiScope.launch {
-                val project = repository.getProject(projectId)!!
+                repository.getProject(projectId)!!.also {
+                    deviceName = it.deviceName
+                    description = it.description
+                    customerName = it.customerName
+                    phoneNumber = it.phoneNumber
+                    cost = it.cost.toString()
+                    dueDate = it.dueDate
 
-                deviceName = project.deviceName
-                description = project.description
-                customerName = project.customerName
-                phoneNumber = project.phoneNumber
-                cost = project.cost.toString()
-                dueDate = project.dueDate
+                    _deviceImage.value = it.deviceImage
+                }
             }
         }
+    }
+
+    fun updateCurrentPhotoPath(path: String?) {
+        _deviceImage.value = path
     }
 
     // defines encryptManager to get current userId
@@ -105,6 +114,7 @@ class AddProjectViewModel constructor(
                 Project(
                     id = projectId ?: 0L,
                     userId = userId,
+                    deviceImage = _deviceImage.value,
                     deviceName = deviceName,
                     customerName = customerName,
                     description = description,

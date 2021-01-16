@@ -8,13 +8,8 @@ import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.Manifest.permission
-import android.annotation.SuppressLint
-import android.content.ContentResolver
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
-import android.os.Environment
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,10 +21,10 @@ import com.ainul.oprek.databinding.ActivityAddProjectBinding
 import com.ainul.oprek.ui.viewmodels.AddProjectViewModel
 import com.ainul.oprek.utils.Constants
 import com.ainul.oprek.utils.Util
+import com.ainul.oprek.utils.Util.Companion.createImageFile
+import com.ainul.oprek.utils.Util.Companion.getSelectedImagePath
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 class AddProjectActivity : AppCompatActivity() {
 
@@ -156,22 +151,10 @@ class AddProjectActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(
-            "JPEG_${timestamp}",
-            ".jpg",
-            storageDir
-        )
-    }
-
     private fun launchCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { cameraIntent ->
             val photoFile: File? = try {
-                createImageFile()
+                createImageFile(this)
             } catch (e: IOException) {
                 null
             }
@@ -195,41 +178,14 @@ class AddProjectActivity : AppCompatActivity() {
      * but of course the [permission.READ_EXTERNAL_STORAGE] need to be granted
      */
     private fun selectImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
-        if (intent.resolveActivity(packageManager) !== null) {
-            startActivityForResult(intent, Constants.CHOOSE_IMAGE_REQUEST_CODE)
-        }
-    }
-
-    /**
-     * Get selected image path
-     * selected image from method above will passed here to get the image's path
-     *
-     * @param contentResolver [ContentResolver]
-     * @param contentUri [Uri] get meta-data from selectedImage to extract the path
-     * @return filePath [String]
-     */
-    fun getSelectedImagePath(contentResolver: ContentResolver, contentUri: Uri): String {
-        val filePath: String
-        val cursor: Cursor? = contentResolver.query(
-            contentUri,
-            null,
-            null,
-            null,
-            null
+        val selectImageIntent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         )
 
-        if (cursor == null) {
-            filePath = contentUri.path!!
-        } else {
-            cursor.moveToFirst()
-            val index: Int = cursor.getColumnIndex("_data")
-            filePath = cursor.getString(index)
-            cursor.close()
+        if (selectImageIntent.resolveActivity(packageManager) !== null) {
+            startActivityForResult(selectImageIntent, Constants.CHOOSE_IMAGE_REQUEST_CODE)
         }
-
-        return filePath
     }
 
     override fun onRequestPermissionsResult(
@@ -239,23 +195,11 @@ class AddProjectActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (grantResults.isNotEmpty()) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
-                Constants.LAUNCH_CAMERA_REQUEST_CODE -> {
-                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        selectImage()
-                    } else {
-                        Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                Constants.CHOOSE_IMAGE_REQUEST_CODE -> {
-                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        launchCamera()
-                    } else {
-                        Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                Constants.CHOOSE_IMAGE_REQUEST_CODE -> selectImage()
+                Constants.LAUNCH_CAMERA_REQUEST_CODE -> launchCamera()
+                else -> Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -269,7 +213,7 @@ class AddProjectActivity : AppCompatActivity() {
 
                 selectedImage?.let {
                     val path = getSelectedImagePath(contentResolver, selectedImage)
-                    // todo: update image
+                    viewmodel.updateCurrentPhotoPath(path)
                 }
             }
         }
