@@ -62,6 +62,13 @@
     <string name="item_detail_transition_name">item_detail</string>
     <string name="log_out">Log out</string>
     <string name="add_form_title1">Device information</string>
-    <string name="dialog_title">Update status</string>
     <!--  === DetailFragment::END ===  -->
+
+    <!--  Choose image dialog  -->
+    <string name="dialog_choose_image_title">Add an image</string>
+    <string name="choose_image">Choose an image</string>
+    <string name="take_photo">Take a photo</string>
+
+    <!--  Update status dialog  -->
+    <string name="dialog_title">Update status</string>
 </resources>

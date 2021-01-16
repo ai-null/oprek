@@ -1,71 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dialog_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:id="@+id/choose_image_container"
     android:theme="@style/Theme.MaterialComponents.Light"
+    tools:layout_height="wrap_content"
     tools:layout_margin="@dimen/medium_margin">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/dialog_title"
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
-            android:text="@string/dialog_title" />
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:text="@string/dialog_choose_image_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/dialog_item_progress"
+            android:id="@+id/dialog_item_choose_image"
             style="@style/selectable_item_layout"
+            android:layout_marginTop="@dimen/medium_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_title"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_progress"
+                android:src="@drawable/ic_outline_image_24"
                 tools:ignore="contentDescription" />
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Button.selectableItemText"
-                android:text="@string/progress" />
+                android:text="@string/choose_image" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/dialog_item_done"
-            style="@style/selectable_item_layout"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_done"
-                tools:ignore="contentDescription" />
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Button.selectableItemText"
-                android:text="@string/done" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/dialog_item_cancel"
+            android:id="@+id/dialog_item_take_photo"
             style="@style/selectable_item_layout"
             android:layout_marginBottom="@dimen/medium_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_item_choose_image"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_cancel"
+                android:src="@drawable/ic_outline_camera_alt_24"
                 tools:ignore="contentDescription" />
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Button.selectableItemText"
-                android:text="@string/cancel" />
+                android:text="@string/take_photo" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

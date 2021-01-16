@@ -1,7 +1,9 @@
 package com.ainul.oprek.utils
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.android.material.snackbar.Snackbar
@@ -15,6 +17,14 @@ class Util {
                 message,
                 Snackbar.LENGTH_SHORT
             ).show()
+        }
+
+        // Check app's permission, returns true if its granted and false otherwise
+        fun isPermitted(context: Context, permission: String): Boolean {
+            return ContextCompat.checkSelfPermission(
+                context,
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
         }
     }
 

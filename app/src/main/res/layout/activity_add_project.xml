@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/device_image"
+                android:id="@+id/add_device_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="@dimen/input_no_icon_margin"
@@ -55,7 +55,7 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/device_image">
+                app:layout_constraintTop_toBottomOf="@id/add_device_image">
 
                 <ImageView
                     android:layout_width="wrap_content"

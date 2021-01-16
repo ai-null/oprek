@@ -9,8 +9,9 @@ class Constants {
 
     companion object {
         // Screen navigation request code
-        const val DETAIL_PROJECT_REQUEST_CODE = 1
-        const val UPDATE_PROJECT_REQUEST_CODE = 2
+        const val UPDATE_PROJECT_REQUEST_CODE = 1
+        const val CHOOSE_IMAGE_REQUEST_CODE = 2
+        const val LAUNCH_CAMERA_REQUEST_CODE = 3
 
         // Screen data pass id
         const val USER_ID = "USER_ID"

@@ -65,9 +65,8 @@ class DetailProjectActivity : AppCompatActivity() {
             findViewById(R.id.dialog_container)
         )
 
-        // set view to dialog
+        // set view to dialog & create dialog from the inflated layout
         dialog.setView(view)
-        // create dialog from the inflated layout
         val updateDialog = dialog.create()
 
         // show dialog
@@ -86,17 +85,17 @@ class DetailProjectActivity : AppCompatActivity() {
 
         itemDone.setOnClickListener {
             viewmodel.updateStatus(Status.DONE.value)
-            dialog.hide()
+            dialog.dismiss()
         }
 
         itemCancel.setOnClickListener {
             viewmodel.updateStatus(Status.CANCEL.value)
-            dialog.hide()
+            dialog.dismiss()
         }
 
         itemProgress.setOnClickListener {
             viewmodel.updateStatus(Status.PROGRESS.value)
-            dialog.hide()
+            dialog.dismiss()
         }
     }
 
