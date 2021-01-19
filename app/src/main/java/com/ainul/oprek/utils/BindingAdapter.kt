@@ -16,8 +16,8 @@ import com.bumptech.glide.Glide
 import java.io.File
 
 
-@BindingAdapter("path")
-fun ImageView.path(e: String?) {
+@BindingAdapter("imagePath")
+fun ImageView.imagePath(e: String?) {
     if (e == null) {
         setImageDrawable(resources.getDrawable(R.drawable.ic_round_add_photo_alternate_24))
     } else {

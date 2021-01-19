@@ -95,7 +95,7 @@ class AddProjectActivity : AppCompatActivity() {
      * and the actions of this dialog is handled by [chooseImage] method below
      */
     private fun showChooseImageDialog() {
-        val dialog = AlertDialog.Builder(this, R.layout.dialog_choose_image)
+        val dialog = AlertDialog.Builder(this)
         val view = layoutInflater.inflate(
             R.layout.dialog_choose_image,
             findViewById(R.id.choose_image_container)

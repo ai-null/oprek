@@ -5,7 +5,8 @@
     <dimen name="margin">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
     <dimen name="large_margin">32dp</dimen>
-    <dimen name="input_no_icon_margin">40dp</dimen>
+    <!--  Input_no_icon_margin : 24dp (icon square size) + 32dp (default margin start) -->
+    <dimen name="input_no_icon_margin">56dp</dimen>
 
     <!--  list_item  -->
     <dimen name="tag_icon_size">17dp</dimen>
