@@ -20,22 +20,6 @@
             android:text="@string/dialog_title" />
 
         <LinearLayout
-            android:id="@+id/dialog_item_progress"
-            style="@style/selectable_item_layout"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_progress"
-                tools:ignore="contentDescription" />
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Button.selectableItemText"
-                android:text="@string/progress" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/dialog_item_done"
             style="@style/selectable_item_layout"
             tools:ignore="UseCompoundDrawables">
@@ -54,7 +38,6 @@
         <LinearLayout
             android:id="@+id/dialog_item_cancel"
             style="@style/selectable_item_layout"
-            android:layout_marginBottom="@dimen/medium_margin"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
@@ -66,6 +49,23 @@
             <TextView
                 style="@style/TextAppearance.AppCompat.Button.selectableItemText"
                 android:text="@string/cancel" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_item_progress"
+            style="@style/selectable_item_layout"
+            android:layout_marginBottom="@dimen/medium_margin"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_progress"
+                tools:ignore="contentDescription" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+                android:text="@string/progress" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

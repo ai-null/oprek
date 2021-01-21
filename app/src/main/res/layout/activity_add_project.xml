@@ -46,7 +46,8 @@
                 app:imagePath="@{viewmodel.deviceImage}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/device_subhead"
-                tools:ignore="contentDescription" />
+                tools:ignore="contentDescription"
+                tools:src="@drawable/ic_round_add_photo_alternate_24" />
 
             <LinearLayout
                 android:id="@+id/device_name_layout"
@@ -100,11 +101,11 @@
                         android:id="@+id/device_description"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@={viewmodel.description}"
                         android:gravity="start"
                         android:hint="@string/description"
                         android:lines="3"
-                        android:maxLines="3" />
+                        android:maxLines="3"
+                        android:text="@={viewmodel.description}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -148,11 +149,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="start"
-                        android:text="@={viewmodel.customerName}"
                         android:hint="@string/customer_name"
                         android:imeOptions="actionNext"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@={viewmodel.customerName}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -188,8 +189,8 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:lines="1"
-                        android:text="@={viewmodel.phoneNumber}"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@={viewmodel.phoneNumber}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -230,8 +231,8 @@
                         android:gravity="start"
                         android:hint="@string/cost"
                         android:lines="1"
-                        android:text="@={viewmodel.cost}"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@={viewmodel.cost}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -248,9 +249,9 @@
                         android:layout_height="match_parent"
                         android:gravity="start"
                         android:hint="@string/due"
-                        android:text="@={viewmodel.dueDate}"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@={viewmodel.dueDate}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 

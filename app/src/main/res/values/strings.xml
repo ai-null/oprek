@@ -71,4 +71,5 @@
 
     <!--  Update status dialog  -->
     <string name="dialog_title">Update status</string>
+    <string name="img_none">Image not available</string>
 </resources>

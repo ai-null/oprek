@@ -20,12 +20,33 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/medium_margin">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/background_gray"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_outline_image_24"
+                    tools:ignore="contentDescription" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:text="@string/img_none" />
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/cover_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/pp"
+                app:imagePath="@{project.deviceImage}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="contentDescription" />
 
@@ -49,9 +70,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/medium_margin"
-                app:status="@{project.status}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/device_name" />
+                app:layout_constraintTop_toTopOf="@id/device_name"
+                app:status="@{project.status}" />
 
             <TextView
                 android:id="@+id/customer_name"

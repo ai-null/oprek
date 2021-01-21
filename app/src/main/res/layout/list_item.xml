@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <!--  TODO: create bindingAdapter for thumbnail  -->
-
     <data>
 
         <variable
@@ -24,11 +22,25 @@
             layout="@layout/status_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:status="@{project.status}"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:status="@{project.status}" />
+
+        <TextView
+            android:layout_width="@dimen/thumbnail_size"
+            android:layout_height="@dimen/thumbnail_size"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:background="@color/colorGray"
+            android:gravity="center"
+            android:text="@string/img_none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/status_tag"
+            app:layout_constraintVertical_bias="1" />
 
         <ImageView
             android:id="@+id/thumbnail"
@@ -37,12 +49,13 @@
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/medium_margin"
             android:layout_marginBottom="@dimen/medium_margin"
-            android:src="@drawable/ic_launcher_background"
+            app:imagePath="@{project.deviceImage}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/status_tag"
             app:layout_constraintVertical_bias="1"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_launcher_background" />
 
         <LinearLayout
             android:id="@+id/data_container"

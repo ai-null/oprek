@@ -24,7 +24,7 @@ data class User(
 data class Project(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
-    @ColumnInfo(name = "user_id")
+    @ColumnInfo(name = "user_id", index = true)
     val userId: Long,
     @ColumnInfo(name = "device_img")
     val deviceImage: String?,
