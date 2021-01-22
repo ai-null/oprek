@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide
 import java.io.File
 
 
+
+
 /**
  * Image path helper,
  * this will show the picture if it in the right path show another or hide the image otherwise.

@@ -211,18 +211,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@id/device_name_layout"
-                app:layout_constraintStart_toStartOf="@id/device_name_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/extra_subhead">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_money"
+                    tools:ignore="contentDescription" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/input_no_icon_margin"
-                    android:layout_weight="1">
+                    android:layout_marginStart="@dimen/large_margin">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/cost"
@@ -234,26 +238,44 @@
                         android:maxLines="1"
                         android:text="@={viewmodel.cost}" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_weight="1"
-                    app:endIconDrawable="@drawable/ic_round_event_24"
-                    app:endIconMode="custom">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="start"
-                        android:hint="@string/due"
-                        android:lines="1"
-                        android:maxLines="1"
-                        android:text="@={viewmodel.dueDate}" />
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/due_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/input_no_icon_margin"
+                android:layout_marginTop="@dimen/margin"
+                app:endIconDrawable="@drawable/ic_round_event_24"
+                app:endIconMode="custom"
+                app:layout_constraintTop_toBottomOf="@id/cost_layout"
+                app:placeholderText="DD/MM/YYYY">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/due_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:hint="@string/due"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@={viewmodel.dueDate}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/due_clicklistener"
+                android:background="@drawable/background_ripple_due"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/input_no_icon_margin"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/due_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/due_layout" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button"
@@ -265,7 +287,7 @@
                 app:backgroundTint="@color/colorPrimary"
                 app:icon="@drawable/ic_outline_save_alt_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cost_layout" />
+                app:layout_constraintTop_toBottomOf="@id/due_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

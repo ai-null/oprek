@@ -16,6 +16,8 @@
     <color name="colorYellow">#FF9800</color>
     <color name="colorBlue">#03A9F4</color>
 
+    <color name="colorIcon">#787878</color>
+
     <!-- Buttons -->
     <color name="buttonPrimary">#2196F3</color>
     <color name="buttonDisabled">#79B8EA</color>

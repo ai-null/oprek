@@ -8,8 +8,11 @@ import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.Manifest.permission
+import android.app.DatePickerDialog
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.util.Log
+import android.widget.DatePicker
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +28,8 @@ import com.ainul.oprek.utils.Util.Companion.createImageFile
 import com.ainul.oprek.utils.Util.Companion.getSelectedImagePath
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddProjectActivity : AppCompatActivity() {
 
@@ -81,6 +86,27 @@ class AddProjectActivity : AppCompatActivity() {
                 Util.showSnackBar(binding.root, it)
             }
         })
+
+        val cal = Calendar.getInstance()
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                val format = SimpleDateFormat("MMMM dd yyyy", Locale.getDefault())
+                viewmodel.dueDate = format.format(cal.time).toString()
+            }
+
+        binding.dueClicklistener.setOnClickListener {
+            Log.i("working", "yes")
+            DatePickerDialog(
+                this@AddProjectActivity, dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
 
         binding.addDeviceImage.setOnClickListener {
             showChooseImageDialog()

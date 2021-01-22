@@ -43,6 +43,7 @@
             app:layout_constraintVertical_bias="1" />
 
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/thumbnail"
             android:layout_width="@dimen/thumbnail_size"
             android:layout_height="@dimen/thumbnail_size"
