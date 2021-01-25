@@ -56,6 +56,7 @@
     <string name="sample_costs">Rp. 200.000</string>
     <string name="sample_due_date">Due date at 02 January</string>
     <string name="sample_customer_phone">+62 822 6485 4113</string>
+    <string name="sample_income">Rp. 3,000,000</string>
 
     <!-- === DetailFragment === -->
     <string name="item_transition_name">item_%1$s</string>

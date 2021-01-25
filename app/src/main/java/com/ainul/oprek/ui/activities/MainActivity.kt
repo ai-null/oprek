@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+        binding.viewmodel = viewmodel
 
         // set up adapter for recyclerView & attach the adapter to the View
         adapter = ListItemAdapter(this)
@@ -62,8 +63,8 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         // this will automatically called (deleted/added) when there's change on the database
         // since the dao returns it as LiveData
         viewmodel.projects.observe(this, {
-            it?.let {
-                adapter.submitList(it)
+            it?.let { projects ->
+                adapter.submitList(projects)
             }
         })
     }

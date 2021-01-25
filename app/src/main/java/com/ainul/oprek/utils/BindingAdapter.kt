@@ -10,14 +10,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.ainul.oprek.R
 import com.ainul.oprek.utils.Constants.Status
 import com.bumptech.glide.Glide
 import java.io.File
-
-
-
 
 /**
  * Image path helper,
@@ -28,12 +26,21 @@ import java.io.File
 @BindingAdapter("imagePath")
 fun ImageView.imagePath(e: String?) {
     if (e !== null) {
+        // set view to visible, to prevent invisible view set by else condition
         this.visibility = View.VISIBLE
-        Glide.with(this.context).load(File(e)).override(480).into(this)
+
+        // set image
+        Glide.with(this).load(File(e)).override(480).into(this)
     } else {
+        // set back to default icon only for this component
         if (this.id == R.id.add_device_image) {
-            setImageDrawable(resources.getDrawable(R.drawable.ic_round_add_photo_alternate_24))
-        } else this.visibility = View.INVISIBLE
+            val drawable = ContextCompat.getDrawable(
+                this.context,
+                R.drawable.ic_round_add_photo_alternate_24
+            )
+
+            setImageDrawable(drawable)
+        } else this.visibility = View.INVISIBLE // otherwise make it invisible
     }
 }
 

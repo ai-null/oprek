@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.Project
+import com.ainul.oprek.utils.Constants.Status
 import com.ainul.oprek.utils.Util
 import java.lang.IllegalArgumentException
 
@@ -20,6 +21,14 @@ class MainViewModel(app: Application) : ViewModel() {
     // no need to make this into a method in repo, since it returns LiveData
     // LiveData will automatically handle the project from background-thread
     val projects: LiveData<List<Project>?> = database.oprekDao.getProjects(userId)
+
+    fun projectCount(projectList: List<Project>?, status: Status): String {
+        val statusFilter: Int = projectList?.filter {
+            it.status == status.value
+        }?.size ?: 0
+
+        return statusFilter.toString()
+    }
 
     // remove current session
     fun logout() {
