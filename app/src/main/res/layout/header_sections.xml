@@ -24,28 +24,42 @@
             app:layout_constraintBottom_toBottomOf="@id/card_container"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/summary_subhead"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/header_title"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_image"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="@dimen/medium_margin"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pp"
+                tools:ignore="contentDescription" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/income"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:id="@+id/summary_subhead"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/medium_margin"
-            android:layout_marginTop="@dimen/margin"
-            android:text="@string/sample_income"
+            android:text="@string/sample_user"
             android:textColor="@color/colorWhite"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image" />
+
+        <TextView
+            android:id="@+id/income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/sample_company"
+            android:textColor="@color/colorWhite2"
+            app:layout_constraintStart_toStartOf="@id/summary_subhead"
             app:layout_constraintTop_toBottomOf="@id/summary_subhead" />
 
         <androidx.cardview.widget.CardView
@@ -58,153 +72,185 @@
             app:cardCornerRadius="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/income">
+            app:layout_constraintTop_toBottomOf="@id/profile_image">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/button_done"
-                    android:layout_width="0dp"
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_ripple_green"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/medium_margin"
-                    android:paddingBottom="@dimen/medium_margin"
-                    app:layout_constraintEnd_toStartOf="@id/divider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:text="@string/header_title"
+                    android:textColor="@color/colorBlack2"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Headline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewmodel.projectCount(viewmodel.projects, Status.DONE)}"
-                        android:textStyle="bold"
-                        tools:text="3" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:text="@string/sample_costs"
+                    android:textColor="@color/colorBlack2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/medium_margin">
+
+                    <View
+                        android:id="@+id/divider0"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGray"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/button_done"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin"
-                        android:orientation="horizontal"
-                        tools:ignore="UseCompoundDrawables">
-
-                        <ImageView
-                            style="@style/section_icon"
-                            android:src="@drawable/ic_done"
-                            tools:ignore="ContentDescription" />
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        app:layout_constraintEnd_toStartOf="@id/divider1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            style="@style/section_title"
-                            android:text="@string/done" />
+                            style="@style/TextAppearance.AppCompat.Headline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.projectCount(viewmodel.projects, Status.DONE)}"
+                            android:textStyle="bold"
+                            tools:text="3" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin"
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                style="@style/section_icon"
+                                android:src="@drawable/ic_done"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                style="@style/section_title"
+                                android:text="@string/done" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:background="@color/colorGray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/button_progress"
-                    app:layout_constraintStart_toEndOf="@id/button_done"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/button_progress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/medium_margin"
-                    android:paddingBottom="@dimen/medium_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/divider2"
-                    app:layout_constraintStart_toEndOf="@id/divider"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Headline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewmodel.projectCount(viewmodel.projects, Status.PROGRESS)}"
-                        android:textStyle="bold"
-                        tools:text="3" />
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@color/colorGray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/button_progress"
+                        app:layout_constraintStart_toEndOf="@id/button_done"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/button_progress"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin"
-                        android:orientation="horizontal"
-                        tools:ignore="UseCompoundDrawables">
-
-                        <ImageView
-                            style="@style/section_icon"
-                            android:src="@drawable/ic_progress"
-                            tools:ignore="ContentDescription" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/divider2"
+                        app:layout_constraintStart_toEndOf="@id/divider1"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            style="@style/section_title"
-                            android:text="@string/progress" />
+                            style="@style/TextAppearance.AppCompat.Headline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.projectCount(viewmodel.projects, Status.PROGRESS)}"
+                            android:textStyle="bold"
+                            tools:text="3" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin"
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                style="@style/section_icon"
+                                android:src="@drawable/ic_progress"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                style="@style/section_title"
+                                android:text="@string/progress" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:background="@color/colorGray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/button_cancel"
-                    app:layout_constraintStart_toEndOf="@id/button_progress"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/button_cancel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/medium_margin"
-                    android:paddingBottom="@dimen/medium_margin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/divider2"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Headline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewmodel.projectCount(viewmodel.projects, Status.CANCEL)}"
-                        android:textStyle="bold"
-                        tools:text="3" />
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@color/colorGray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/button_cancel"
+                        app:layout_constraintStart_toEndOf="@id/button_progress"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/button_cancel"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin"
-                        android:orientation="horizontal"
-                        tools:ignore="UseCompoundDrawables">
-
-                        <ImageView
-                            style="@style/section_icon"
-                            android:src="@drawable/ic_cancel"
-                            tools:ignore="ContentDescription" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/medium_margin"
+                        android:paddingBottom="@dimen/medium_margin"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider2"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            style="@style/section_title"
-                            android:text="@string/cancel" />
+                            style="@style/TextAppearance.AppCompat.Headline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.projectCount(viewmodel.projects, Status.CANCEL)}"
+                            android:textStyle="bold"
+                            tools:text="3" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin"
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                style="@style/section_icon"
+                                android:src="@drawable/ic_cancel"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                style="@style/section_title"
+                                android:text="@string/cancel" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <View

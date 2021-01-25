@@ -86,7 +86,7 @@
                 tools:text="@string/sample_customer_name" />
 
             <View
-                android:id="@+id/divider"
+                android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/medium_margin"
@@ -101,7 +101,7 @@
                 android:id="@+id/cost_section"
                 style="@style/info_section_container"
                 android:layout_width="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/divider1"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
