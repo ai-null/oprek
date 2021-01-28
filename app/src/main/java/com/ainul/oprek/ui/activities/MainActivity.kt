@@ -14,7 +14,7 @@ import com.ainul.oprek.adapter.listener.ListItemListener
 import com.ainul.oprek.database.Project
 import com.ainul.oprek.databinding.ActivityMainBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
-import com.ainul.oprek.utils.Constants
+import com.ainul.oprek.util.Constants
 
 class MainActivity : AppCompatActivity(), ListItemListener {
 

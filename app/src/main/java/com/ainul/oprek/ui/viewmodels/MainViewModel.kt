@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.Project
-import com.ainul.oprek.utils.Constants.Status
-import com.ainul.oprek.utils.Util
+import com.ainul.oprek.util.Constants.Status
+import com.ainul.oprek.util.Util
 import java.lang.IllegalArgumentException
 
 class MainViewModel(app: Application) : ViewModel() {

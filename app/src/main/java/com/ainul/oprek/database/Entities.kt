@@ -1,14 +1,18 @@
 package com.ainul.oprek.database
 
 import androidx.room.*
-import com.ainul.oprek.utils.Constants
+import com.ainul.oprek.util.Constants
+import java.util.*
 
 @Entity(tableName = "table_user")
 data class User(
+    val email: String,
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val username: String,
-    val email: String,
+    @ColumnInfo(name ="profile_picture")
+    val profilePicture: String?,
+    val company: String?,
     val pin: Int
 )
 

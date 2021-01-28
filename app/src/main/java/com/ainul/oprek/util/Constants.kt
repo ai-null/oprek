@@ -1,4 +1,4 @@
-package com.ainul.oprek.utils
+package com.ainul.oprek.util
 
 class Constants {
     enum class Status(val value: Int) {

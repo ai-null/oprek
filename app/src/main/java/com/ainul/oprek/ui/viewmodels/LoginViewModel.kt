@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.repository.DatabaseRepository
-import com.ainul.oprek.utils.Util
+import com.ainul.oprek.util.Util
 import kotlinx.coroutines.*
 
 class LoginViewModel(app: Application) : ViewModel(), Observable {

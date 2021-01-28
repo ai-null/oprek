@@ -12,7 +12,7 @@ import com.ainul.oprek.R
 import com.ainul.oprek.databinding.FragmentLoginBinding
 import com.ainul.oprek.ui.activities.MainActivity
 import com.ainul.oprek.ui.viewmodels.LoginViewModel
-import com.ainul.oprek.utils.Util
+import com.ainul.oprek.util.Util
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ainul.oprek.ui.viewmodels.LoginViewModel.Companion.AuthenticationState
 

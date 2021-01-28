@@ -23,7 +23,8 @@
     <string name="recent_projects">Recent projects</string>
     <string name="set_pin_number">Set pin number</string>
     <string name="repeat_pin_number">Repeat pin number</string>
-    <string name="regist_form_title1">Account information</string>
+    <string name="regist_form_title1">User profile</string>
+    <string name="regist_form_title2">Account information</string>
     <string name="add_project_subhead2">Customer information</string>
 
     <!--  Misc.  -->
@@ -75,4 +76,5 @@
     <string name="dialog_title">Update status</string>
     <string name="img_none">Image not available</string>
     <string name="sample_company">CV. Jaya Abadi</string>
+    <string name="company">Company</string>
 </resources>

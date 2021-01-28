@@ -12,7 +12,6 @@ import android.app.DatePickerDialog
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
-import android.widget.DatePicker
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,10 +21,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.databinding.ActivityAddProjectBinding
 import com.ainul.oprek.ui.viewmodels.AddProjectViewModel
-import com.ainul.oprek.utils.Constants
-import com.ainul.oprek.utils.Util
-import com.ainul.oprek.utils.Util.Companion.createImageFile
-import com.ainul.oprek.utils.Util.Companion.getSelectedImagePath
+import com.ainul.oprek.util.Constants
+import com.ainul.oprek.util.Util
+import com.ainul.oprek.util.Util.Companion.createImageFile
+import com.ainul.oprek.util.Util.Companion.getSelectedImagePath
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat

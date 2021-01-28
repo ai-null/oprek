@@ -1,7 +1,7 @@
 @file:Suppress("DEPRECATION")
 @file:SuppressLint("UseCompatLoadingForDrawables")
 
-package com.ainul.oprek.utils
+package com.ainul.oprek.util
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.ainul.oprek.R
-import com.ainul.oprek.utils.Constants.Status
+import com.ainul.oprek.util.Constants.Status
 import com.bumptech.glide.Glide
 import java.io.File
 
@@ -33,7 +33,7 @@ fun ImageView.imagePath(e: String?) {
         Glide.with(this).load(File(e)).override(480).into(this)
     } else {
         // set back to default icon only for this component
-        if (this.id == R.id.add_device_image) {
+        if (this.id == R.id.add_device_image || this.id == R.id.add_profile_image) {
             val drawable = ContextCompat.getDrawable(
                 this.context,
                 R.drawable.ic_round_add_photo_alternate_24

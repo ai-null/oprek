@@ -10,8 +10,8 @@ import com.ainul.oprek.BR
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.Project
 import com.ainul.oprek.repository.DatabaseRepository
-import com.ainul.oprek.utils.Constants
-import com.ainul.oprek.utils.Util
+import com.ainul.oprek.util.Constants
+import com.ainul.oprek.util.Util
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

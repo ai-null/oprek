@@ -28,6 +28,9 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
     var username: String = ""
 
     @get:Bindable
+    var company: String = ""
+
+    @get:Bindable
     var repeatedPin: String = ""
 
     @get:Bindable
@@ -36,10 +39,17 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
     @get:Bindable
     var pin: String = ""
 
+    private val _profilePicture = MutableLiveData<String?>(null)
+    val profilePicture: LiveData<String?> get() = _profilePicture
+
     init {
         uiScope.launch {
             Log.i("user_data", "${repository.getAllUsers()}")
         }
+    }
+
+    fun updateProfilePicture(e: String?) {
+        _profilePicture.value = e
     }
 
     fun onClick() {
@@ -77,7 +87,9 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
                     User(
                         username = username,
                         email = email,
-                        pin = pin.toInt()
+                        pin = pin.toInt(),
+                        company = company,
+                        profilePicture = _profilePicture.value
                     )
                 )
 

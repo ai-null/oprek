@@ -1,7 +1,6 @@
 package com.ainul.oprek.ui.activities
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -17,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.databinding.ActivityDetailProjectBinding
 import com.ainul.oprek.ui.viewmodels.DetailViewModel
-import com.ainul.oprek.utils.Constants
-import com.ainul.oprek.utils.Constants.Status
+import com.ainul.oprek.util.Constants
+import com.ainul.oprek.util.Constants.Status
 
 class DetailProjectActivity : AppCompatActivity() {
 

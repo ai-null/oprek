@@ -1,6 +1,7 @@
-package com.ainul.oprek.utils
+package com.ainul.oprek.util
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
@@ -8,7 +9,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Environment
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -69,17 +69,18 @@ class Util {
 
         /**
          * createImageFile,
-         * this method takes [activity] as parameter to get external directory to store created image.
+         * this method takes [Activity] as parameter to get external directory to store created image.
          * the file created come from taken picture or image selected from storage,
          * then store it on specific folder for the app
          *
-         * @param activity [AppCompatActivity]
+         * @param activity
          */
         @SuppressLint("SimpleDateFormat")
         @Throws(IOException::class)
-        fun createImageFile(activity: AppCompatActivity): File {
+        fun createImageFile(activity: Activity): File {
             val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
             val storageDir: File? = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
             return File.createTempFile(
                 "JPEG_${timestamp}",
                 ".jpg",
