@@ -1,7 +1,6 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -41,12 +40,6 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
 
     private val _profilePicture = MutableLiveData<String?>(null)
     val profilePicture: LiveData<String?> get() = _profilePicture
-
-    init {
-        uiScope.launch {
-            Log.i("user_data", "${repository.getAllUsers()}")
-        }
-    }
 
     fun updateProfilePicture(e: String?) {
         _profilePicture.value = e

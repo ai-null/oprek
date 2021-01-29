@@ -18,24 +18,16 @@ interface OprekDao {
     fun registerUser(data: User)
 
     /**
-     * Select ALL users from database, returns list of user
-     *
-     * @return [List] list of [User]
-     */
-    @Query("SELECT * FROM table_user")
-    fun getUsers(): List<User>
-
-    /**
      * Grep user data based on its email address
      *
      * @param email String
      * @return [User]? nullable user rows, there will be case when there's no user yet
      */
     @Query("SELECT * FROM table_user WHERE email = :email LIMIT 1")
-    fun getUser(email: String): User?
+    fun validateEmail(email: String): User?
 
     @Query("SELECT * FROM table_user WHERE email = :email AND pin = :pin")
-    fun validateUser(email: String, pin: String): User?
+    fun getUser(email: String, pin: Int): User?
 
     // ===== PROJECT =====
     // ===================

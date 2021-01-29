@@ -1,33 +1,25 @@
 package com.ainul.oprek.ui.fragments
 
-import android.Manifest.permission
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ainul.oprek.R
 import com.ainul.oprek.databinding.FragmentRegisterBinding
 import com.ainul.oprek.ui.viewmodels.RegisterViewModel
-import com.ainul.oprek.util.Constants
-import com.ainul.oprek.util.Util
+import com.ainul.oprek.util.*
 import com.google.android.material.transition.MaterialSharedAxis
-import java.io.File
-import java.io.IOException
 
 class RegisterFragment : Fragment() {
 
@@ -40,6 +32,8 @@ class RegisterFragment : Fragment() {
         ).get(RegisterViewModel::class.java)
     }
 
+    private lateinit var imageDialogUtil: ImageDialogUtil
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +42,8 @@ class RegisterFragment : Fragment() {
         binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = viewmodel
+
+        imageDialogUtil = ImageDialogUtil(this.requireActivity())
 
         // Screen navigation animations
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
@@ -85,6 +81,7 @@ class RegisterFragment : Fragment() {
             }
         })
 
+        // show dialog choose image profile
         binding.addProfileImage.setOnClickListener {
             showDialogChooseImage()
         }
@@ -105,77 +102,7 @@ class RegisterFragment : Fragment() {
             chooseImageDialog.show()
         }
 
-        chooseImage(chooseImageDialog, view)
-    }
-
-    private fun chooseImage(dialog: AlertDialog, view: View) {
-        val itemChooseImage: LinearLayout = view.findViewById(R.id.dialog_item_choose_image)
-        val itemTakePhoto: LinearLayout = view.findViewById(R.id.dialog_item_take_photo)
-
-        itemChooseImage.setOnClickListener {
-            if (Util.isPermitted(this.requireContext(), permission.READ_EXTERNAL_STORAGE)) {
-                selectImage()
-            } else {
-                requestPermissions(
-                    arrayOf(permission.READ_EXTERNAL_STORAGE),
-                    Constants.CHOOSE_IMAGE_REQUEST_CODE
-                )
-            }
-            dialog.dismiss()
-        }
-
-        itemTakePhoto.setOnClickListener {
-            if (Util.isPermitted(this.requireContext(), permission.CAMERA)) {
-                // launch camera after permission permitted. Show dialog to allow the permission otherwise
-                launchCamera()
-            } else {
-                requestPermissions(
-                    arrayOf(permission.CAMERA),
-                    Constants.LAUNCH_CAMERA_REQUEST_CODE
-                )
-            }
-            dialog.dismiss()
-        }
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    @Throws(IOException::class)
-    private fun launchCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { cameraIntent ->
-            val photoFile: File? = try {
-                Util.createImageFile(this.requireActivity())
-            } catch (e: IOException) {
-                null
-            }
-
-            photoFile?.also {
-                val photoURI: Uri = FileProvider.getUriForFile(
-                    this.requireContext(),
-                    "com.ainul.oprek.fileprovider",
-                    it
-                )
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(cameraIntent, Constants.LAUNCH_CAMERA_REQUEST_CODE)
-            }
-        }
-    }
-
-    /**
-     * select image from Storage,
-     *
-     * it will launch activity to select image,
-     * but of course the [permission.READ_EXTERNAL_STORAGE] need to be granted
-     */
-    private fun selectImage() {
-        val selectImageIntent = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
-
-        val packageManager = requireNotNull(activity).packageManager
-        if (selectImageIntent.resolveActivity(packageManager) !== null) {
-            startActivityForResult(selectImageIntent, Constants.CHOOSE_IMAGE_REQUEST_CODE)
-        }
+        imageDialogUtil.chooseImage(chooseImageDialog, view)
     }
 
     override fun onRequestPermissionsResult(
@@ -187,8 +114,8 @@ class RegisterFragment : Fragment() {
 
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
-                Constants.CHOOSE_IMAGE_REQUEST_CODE -> selectImage()
-                Constants.LAUNCH_CAMERA_REQUEST_CODE -> launchCamera()
+                Constants.CHOOSE_IMAGE_REQUEST_CODE -> imageDialogUtil.selectImage(this.requireActivity())
+                Constants.LAUNCH_CAMERA_REQUEST_CODE -> imageDialogUtil.launchCamera(requireActivity())
                 else -> Toast.makeText(context, "permission denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -197,12 +124,22 @@ class RegisterFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == Constants.CHOOSE_IMAGE_REQUEST_CODE) {
+        if (resultCode == AppCompatActivity.RESULT_OK &&
+            requestCode == Constants.CHOOSE_IMAGE_REQUEST_CODE ||
+            requestCode == Constants.LAUNCH_CAMERA_REQUEST_CODE
+        ) {
+
+            Log.i("hey", "$data")
+
             if (data != null) {
                 val selectedImage: Uri? = data.data
 
+                Log.i("hey2", "$data")
+
                 selectedImage?.let {
-                    val path = Util.getSelectedImagePath(requireActivity().contentResolver, selectedImage)
+                    val path =
+                        Util.getSelectedImagePath(requireActivity().contentResolver, selectedImage)
+                    Log.i("hey3", path)
                     viewmodel.updateProfilePicture(path)
                 }
             }

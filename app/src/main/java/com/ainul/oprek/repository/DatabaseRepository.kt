@@ -10,13 +10,6 @@ class DatabaseRepository(database: OprekDatabase) {
     // ===== USER =====
     // ================
 
-    /**
-     * this will register user to database
-     * [User.email] must be unique, can't be same as other user
-     *
-     * @param data [User]
-     * @throws Exception
-     */
     suspend fun registerUserToDatabase(data: User) {
         withContext(Dispatchers.IO) {
             if (checkAvailability(data.email)) {
@@ -35,54 +28,17 @@ class DatabaseRepository(database: OprekDatabase) {
      * @return [Boolean]
      */
     private fun checkAvailability(email: String): Boolean {
-        return dao.getUser(email = email) == null
+        return dao.validateEmail(email = email) == null
     }
 
-    /**
-     * used to validate user before go into `MainActivity`
-     * TODO: check pin in the parameter. pin supposed to be Int, this ain't using Int but String
-     *
-     * @param email String [User.email]
-     * @param pin Int [User.pin]
-     * @return [Boolean]
-     */
-    suspend fun validateUser(email: String, pin: String): Boolean {
+    suspend fun getUser(email: String, pin: Int): User? {
         return withContext(Dispatchers.IO) {
-            dao.validateUser(email, pin) != null
-        }
-    }
-
-    suspend fun getUserByEmail(email: String, pin: String): User? {
-        return withContext(Dispatchers.IO) {
-            dao.validateUser(email, pin)
-        }
-    }
-
-    /**
-     * grep all rows from `table_user` {@see Entities}, returns as listOf<User>
-     *
-     * @return List<User>
-     */
-    suspend fun getAllUsers(): List<User> {
-        return withContext(Dispatchers.IO) {
-            dao.getUsers()
+            dao.getUser(email, pin)
         }
     }
 
     // ===== PROJECT =====
     // ===================
-
-    suspend fun getProject(id: Long): Project? {
-        return withContext(Dispatchers.IO) {
-            dao.getProject(id)
-        }
-    }
-
-    suspend fun deleteProject(projectId: Long) {
-        withContext(Dispatchers.IO) {
-            dao.deleteProject(projectId)
-        }
-    }
 
     /**
      * create new project
@@ -100,14 +56,21 @@ class DatabaseRepository(database: OprekDatabase) {
         }
     }
 
-    /**
-     * update data of the existing project
-     *
-     * @param data [Project]
-     */
+    suspend fun getProject(id: Long): Project? {
+        return withContext(Dispatchers.IO) {
+            dao.getProject(id)
+        }
+    }
+
     suspend fun updateProject(data: Project) {
         withContext(Dispatchers.IO) {
             dao.updateProject(data)
+        }
+    }
+
+    suspend fun deleteProject(projectId: Long) {
+        withContext(Dispatchers.IO) {
+            dao.deleteProject(projectId)
         }
     }
 

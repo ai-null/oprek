@@ -34,12 +34,16 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
     // Authentication state holder, tell the UI whether user is authenticated or not
     private val _authenticationState = MutableLiveData(AuthenticationState.UNAUTHENTICATED)
 
+    private suspend fun validateUser(email: String, pin: Int): Boolean {
+        return repository.getUser(email, pin) != null
+    }
+
     init {
         val currentSession = encryptManager.getSession()
 
         uiScope.launch {
             if (currentSession != null &&
-                repository.validateUser(currentSession.email, currentSession.pin)
+                validateUser(currentSession.email, currentSession.pin)
             ) {
                 _authenticationState.value = AuthenticationState.AUTHENTICATED
             }
@@ -72,7 +76,7 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
      */
     private fun login() {
         uiScope.launch {
-            if (repository.validateUser(email, pin)) saveSession()
+            if (validateUser(email, pin.toInt())) saveSession()
             else _error.value = "email or pin is incorrect"
         }
     }
@@ -84,9 +88,9 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
     private fun saveSession() {
         uiScope.launch {
             encryptManager.saveSession(
-                userId = repository.getUserByEmail(email, pin)!!.id,
+                userId = repository.getUser(email, pin.toInt())!!.id,
                 email = email,
-                pin = pin
+                pin = pin.toInt()
             )
         }
 

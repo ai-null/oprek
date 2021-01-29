@@ -121,9 +121,9 @@ class Util {
         fun getSession(): CurrentSession? {
             val id = sharedPref.getLong("userId", -1L)
             val email = sharedPref.getString("email", null)
-            val pin = sharedPref.getString("pin", null)
+            val pin = sharedPref.getInt("pin", 0)
 
-            return if (email != null && pin != null) {
+            return if (email != null && pin != 0) {
                 CurrentSession(id, email, pin)
             } else {
                 null
@@ -137,11 +137,11 @@ class Util {
          * @param pin Int
          * @return Boolean returns false when there's an error occurring during process
          */
-        fun saveSession(userId: Long, email: String, pin: String) {
+        fun saveSession(userId: Long, email: String, pin: Int) {
             with(sharedPref.edit()) {
                 putLong("userId", userId)
                 putString("email", email)
-                putString("pin", pin)
+                putInt("pin", pin)
                 apply()
             }
         }
@@ -155,6 +155,6 @@ class Util {
             }
         }
 
-        data class CurrentSession(val userId: Long, val email: String, val pin: String)
+        data class CurrentSession(val userId: Long, val email: String, val pin: Int)
     }
 }
