@@ -41,6 +41,38 @@
                     android:textColor="@color/colorBlack2"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    app:showMessage="@{viewmodel.projects}"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        tools:ignore="contentDescription"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/ic_receipt_add" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack2"
+                        android:textStyle="bold"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:text="@string/no_project_title"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/small_margin"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:text="@string/no_project_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recent_projects_list"
                     android:layout_width="match_parent"
@@ -48,7 +80,7 @@
                     app:fastScrollEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    tools:itemCount="3"
+                    tools:itemCount="2"
                     tools:listitem="@layout/list_item" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

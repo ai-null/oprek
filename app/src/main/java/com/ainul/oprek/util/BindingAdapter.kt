@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.ainul.oprek.R
+import com.ainul.oprek.database.Project
 import com.ainul.oprek.util.Constants.Status
 import com.bumptech.glide.Glide
 import java.io.File
@@ -41,6 +42,13 @@ fun ImageView.imagePath(e: String?) {
 
             setImageDrawable(drawable)
         } else this.visibility = View.INVISIBLE // otherwise make it invisible
+    }
+}
+
+@BindingAdapter("showMessage")
+fun View.showMessage(project: List<Project>?) {
+    project?.let {
+        if (project.isEmpty()) this.visibility = View.VISIBLE else this.visibility = View.GONE
     }
 }
 

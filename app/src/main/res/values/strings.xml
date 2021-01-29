@@ -77,4 +77,8 @@
     <string name="img_none">Image not available</string>
     <string name="sample_company">CV. Jaya Abadi</string>
     <string name="company">Company</string>
+
+    <!--  No project message  -->
+    <string name="no_project_title">There is no project.</string>
+    <string name="no_project_subtitle">Let\'s start to add some project!</string>
 </resources>
