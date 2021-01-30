@@ -8,33 +8,34 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
 import android.widget.LinearLayout
-import androidx.core.app.ActivityCompat.requestPermissions
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.FileProvider
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import com.ainul.oprek.R
 import java.io.File
 import java.io.IOException
 
-class ImageDialogUtil(val activity: FragmentActivity) {
+class ImageDialogUtil(val activity: Activity, private val fragment: Fragment?) {
+
+    private val context = fragment?.requireContext() ?: activity.applicationContext
 
     /**
      * This method below handle [R.layout.dialog_choose_image] clickListener
      * it takes [dialog] to hide after clicked and [view] to get the elements from layout
      *
-     * @param dialog [AlertDialog]
+     * @param dialog
      * @param view [View]
+     *
+     * @see #selectImage()
      */
     fun chooseImage(dialog: AlertDialog, view: View) {
         val itemChooseImage: LinearLayout = view.findViewById(R.id.dialog_item_choose_image)
         val itemTakePhoto: LinearLayout = view.findViewById(R.id.dialog_item_take_photo)
 
         itemChooseImage.setOnClickListener {
-            if (Util.isPermitted(activity, permission.READ_EXTERNAL_STORAGE)) {
-                selectImage(activity)
+            if (Util.isPermitted(context, permission.READ_EXTERNAL_STORAGE)) {
+                selectImage()
             } else {
-                requestPermissions(
-                    activity,
+                requestPermission(
                     arrayOf(permission.READ_EXTERNAL_STORAGE),
                     Constants.CHOOSE_IMAGE_REQUEST_CODE
                 )
@@ -43,12 +44,11 @@ class ImageDialogUtil(val activity: FragmentActivity) {
         }
 
         itemTakePhoto.setOnClickListener {
-            if (Util.isPermitted(activity, permission.CAMERA)) {
+            if (Util.isPermitted(context, permission.CAMERA)) {
                 // launch camera after permission permitted. Show dialog to allow the permission otherwise
-                launchCamera(activity)
+                launchCamera()
             } else {
-                requestPermissions(
-                    activity,
+                requestPermission(
                     arrayOf(permission.CAMERA),
                     Constants.LAUNCH_CAMERA_REQUEST_CODE
                 )
@@ -57,7 +57,7 @@ class ImageDialogUtil(val activity: FragmentActivity) {
         }
     }
 
-    fun launchCamera(activity: Activity) {
+    fun launchCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { cameraIntent ->
             val photoFile: File? = try {
                 Util.createImageFile(activity)
@@ -67,16 +67,14 @@ class ImageDialogUtil(val activity: FragmentActivity) {
 
             photoFile?.also {
                 val photoURI: Uri = FileProvider.getUriForFile(
-                    activity,
+                    context,
                     "com.ainul.oprek.fileprovider",
                     it
                 )
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(
-                    activity,
+                startActivityResult(
                     cameraIntent,
                     Constants.LAUNCH_CAMERA_REQUEST_CODE,
-                    null
                 )
             }
         }
@@ -88,7 +86,7 @@ class ImageDialogUtil(val activity: FragmentActivity) {
      * it will launch activity to select image,
      * but the [permission.READ_EXTERNAL_STORAGE] need to be granted
      */
-    fun selectImage(activity: Activity) {
+    fun selectImage() {
         val selectImageIntent = Intent(
             Intent.ACTION_PICK,
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -96,11 +94,37 @@ class ImageDialogUtil(val activity: FragmentActivity) {
 
         val packageManager = activity.packageManager
         if (selectImageIntent.resolveActivity(packageManager) !== null) {
-            startActivityForResult(
-                activity,
+            startActivityResult(
                 selectImageIntent,
                 Constants.CHOOSE_IMAGE_REQUEST_CODE,
-                null
+            )
+        }
+    }
+
+    private fun startActivityResult(intent: Intent, requestCode: Int) {
+        if (fragment !== null) {
+            fragment.startActivityForResult(
+                intent,
+                requestCode
+            )
+        } else {
+            activity.startActivityForResult(
+                intent,
+                requestCode
+            )
+        }
+    }
+
+    private fun requestPermission(permissions: Array<String>, requestCode: Int) {
+        if (fragment !== null) {
+            fragment.requestPermissions(
+                permissions,
+                requestCode
+            )
+        } else {
+            activity.requestPermissions(
+                permissions,
+                requestCode
             )
         }
     }

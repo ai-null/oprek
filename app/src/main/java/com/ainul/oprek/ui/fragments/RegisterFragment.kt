@@ -43,7 +43,8 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = viewmodel
 
-        imageDialogUtil = ImageDialogUtil(this.requireActivity())
+        val activity = requireNotNull(activity)
+        imageDialogUtil = ImageDialogUtil(activity, this)
 
         // Screen navigation animations
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
@@ -114,8 +115,8 @@ class RegisterFragment : Fragment() {
 
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
-                Constants.CHOOSE_IMAGE_REQUEST_CODE -> imageDialogUtil.selectImage(this.requireActivity())
-                Constants.LAUNCH_CAMERA_REQUEST_CODE -> imageDialogUtil.launchCamera(requireActivity())
+                Constants.CHOOSE_IMAGE_REQUEST_CODE -> imageDialogUtil.selectImage()
+                Constants.LAUNCH_CAMERA_REQUEST_CODE -> imageDialogUtil.launchCamera()
                 else -> Toast.makeText(context, "permission denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -124,23 +125,22 @@ class RegisterFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == AppCompatActivity.RESULT_OK &&
-            requestCode == Constants.CHOOSE_IMAGE_REQUEST_CODE ||
-            requestCode == Constants.LAUNCH_CAMERA_REQUEST_CODE
-        ) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
 
-            Log.i("hey", "$data")
+            if (requestCode == Constants.CHOOSE_IMAGE_REQUEST_CODE ||
+                requestCode == Constants.LAUNCH_CAMERA_REQUEST_CODE
+            ) {
+                if (data != null) {
+                    val selectedImage: Uri? = data.data
 
-            if (data != null) {
-                val selectedImage: Uri? = data.data
-
-                Log.i("hey2", "$data")
-
-                selectedImage?.let {
-                    val path =
-                        Util.getSelectedImagePath(requireActivity().contentResolver, selectedImage)
-                    Log.i("hey3", path)
-                    viewmodel.updateProfilePicture(path)
+                    selectedImage?.let {
+                        val path =
+                            Util.getSelectedImagePath(
+                                requireActivity().contentResolver,
+                                selectedImage
+                            )
+                        viewmodel.updateProfilePicture(path)
+                    }
                 }
             }
         }
