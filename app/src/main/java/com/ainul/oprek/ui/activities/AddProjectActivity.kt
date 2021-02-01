@@ -156,7 +156,7 @@ class AddProjectActivity : AppCompatActivity() {
             } else {
                 requestPermissions(
                     arrayOf(permission.READ_EXTERNAL_STORAGE),
-                    Constants.CHOOSE_IMAGE_REQUEST_CODE
+                    Constants.REQUEST_CODE_CHOOSE_IMAGE
                 )
             }
             dialog.dismiss()
@@ -169,7 +169,7 @@ class AddProjectActivity : AppCompatActivity() {
             } else {
                 requestPermissions(
                     arrayOf(permission.CAMERA),
-                    Constants.LAUNCH_CAMERA_REQUEST_CODE
+                    Constants.REQUEST_CODE_TAKE_PICTURE
                 )
             }
             dialog.dismiss()
@@ -191,7 +191,7 @@ class AddProjectActivity : AppCompatActivity() {
                     it
                 )
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(cameraIntent, Constants.LAUNCH_CAMERA_REQUEST_CODE)
+                startActivityForResult(cameraIntent, Constants.REQUEST_CODE_TAKE_PICTURE)
             }
         }
     }
@@ -209,7 +209,7 @@ class AddProjectActivity : AppCompatActivity() {
         )
 
         if (selectImageIntent.resolveActivity(packageManager) !== null) {
-            startActivityForResult(selectImageIntent, Constants.CHOOSE_IMAGE_REQUEST_CODE)
+            startActivityForResult(selectImageIntent, Constants.REQUEST_CODE_CHOOSE_IMAGE)
         }
     }
 
@@ -222,8 +222,8 @@ class AddProjectActivity : AppCompatActivity() {
 
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
-                Constants.CHOOSE_IMAGE_REQUEST_CODE -> selectImage()
-                Constants.LAUNCH_CAMERA_REQUEST_CODE -> launchCamera()
+                Constants.REQUEST_CODE_CHOOSE_IMAGE -> selectImage()
+                Constants.REQUEST_CODE_TAKE_PICTURE -> launchCamera()
                 else -> Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -232,7 +232,7 @@ class AddProjectActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK && requestCode == Constants.CHOOSE_IMAGE_REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_CODE_CHOOSE_IMAGE) {
             if (data != null) {
                 val selectedImage: Uri? = data.data
 

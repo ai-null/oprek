@@ -115,8 +115,8 @@ class RegisterFragment : Fragment() {
 
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
-                Constants.CHOOSE_IMAGE_REQUEST_CODE -> imageDialogUtil.selectImage()
-                Constants.LAUNCH_CAMERA_REQUEST_CODE -> imageDialogUtil.launchCamera()
+                Constants.REQUEST_CODE_CHOOSE_IMAGE -> imageDialogUtil.selectImage()
+                Constants.REQUEST_CODE_TAKE_PICTURE -> imageDialogUtil.launchCamera()
                 else -> Toast.makeText(context, "permission denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -125,20 +125,32 @@ class RegisterFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        Log.i(
+            "result",
+            "isDataNull: ${data !== null}, resultCode: $resultCode, reqCode: $requestCode "
+        )
+
         if (resultCode == AppCompatActivity.RESULT_OK) {
+            when (requestCode) {
+                Constants.REQUEST_CODE_CHOOSE_IMAGE -> {
+                    if (data != null) {
+                        val selectedImage: Uri? = data.data
 
-            if (requestCode == Constants.CHOOSE_IMAGE_REQUEST_CODE ||
-                requestCode == Constants.LAUNCH_CAMERA_REQUEST_CODE
-            ) {
-                if (data != null) {
-                    val selectedImage: Uri? = data.data
+                        selectedImage?.let {
+                            val path =
+                                Util.getSelectedImagePath(
+                                    requireActivity().contentResolver,
+                                    selectedImage
+                                )
+                            viewmodel.updateProfilePicture(path)
+                        }
+                    }
+                }
 
-                    selectedImage?.let {
-                        val path =
-                            Util.getSelectedImagePath(
-                                requireActivity().contentResolver,
-                                selectedImage
-                            )
+                Constants.REQUEST_CODE_TAKE_PICTURE -> {
+                    val path = imageDialogUtil.currentPhotoPath
+
+                    if (path.isNotBlank()) {
                         viewmodel.updateProfilePicture(path)
                     }
                 }

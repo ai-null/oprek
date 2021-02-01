@@ -100,7 +100,7 @@ class DetailProjectActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Constants.UPDATE_PROJECT_REQUEST_CODE && resultCode == Constants.PROJECT_UPDATED) {
+        if (requestCode == Constants.REQUEST_CODE_UPDATE_PROJECT && resultCode == Constants.PROJECT_UPDATED) {
             viewmodel.refresh() // refresh data after update
         }
     }
@@ -119,7 +119,7 @@ class DetailProjectActivity : AppCompatActivity() {
                 intent.putExtra(Constants.PROJECT_ID, projectId) // send project_id to update
 
                 // start activity for updating project
-                startActivityForResult(intent, Constants.UPDATE_PROJECT_REQUEST_CODE)
+                startActivityForResult(intent, Constants.REQUEST_CODE_UPDATE_PROJECT)
             }
             R.id.item_delete -> {
                 Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show()
