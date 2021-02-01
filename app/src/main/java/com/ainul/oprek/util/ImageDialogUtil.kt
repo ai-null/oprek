@@ -15,7 +15,7 @@ import com.ainul.oprek.R
 import java.io.File
 import java.io.IOException
 
-class ImageDialogUtil(private val activity: Activity, private val fragment: Fragment?) {
+class ImageDialogUtil(private val activity: Activity, private val fragment: Fragment? = null) {
 
     private val context = fragment?.requireContext() ?: activity.applicationContext
     private val packageManager = activity.packageManager

@@ -4,37 +4,38 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.MenuItem
-import android.view.View
-import android.Manifest.permission
 import android.app.DatePickerDialog
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.databinding.ActivityAddProjectBinding
 import com.ainul.oprek.ui.viewmodels.AddProjectViewModel
 import com.ainul.oprek.util.Constants
+import com.ainul.oprek.util.ImageDialogUtil
 import com.ainul.oprek.util.Util
-import com.ainul.oprek.util.Util.Companion.createImageFile
 import com.ainul.oprek.util.Util.Companion.getSelectedImagePath
-import java.io.File
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddProjectActivity : AppCompatActivity() {
 
+    // viewmodel & binding to handle UI-related data and actions
     private lateinit var binding: ActivityAddProjectBinding
     private lateinit var viewmodel: AddProjectViewModel
+
+    // set if only the activity started from MainActivity
     private var projectId: Long? = null
+
+    // Image handle utility
+    private val imageDialogUtil: ImageDialogUtil by lazy {
+        ImageDialogUtil(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,7 +118,7 @@ class AddProjectActivity : AppCompatActivity() {
      *
      * this method purposed only to show the dialog.
      * The dialog is inflated from [R.layout.dialog_choose_image],
-     * and the actions of this dialog is handled by [chooseImage] method below
+     * and the actions of this dialog is handled by [ImageDialogUtil]
      */
     private fun showChooseImageDialog() {
         val dialog = AlertDialog.Builder(this)
@@ -136,81 +137,7 @@ class AddProjectActivity : AppCompatActivity() {
             chooseImageDialog.show()
         }
 
-        chooseImage(chooseImageDialog, view)
-    }
-
-    /**
-     * dialog actions,
-     * any clickListener from dialog handled here
-     *
-     * @param dialog [AlertDialog] to dismiss after clicked
-     * @param view [View] to get item- each element from [R.layout.dialog_choose_image]
-     */
-    private fun chooseImage(dialog: AlertDialog, view: View) {
-        val itemChooseImage: LinearLayout = view.findViewById(R.id.dialog_item_choose_image)
-        val itemTakePhoto: LinearLayout = view.findViewById(R.id.dialog_item_take_photo)
-
-        itemChooseImage.setOnClickListener {
-            if (Util.isPermitted(this, permission.READ_EXTERNAL_STORAGE)) {
-                selectImage()
-            } else {
-                requestPermissions(
-                    arrayOf(permission.READ_EXTERNAL_STORAGE),
-                    Constants.REQUEST_CODE_CHOOSE_IMAGE
-                )
-            }
-            dialog.dismiss()
-        }
-
-        itemTakePhoto.setOnClickListener {
-            if (Util.isPermitted(this, permission.CAMERA)) {
-                // launch camera after permission permitted. Show dialog to allow the permission otherwise
-                launchCamera()
-            } else {
-                requestPermissions(
-                    arrayOf(permission.CAMERA),
-                    Constants.REQUEST_CODE_TAKE_PICTURE
-                )
-            }
-            dialog.dismiss()
-        }
-    }
-
-    private fun launchCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { cameraIntent ->
-            val photoFile: File? = try {
-                createImageFile(this)
-            } catch (e: IOException) {
-                null
-            }
-
-            photoFile?.also {
-                val photoURI: Uri = FileProvider.getUriForFile(
-                    this,
-                    "com.ainul.oprek.fileprovider",
-                    it
-                )
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(cameraIntent, Constants.REQUEST_CODE_TAKE_PICTURE)
-            }
-        }
-    }
-
-    /**
-     * select image from Storage,
-     *
-     * it will launch activity to select image,
-     * but of course the [permission.READ_EXTERNAL_STORAGE] need to be granted
-     */
-    private fun selectImage() {
-        val selectImageIntent = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
-
-        if (selectImageIntent.resolveActivity(packageManager) !== null) {
-            startActivityForResult(selectImageIntent, Constants.REQUEST_CODE_CHOOSE_IMAGE)
-        }
+        imageDialogUtil.chooseImage(chooseImageDialog, view)
     }
 
     override fun onRequestPermissionsResult(
@@ -222,8 +149,8 @@ class AddProjectActivity : AppCompatActivity() {
 
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
-                Constants.REQUEST_CODE_CHOOSE_IMAGE -> selectImage()
-                Constants.REQUEST_CODE_TAKE_PICTURE -> launchCamera()
+                Constants.REQUEST_CODE_CHOOSE_IMAGE -> imageDialogUtil.selectImage()
+                Constants.REQUEST_CODE_TAKE_PICTURE -> imageDialogUtil.launchCamera()
                 else -> Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -232,13 +159,26 @@ class AddProjectActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_CODE_CHOOSE_IMAGE) {
-            if (data != null) {
-                val selectedImage: Uri? = data.data
+        if (resultCode == RESULT_OK) {
 
-                selectedImage?.let {
-                    val path = getSelectedImagePath(contentResolver, selectedImage)
-                    viewmodel.updateCurrentPhotoPath(path)
+            when (requestCode) {
+                Constants.REQUEST_CODE_CHOOSE_IMAGE -> {
+                    if (data != null) {
+                        val selectedImage: Uri? = data.data
+
+                        selectedImage?.let {
+                            val path = getSelectedImagePath(contentResolver, selectedImage)
+                            viewmodel.updateCurrentPhotoPath(path)
+                        }
+                    }
+                }
+
+                Constants.REQUEST_CODE_TAKE_PICTURE -> {
+                    val path = imageDialogUtil.currentPhotoPath
+
+                    if (path.isNotBlank()) {
+                        viewmodel.updateCurrentPhotoPath(path)
+                    }
                 }
             }
         }
