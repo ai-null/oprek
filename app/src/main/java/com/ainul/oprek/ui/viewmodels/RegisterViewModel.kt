@@ -1,7 +1,6 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -92,7 +91,7 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
                 _successRegister.value = true
 
                 // delayed screen navigateUp()
-                delay(3000L)
+                delay(700L)
                 _navigateBack.value = true
             } catch (e: Exception) {
                 _error.value = e.message
@@ -119,22 +118,20 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
      * @return Boolean
      */
     private fun isInputEmpty(): Boolean {
-        val inputs = mapOf(1 to username, 1 to email, 2 to pin)
+        val inputs = mapOf(1 to username, 2 to email, 3 to pin)
 
         for (i in inputs) {
             val key = i.key
             val value = i.value
+
             if (value.isBlank()) {
-                when (key) {
-                    1 -> {
-                        Log.i("form", "username: $username, email: $email")
-                        _error.value = "Username and Email address can't be empty"
-                    }
-                    2 -> _error.value = "Pin can't be empty"
-                }
+                if (key != 3) _error.value = "Username and Email address can't be empty"
+                else _error.value = "Pin can't be empty"
+
+                // break loop
                 break
             } else {
-                if (key == 2 && value != repeatedPin) _error.value = "Pin doesn't match"
+                if (key == 3 && value != repeatedPin) _error.value = "Pin doesn't match"
                 else _error.value = null
             }
         }
