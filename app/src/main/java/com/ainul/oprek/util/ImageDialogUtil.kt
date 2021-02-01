@@ -60,28 +60,43 @@ class ImageDialogUtil(private val activity: Activity, private val fragment: Frag
         }
     }
 
+    // File path for photo that just taken,
+    // SET action is private only for this class
     var currentPhotoPath: String = ""
         private set
 
+    /**
+     * capture photo and saves the file.
+     *
+     * The Android Camera application saves a full-size photo if you give a file to save into.
+     * This will create file with [Util.createImageFile],
+     * After file successfully created it will start default camera provided by the phone.
+     */
     fun launchCamera() {
+        // create an intent to take photo
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { cameraIntent ->
+            // ensure that there's camera activity to handle the intent
             cameraIntent.resolveActivity(packageManager).also {
+                // create the file
                 val photoFile: File? = try {
                     Util.createImageFile(activity).apply {
-                        currentPhotoPath = absolutePath
+                        currentPhotoPath = absolutePath // set file path
                     }
                 } catch (e: IOException) {
+                    // Error while creating file
+                    currentPhotoPath = ""
                     null
                 }
 
-                if (photoFile !== null) {
+                // continue only if File successfully created
+                photoFile?.also {
                     val photoURI: Uri = FileProvider.getUriForFile(
                         context,
                         "com.ainul.oprek.fileprovider",
-                        photoFile
+                        it
                     )
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
 
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityResult(
                         cameraIntent,
                         Constants.REQUEST_CODE_TAKE_PICTURE,
