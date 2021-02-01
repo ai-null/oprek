@@ -10,7 +10,7 @@ import com.ainul.oprek.database.Project
 import com.ainul.oprek.database.User
 import com.ainul.oprek.repository.DatabaseRepository
 import com.ainul.oprek.util.Constants.Status
-import com.ainul.oprek.util.Util
+import com.ainul.oprek.util.EncryptManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class MainViewModel(app: Application) : ViewModel() {
     private val repository = DatabaseRepository(database)
 
     // defines encryptManager to get current userId
-    private val encryptManager = Util.EncryptManager(app)
+    private val encryptManager = EncryptManager(app)
     private val userSession = encryptManager.getSession()!!
 
     private val uiScope = CoroutineScope(Dispatchers.Main)

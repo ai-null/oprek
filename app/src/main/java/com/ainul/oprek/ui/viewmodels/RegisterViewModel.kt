@@ -1,6 +1,7 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -123,9 +124,12 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
         for (i in inputs) {
             val key = i.key
             val value = i.value
-            if (value.isEmpty()) {
+            if (value.isBlank()) {
                 when (key) {
-                    1 -> _error.value = "Username and Email address can't be empty"
+                    1 -> {
+                        Log.i("form", "username: $username, email: $email")
+                        _error.value = "Username and Email address can't be empty"
+                    }
                     2 -> _error.value = "Pin can't be empty"
                 }
                 break

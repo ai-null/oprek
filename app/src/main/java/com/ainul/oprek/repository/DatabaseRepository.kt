@@ -85,15 +85,15 @@ class DatabaseRepository(database: OprekDatabase) {
      * This method only meant for development purposes, erase or comment this method
      * and all of its instance when build on production
      */
-    suspend fun deleteAllUser() {
-        withContext(Dispatchers.IO) {
-            dao.deleteAllUsers()
-        }
-    }
-
-    suspend fun deleteAllProject() {
-        withContext(Dispatchers.IO) {
-            dao.deleteAllProjects()
-        }
-    }
+//    suspend fun deleteAllUser() {
+//        withContext(Dispatchers.IO) {
+//            dao.deleteAllUsers()
+//        }
+//    }
+//
+//    suspend fun deleteAllProject() {
+//        withContext(Dispatchers.IO) {
+//            dao.deleteAllProjects()
+//        }
+//    }
 }

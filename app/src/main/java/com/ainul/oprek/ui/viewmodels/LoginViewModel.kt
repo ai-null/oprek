@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.repository.DatabaseRepository
-import com.ainul.oprek.util.Util
+import com.ainul.oprek.util.EncryptManager
 import kotlinx.coroutines.*
 
 class LoginViewModel(app: Application) : ViewModel(), Observable {
@@ -21,7 +21,7 @@ class LoginViewModel(app: Application) : ViewModel(), Observable {
     }
 
     // Encryption manager util class
-    private val encryptManager = Util.EncryptManager(app)
+    private val encryptManager = EncryptManager(app)
 
     // defines database and repository
     private val database = OprekDatabase.getDatabase(app)

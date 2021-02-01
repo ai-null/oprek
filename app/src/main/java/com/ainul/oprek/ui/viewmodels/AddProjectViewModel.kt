@@ -11,7 +11,7 @@ import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.Project
 import com.ainul.oprek.repository.DatabaseRepository
 import com.ainul.oprek.util.Constants
-import com.ainul.oprek.util.Util
+import com.ainul.oprek.util.EncryptManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -95,7 +95,7 @@ class AddProjectViewModel constructor(
     }
 
     // defines encryptManager to get current userId
-    private val encryptManager = Util.EncryptManager(app)
+    private val encryptManager = EncryptManager(app)
     private val userId = encryptManager.getSession()!!.userId
 
     // error state handler

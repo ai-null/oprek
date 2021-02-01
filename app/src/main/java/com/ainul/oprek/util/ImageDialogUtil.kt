@@ -1,10 +1,12 @@
 package com.ainul.oprek.util
 
 import android.Manifest.permission
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -14,6 +16,8 @@ import androidx.fragment.app.Fragment
 import com.ainul.oprek.R
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ImageDialogUtil(private val activity: Activity, private val fragment: Fragment? = null) {
 
@@ -69,7 +73,7 @@ class ImageDialogUtil(private val activity: Activity, private val fragment: Frag
      * capture photo and saves the file.
      *
      * The Android Camera application saves a full-size photo if you give a file to save into.
-     * This will create file with [Util.createImageFile],
+     * This will create file with [createImageFile],
      * After file successfully created it will start default camera provided by the phone.
      */
     fun launchCamera() {
@@ -79,7 +83,7 @@ class ImageDialogUtil(private val activity: Activity, private val fragment: Frag
             cameraIntent.resolveActivity(packageManager).also {
                 // create the file
                 val photoFile: File? = try {
-                    Util.createImageFile(activity).apply {
+                    createImageFile(activity).apply {
                         currentPhotoPath = absolutePath // set file path
                     }
                 } catch (e: IOException) {
@@ -104,7 +108,27 @@ class ImageDialogUtil(private val activity: Activity, private val fragment: Frag
                 }
             }
         }
+    }
 
+    /**
+     * createImageFile,
+     * this method takes [Activity] as parameter to get external directory to store created image.
+     * the file created come from taken picture or image selected from storage,
+     * then store it on specific folder for the app
+     *
+     * @param activity
+     */
+    @SuppressLint("SimpleDateFormat")
+    @Throws(IOException::class)
+    private fun createImageFile(activity: Activity): File {
+        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        return File.createTempFile(
+            "JPEG_${timestamp}",
+            ".jpg",
+            storageDir
+        )
     }
 
     /**
