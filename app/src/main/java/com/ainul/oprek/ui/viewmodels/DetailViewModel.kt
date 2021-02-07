@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
-import com.ainul.oprek.database.Project
+import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.repository.DatabaseRepository
 import kotlinx.coroutines.*
 import java.lang.IllegalArgumentException

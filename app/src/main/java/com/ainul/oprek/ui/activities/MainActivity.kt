@@ -4,14 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.adapter.ListItemAdapter
 import com.ainul.oprek.adapter.listener.ListItemListener
-import com.ainul.oprek.database.Project
+import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.databinding.ActivityMainBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
 import com.ainul.oprek.util.Constants
@@ -76,10 +75,6 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_about -> {
-                // Navigate to about screen
-                Toast.makeText(this, "under construction", Toast.LENGTH_SHORT).show()
-            }
             R.id.item_logout -> {
                 // navigate to login screen. called logout method in the viewmodel, update state,
                 // tell the state-change watcher to proceed to logout

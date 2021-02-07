@@ -1,20 +1,10 @@
-package com.ainul.oprek.database
+package com.ainul.oprek.database.entities
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import com.ainul.oprek.util.Constants
-import java.util.*
-
-@Entity(tableName = "table_user")
-data class User(
-    val email: String,
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
-    val username: String,
-    @ColumnInfo(name ="profile_picture")
-    val profilePicture: String?,
-    val company: String?,
-    val pin: Int
-)
 
 @Entity(
     tableName = "table_project",

@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.ainul.oprek.R
-import com.ainul.oprek.database.Project
+import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.util.Constants.Status
 import com.bumptech.glide.Glide
 import java.io.File

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ainul.oprek.adapter.listener.ListItemListener
-import com.ainul.oprek.database.Project
+import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.databinding.ListItemBinding
 
 class ProjectDiffUtil : DiffUtil.ItemCallback<Project>() {

@@ -1,6 +1,8 @@
 package com.ainul.oprek.repository
 
 import com.ainul.oprek.database.*
+import com.ainul.oprek.database.entities.User
+import com.ainul.oprek.database.entities.Project
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
