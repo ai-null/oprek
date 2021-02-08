@@ -75,6 +75,10 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.item_profile -> {
+                startActivity(Intent(this, ProfileActivity::class.java))
+            }
+
             R.id.item_logout -> {
                 // navigate to login screen. called logout method in the viewmodel, update state,
                 // tell the state-change watcher to proceed to logout

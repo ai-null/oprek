@@ -8,6 +8,10 @@
     <!--  Input_no_icon_margin : 24dp (icon square size) + 32dp (default margin start) -->
     <dimen name="input_no_icon_margin">56dp</dimen>
 
+    <dimen name="profile_picture">65dp</dimen>
+
+    <dimen name="toolbar_height">97dp</dimen>
+
     <!--  list_item  -->
     <dimen name="tag_icon_size">17dp</dimen>
     <dimen name="thumbnail_size">100dp</dimen>

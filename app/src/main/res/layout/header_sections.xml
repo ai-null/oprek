@@ -27,8 +27,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_image"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="@dimen/profile_picture"
+            android:layout_height="@dimen/profile_picture"
             android:layout_margin="@dimen/medium_margin"
             app:cardCornerRadius="4dp"
             app:cardElevation="0dp"
@@ -39,8 +39,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:background="@color/colorGray"
-                android:src="@{viewmodel.user.profilePicture}"
+                android:background="@color/colorWhite"
+                android:padding="@dimen/margin"
+                app:tint="@color/colorIcon"
+                android:src="@drawable/ic_round_person_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="contentDescription" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:imagePath="@{viewmodel.user.profilePicture}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="contentDescription" />
         </androidx.cardview.widget.CardView>
 
@@ -52,9 +65,9 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:text="@{viewmodel.user.username}"
             android:textColor="@color/colorWhite"
-            tools:text="@string/sample_user"
             app:layout_constraintStart_toEndOf="@id/profile_image"
-            app:layout_constraintTop_toTopOf="@id/profile_image" />
+            app:layout_constraintTop_toTopOf="@id/profile_image"
+            tools:text="@string/sample_user" />
 
         <TextView
             android:id="@+id/company"
@@ -62,10 +75,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_margin"
             android:text="@{viewmodel.user.company}"
-            tools:text="@string/sample_company"
             android:textColor="@color/colorWhite2"
             app:layout_constraintStart_toStartOf="@id/summary_subhead"
-            app:layout_constraintTop_toBottomOf="@id/summary_subhead" />
+            app:layout_constraintTop_toBottomOf="@id/summary_subhead"
+            tools:text="@string/sample_company" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_income"

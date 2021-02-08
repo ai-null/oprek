@@ -59,6 +59,82 @@
     <string name="sample_customer_phone">+62 822 6485 4113</string>
     <string name="sample_income">Rp. 3,000,000</string>
     <string name="sample_user">Ainul</string>
+    <string name="sample_lipsum">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Magnam sit distinctio, architecto dolorum earum repudiandae ex
+        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
+        quidem deserunt repellendus? Aut.
+    </string>
 
     <!-- === DetailFragment === -->
     <string name="item_transition_name">item_%1$s</string>
@@ -82,4 +158,5 @@
     <string name="no_project_title">There is no project.</string>
     <string name="no_project_subtitle">Let\'s start to add some project!</string>
     <string name="profile">Profile</string>
+    <string name="sample_email">ainul.y9b@gmail.com</string>
 </resources>
