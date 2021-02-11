@@ -45,11 +45,11 @@ class RegisterFragment : Fragment() {
 
         // Screen navigation animations
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
-            duration = 300L
+            duration = resources.getInteger(R.integer.default_transitionDuration).toLong()
         }
 
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            duration = 300L
+            duration = resources.getInteger(R.integer.default_transitionDuration).toLong()
         }
 
         return binding.root

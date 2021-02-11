@@ -68,11 +68,11 @@ class LoginFragment : Fragment() {
     private fun navigateToRegister() {
         // Screen navigation animations
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
-            duration = 300L
+            duration = resources.getInteger(R.integer.default_transitionDuration).toLong()
         }
 
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            duration = 300L
+            duration = resources.getInteger(R.integer.default_transitionDuration).toLong()
         }
 
         findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
