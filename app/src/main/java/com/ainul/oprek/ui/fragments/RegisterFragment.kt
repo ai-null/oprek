@@ -43,22 +43,22 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = viewmodel
 
-        val activity = requireNotNull(activity)
-        imageDialogUtil = ImageDialogUtil(activity, this)
-
         // Screen navigation animations
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
-            duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+            duration = 300L
         }
 
-        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            duration = 300L
         }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val activity = requireNotNull(activity)
+        imageDialogUtil = ImageDialogUtil(activity, this)
+
         // Error snackBar handler, shows on state update
         viewmodel.error.observe(viewLifecycleOwner, {
             it?.let { message ->

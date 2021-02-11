@@ -12,6 +12,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:transitionGroup="true"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +20,6 @@
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            android:transitionGroup="true"
             tools:context=".ui.fragments.LoginFragment">
 
             <LinearLayout

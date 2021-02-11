@@ -35,15 +35,6 @@ class LoginFragment : Fragment() {
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Screen navigation animations
-        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
-        }
-
-        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
-            duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
-        }
-
         return binding.root
     }
 
@@ -70,7 +61,20 @@ class LoginFragment : Fragment() {
 
         // navigate to register screen
         binding.buttonRegister.setOnClickListener {
-            this.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            navigateToRegister()
         }
+    }
+
+    private fun navigateToRegister() {
+        // Screen navigation animations
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
+            duration = 300L
+        }
+
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            duration = 300L
+        }
+
+        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
     }
 }
