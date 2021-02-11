@@ -265,7 +265,7 @@
 
             <View
                 android:id="@+id/due_clicklistener"
-                android:background="@drawable/background_ripple_due"
+                android:background="@drawable/background_ripple_mask"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/input_no_icon_margin"

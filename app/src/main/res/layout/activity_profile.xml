@@ -89,59 +89,52 @@
                             android:textStyle="bold" />
 
                         <LinearLayout
-                            style="@style/AppTheme.selectableItemLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:padding="@dimen/small_margin"
                             tools:ignore="UseCompoundDrawables">
 
-                            <ImageView
-                                style="@style/profile_icon"
-                                android:src="@drawable/ic_round_person_24"
-                                app:tint="@color/colorIcon"
-                                tools:ignore="contentDescription" />
-
                             <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/input_username_layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
                                 app:boxBackgroundColor="@color/colorWhite"
                                 app:boxBackgroundMode="none"
                                 app:endIconDrawable="@drawable/ic_baseline_edit_24"
-                                app:endIconMode="custom">
+                                app:endIconMode="custom"
+                                app:startIconDrawable="@drawable/ic_round_person_24">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/input_username"
                                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                     android:layout_width="match_parent"
-                                    android:enabled="false"
-                                    tools:text="@string/sample_user"
-                                    android:textColor="@color/colorBlack2"
                                     android:layout_height="match_parent"
+                                    android:enabled="false"
+                                    android:focusable="true"
                                     android:hint="@string/username"
                                     android:imeOptions="actionDone"
                                     android:inputType="text"
-                                    android:text="@{viewmodel.user.username}" />
+                                    android:text="@{viewmodel.user.username}"
+                                    android:textColor="@color/colorBlack2"
+                                    tools:text="@string/sample_user" />
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
                         <LinearLayout
-                            style="@style/AppTheme.selectableItemLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:padding="@dimen/small_margin"
                             tools:ignore="UseCompoundDrawables">
 
-                            <ImageView
-                                style="@style/profile_icon"
-                                android:src="@drawable/ic_baseline_work_outline_24"
-                                app:tint="@color/colorIcon"
-                                tools:ignore="contentDescription" />
-
                             <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/input_company_layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
                                 app:boxBackgroundColor="@color/colorWhite"
                                 app:boxBackgroundMode="none"
                                 app:endIconDrawable="@drawable/ic_baseline_edit_24"
-                                app:endIconMode="custom">
+                                app:endIconMode="custom"
+                                app:startIconDrawable="@drawable/ic_baseline_work_outline_24">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/input_company"
