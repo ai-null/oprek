@@ -79,18 +79,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundColor="@color/colorWhite"
-                    app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusBottomEnd="4dp"
-                    app:boxCornerRadiusBottomStart="4dp"
-                    app:boxCornerRadiusTopEnd="4dp"
-                    app:boxCornerRadiusTopStart="4dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeErrorColor="@color/colorRed"
                     app:errorContentDescription="Please provide a correct email address"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_email"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/email_address"
@@ -103,16 +98,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundColor="@color/colorWhite"
-                    app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusBottomEnd="4dp"
-                    app:boxCornerRadiusBottomStart="4dp"
-                    app:boxCornerRadiusTopEnd="4dp"
-                    app:boxCornerRadiusTopStart="4dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_pin"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/pin_number"

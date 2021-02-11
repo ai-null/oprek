@@ -62,15 +62,14 @@
                     tools:ignore="contentDescription" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/large_margin"
-                    app:boxBackgroundColor="@color/colorWhite"
-                    app:boxBackgroundMode="outline">
+                    app:boxBackgroundColor="@color/colorWhite">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_username"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/username"
@@ -94,15 +93,14 @@
                     tools:ignore="contentDescription" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/large_margin"
-                    app:boxBackgroundColor="@color/colorWhite"
-                    app:boxBackgroundMode="outline">
+                    app:boxBackgroundColor="@color/colorWhite">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_company"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/company"
@@ -122,9 +120,9 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_marginTop="@dimen/medium_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -135,18 +133,17 @@
                     tools:ignore="contentDescription" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/large_margin"
                     app:boxBackgroundColor="@color/colorWhite"
-                    app:boxBackgroundMode="outline"
                     app:boxStrokeErrorColor="@color/colorRed"
                     app:errorContentDescription="Please provide a correct email address"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_email"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/email_address"
@@ -169,17 +166,16 @@
                     tools:ignore="contentDescription" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/large_margin"
                     app:boxBackgroundColor="@color/colorWhite"
-                    app:boxBackgroundMode="outline"
                     app:endIconContentDescription="show password"
                     app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_pin"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/set_pin_number"
@@ -191,12 +187,12 @@
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/input_no_icon_margin"
                 android:layout_marginTop="10dp"
                 app:boxBackgroundColor="@color/colorWhite"
-                app:boxBackgroundMode="outline"
                 app:boxStrokeErrorColor="@color/colorRed"
                 app:endIconContentDescription="show password"
                 app:endIconMode="password_toggle"
@@ -205,7 +201,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_pin_repeat"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/repeat_pin_number"
