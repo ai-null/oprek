@@ -124,16 +124,6 @@
         Magnam sit distinctio, architecto dolorum earum repudiandae ex
         ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
         quidem deserunt repellendus? Aut.
-
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Magnam sit distinctio, architecto dolorum earum repudiandae ex
-        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
-        quidem deserunt repellendus? Aut.
-
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Magnam sit distinctio, architecto dolorum earum repudiandae ex
-        ullam maiores eius ducimus dolor nostrum id suscipit aperiam dicta
-        quidem deserunt repellendus? Aut.
     </string>
 
     <!-- === DetailFragment === -->
@@ -159,4 +149,7 @@
     <string name="no_project_subtitle">Let\'s start to add some project!</string>
     <string name="profile">Profile</string>
     <string name="sample_email">ainul.y9b@gmail.com</string>
+
+    <string name="enter_username">Enter your name</string>
+    <string name="enter_company">Company you working at</string>
 </resources>

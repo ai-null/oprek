@@ -1,6 +1,9 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
+import androidx.databinding.Bindable
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
-class MainViewModel(app: Application) : ViewModel() {
+class MainViewModel(app: Application) : ViewModel(), Observable {
     private val database = OprekDatabase.getDatabase(app)
     private val repository = DatabaseRepository(database)
 
@@ -29,9 +32,20 @@ class MainViewModel(app: Application) : ViewModel() {
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
 
+    @Bindable
+    var username: String? = ""
+
+    @get:Bindable
+    var company: String? = ""
+
     private fun getUser() {
         uiScope.launch {
-            _user.value = repository.getUser(userSession.email, userSession.pin)
+            repository.getUser(userSession.email, userSession.pin).also {
+                username = it?.username
+                company = it?.company
+
+                _user.value = it
+            }
         }
     }
 
@@ -39,9 +53,15 @@ class MainViewModel(app: Application) : ViewModel() {
         getUser()
     }
 
+    sealed class ViewState {
+        object User : ViewState()
+    }
+
     // no need to make this into a method in repo, since it returns LiveData
     // LiveData will automatically handle the project from background-thread
-    val projects: LiveData<List<Project>?> = database.oprekDao.getProjects(userSession.userId)
+    val projects: LiveData<List<Project>?> by lazy {
+        database.oprekDao.getProjects(userSession.userId)
+    }
 
     /**
      * projectCount,
@@ -67,6 +87,16 @@ class MainViewModel(app: Application) : ViewModel() {
 
     private val _logoutState = MutableLiveData(false)
     val logoutState: LiveData<Boolean> get() = _logoutState
+
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
+
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.add(callback)
+    }
+
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.remove(callback)
+    }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

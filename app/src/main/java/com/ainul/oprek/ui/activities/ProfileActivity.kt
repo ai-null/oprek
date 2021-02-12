@@ -2,17 +2,15 @@ package com.ainul.oprek.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowManager
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
 import com.ainul.oprek.databinding.ActivityProfileBinding
+import com.ainul.oprek.databinding.BottomSheetEditDataBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
-import com.ainul.oprek.ui.viewmodels.ProfileViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ProfileActivity : AppCompatActivity() {
@@ -47,15 +45,39 @@ class ProfileActivity : AppCompatActivity() {
             }
         })
 
-        val bottomSheetBehavior = BottomSheetDialog(this, R.style.AppTheme_BottomSheetDialog)
-        bottomSheetBehavior.setContentView(R.layout.bottom_sheet_edit_data)
-
         binding.inputUsernameLayout.setEndIconOnClickListener {
-            bottomSheetBehavior.show()
+            showBottomDialog(true)
         }
 
         binding.inputCompanyLayout.setEndIconOnClickListener {
-            Toast.makeText(this, "heyaa", Toast.LENGTH_SHORT).show()
+            showBottomDialog(false)
+        }
+    }
+
+
+    private val dialog: BottomSheetDialog by lazy {
+        BottomSheetDialog(this, R.style.AppTheme_BottomSheetDialog)
+    }
+
+    private fun showBottomDialog(isUsername: Boolean) {
+        val dialogBinding = BottomSheetEditDataBinding.inflate(layoutInflater)
+        dialog.setContentView(dialogBinding.root)
+        dialogBinding.viewmodel = viewmodel
+        dialogBinding.isUsername = isUsername
+
+        Log.i("username", "${viewmodel.username}")
+        Log.i("username2", "${viewmodel.user.value?.username}")
+
+        dialog.window?.run {
+            dialog.show()
+        }
+
+        dialogBinding.buttonCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogBinding.buttonSave.setOnClickListener {
+            // TODO: add save method
         }
     }
 }
