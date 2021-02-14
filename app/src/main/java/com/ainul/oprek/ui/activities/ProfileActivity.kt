@@ -3,6 +3,7 @@ package com.ainul.oprek.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -65,11 +66,9 @@ class ProfileActivity : AppCompatActivity() {
         dialogBinding.viewmodel = viewmodel
         dialogBinding.isUsername = isUsername
 
-        Log.i("username", "${viewmodel.username}")
-        Log.i("username2", "${viewmodel.user.value?.username}")
-
         dialog.window?.run {
             dialog.show()
+            dialogBinding.inputField.requestFocus()
         }
 
         dialogBinding.buttonCancel.setOnClickListener {
@@ -77,7 +76,18 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         dialogBinding.buttonSave.setOnClickListener {
-            // TODO: add save method
+            val inputField = dialogBinding.inputField.text.toString()
+            if (inputField.isBlank()) {
+                val messageRes = resources.getString(R.string.dialog_alert_message)
+                val placeholder = if (isUsername) "User" else "Company"
+                val message = String.format(messageRes, placeholder)
+
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            } else {
+                viewmodel.saveData(isUsername, inputField).also {
+                    dialog.dismiss()
+                }
+            }
         }
     }
 }

@@ -22,6 +22,18 @@ class DatabaseRepository(database: OprekDatabase) {
         }
     }
 
+    suspend fun updateUsername(id: Long, username: String) {
+        withContext(Dispatchers.IO) {
+            dao.updateUsername(id, username)
+        }
+    }
+
+    suspend fun updateCompany(id: Long, company: String) {
+        withContext(Dispatchers.IO) {
+            dao.updateCompany(id, company)
+        }
+    }
+
     /**
      * this method used to check email of new user, if it same as other
      * returns `false`, otherwise `true`

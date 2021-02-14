@@ -152,4 +152,7 @@
 
     <string name="enter_username">Enter your name</string>
     <string name="enter_company">Company you working at</string>
+
+
+    <string name="dialog_alert_message">%s name can\'t be empty!</string>
 </resources>

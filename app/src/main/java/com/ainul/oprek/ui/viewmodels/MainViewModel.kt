@@ -1,7 +1,6 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
@@ -32,24 +31,24 @@ class MainViewModel(app: Application) : ViewModel(), Observable {
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
 
-    @Bindable
-    var username: String? = ""
-
-    @get:Bindable
-    var company: String? = ""
-
     private fun getUser() {
         uiScope.launch {
-            repository.getUser(userSession.email, userSession.pin).also {
-                username = it?.username
-                company = it?.company
-
-                _user.value = it
-            }
+            _user.value = repository.getUser(userSession.email, userSession.pin)
         }
     }
 
     init {
+        getUser()
+    }
+
+    fun saveData(isUsername: Boolean, newValue: String) {
+        uiScope.launch {
+            repository.run {
+                if (isUsername) updateUsername(userSession.userId, newValue)
+                else updateCompany(userSession.userId, newValue)
+            }
+        }
+
         getUser()
     }
 

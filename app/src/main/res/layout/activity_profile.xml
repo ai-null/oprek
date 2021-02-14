@@ -171,7 +171,7 @@
 
                         <LinearLayout
                             style="@style/AppTheme.selectableItemLayout"
-                            android:layout_marginBottom="@dimen/medium_margin"
+                            android:layout_marginBottom="@dimen/margin"
                             android:onClick="@{() -> viewmodel.logout()}"
                             tools:ignore="UseCompoundDrawables">
 

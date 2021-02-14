@@ -26,6 +26,12 @@ interface OprekDao {
     @Query("SELECT * FROM table_user WHERE email = :email AND pin = :pin")
     fun getUser(email: String, pin: Int): User?
 
+    @Query("UPDATE table_user SET username = :username WHERE id = :id")
+    fun updateUsername(id: Long, username: String)
+
+    @Query("UPDATE table_user SET company = :company WHERE id = :id")
+    fun updateCompany(id: Long, company: String)
+
     // ===== PROJECT =====
 
     @Insert
