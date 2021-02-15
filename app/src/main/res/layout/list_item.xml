@@ -13,7 +13,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/small_margin"
         android:elevation="0dp"
         android:background="@drawable/background_list_item"
         android:clickable="true"

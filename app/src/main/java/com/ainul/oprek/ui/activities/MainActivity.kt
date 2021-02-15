@@ -76,7 +76,10 @@ class MainActivity : AppCompatActivity(), ListItemListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_profile -> {
-                startActivity(Intent(this, ProfileActivity::class.java))
+                startActivityForResult(
+                    Intent(this, ProfileActivity::class.java),
+                    Constants.REQUEST_CODE_PROFILE_ACTIVITY
+                )
             }
 
             R.id.item_logout -> {
@@ -94,5 +97,15 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         intent.putExtra(Constants.PROJECT_ID, project.id)
 
         startActivity(intent)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == Constants.REQUEST_CODE_PROFILE_ACTIVITY
+            && resultCode == Constants.RESULT_CODE_UPDATED
+        ) {
+            viewmodel.refresh()
+        }
     }
 }

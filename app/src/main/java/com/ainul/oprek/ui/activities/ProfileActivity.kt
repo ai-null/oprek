@@ -11,6 +11,7 @@ import com.ainul.oprek.R
 import com.ainul.oprek.databinding.ActivityProfileBinding
 import com.ainul.oprek.databinding.BottomSheetEditDataBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
+import com.ainul.oprek.util.Constants
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ProfileActivity : AppCompatActivity() {
@@ -85,8 +86,10 @@ class ProfileActivity : AppCompatActivity() {
 
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             } else {
-                viewmodel.saveData(isUsername, content).also {
+                viewmodel.updateData(isUsername, content).also {
                     dialog.dismiss()
+
+                    setResult(Constants.RESULT_CODE_UPDATED)
                 }
             }
         }

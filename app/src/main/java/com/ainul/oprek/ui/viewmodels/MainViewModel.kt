@@ -29,17 +29,21 @@ class MainViewModel(app: Application) : ViewModel() {
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
 
-    private suspend fun refresh() {
-        _user.value = repository.getUser(userSession.email, userSession.pin)
-    }
-
-    init {
+    fun refresh() {
         uiScope.launch {
-            refresh()
+            _user.value = repository.getUser(userSession.email, userSession.pin)
         }
     }
 
-    fun saveData(isUsername: Boolean, newValue: String) {
+    init {
+        refresh()
+    }
+
+    /**
+     * update user data, [isUsername] will decide where the newValue should be saved into
+     * @param newValue new data which will be updated
+     */
+    fun updateData(isUsername: Boolean, newValue: String) {
         uiScope.launch {
             repository.run {
                 if (isUsername) updateUsername(userSession.userId, newValue)
