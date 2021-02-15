@@ -34,6 +34,12 @@ class DatabaseRepository(database: OprekDatabase) {
         }
     }
 
+    suspend fun updateProfilePicture(id: Long, path: String) {
+        withContext(Dispatchers.IO) {
+            dao.updateProfilePicture(id, path)
+        }
+    }
+
     /**
      * this method used to check email of new user, if it same as other
      * returns `false`, otherwise `true`

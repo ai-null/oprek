@@ -39,23 +39,34 @@ class MainViewModel(app: Application) : ViewModel() {
         refresh()
     }
 
-    /**
-     * update user data, [isUsername] will decide where the newValue should be saved into
-     * @param newValue new data which will be updated
-     */
-    fun updateData(isUsername: Boolean, newValue: String) {
-        uiScope.launch {
-            repository.run {
-                if (isUsername) updateUsername(userSession.userId, newValue)
-                else updateCompany(userSession.userId, newValue)
-            }.also {
-                refresh()
-            }
+    companion object {
+        enum class DataToUpdate() {
+            USERNAME,
+            COMPANY,
+            PROFILE_PICTURE
         }
     }
 
-    sealed class ViewState {
-        object User : ViewState()
+    private val _dataUpdated = MutableLiveData<Boolean>()
+    val dataUpdated: LiveData<Boolean> get() = _dataUpdated
+
+    /**
+     * update user data, [dataToUpdate] will decide where the newValue should be saved into
+     * @param newValue new data which will be updated
+     */
+    fun updateData(dataToUpdate: DataToUpdate, newValue: String) {
+        uiScope.launch {
+            repository.run {
+                when (dataToUpdate) {
+                    DataToUpdate.USERNAME -> updateUsername(userSession.userId, newValue)
+                    DataToUpdate.COMPANY -> updateCompany(userSession.userId, newValue)
+                    DataToUpdate.PROFILE_PICTURE -> updateProfilePicture(userSession.userId, newValue)
+                }
+            }.also {
+                refresh()
+                _dataUpdated.value = true
+            }
+        }
     }
 
     // no need to make this into a method in repo, since it returns LiveData

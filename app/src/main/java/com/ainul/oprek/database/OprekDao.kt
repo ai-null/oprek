@@ -32,6 +32,9 @@ interface OprekDao {
     @Query("UPDATE table_user SET company = :company WHERE id = :id")
     fun updateCompany(id: Long, company: String)
 
+    @Query("UPDATE table_user SET profile_picture = :path WHERE id = :id")
+    fun updateProfilePicture(id: Long, path: String)
+
     // ===== PROJECT =====
 
     @Insert
