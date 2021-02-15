@@ -1,8 +1,6 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
-import androidx.databinding.Observable
-import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
-class MainViewModel(app: Application) : ViewModel(), Observable {
+class MainViewModel(app: Application) : ViewModel() {
     private val database = OprekDatabase.getDatabase(app)
     private val repository = DatabaseRepository(database)
 
@@ -31,14 +29,14 @@ class MainViewModel(app: Application) : ViewModel(), Observable {
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
 
-    private fun getUser() {
-        uiScope.launch {
-            _user.value = repository.getUser(userSession.email, userSession.pin)
-        }
+    private suspend fun refresh() {
+        _user.value = repository.getUser(userSession.email, userSession.pin)
     }
 
     init {
-        getUser()
+        uiScope.launch {
+            refresh()
+        }
     }
 
     fun saveData(isUsername: Boolean, newValue: String) {
@@ -46,10 +44,10 @@ class MainViewModel(app: Application) : ViewModel(), Observable {
             repository.run {
                 if (isUsername) updateUsername(userSession.userId, newValue)
                 else updateCompany(userSession.userId, newValue)
+            }.also {
+                refresh()
             }
         }
-
-        getUser()
     }
 
     sealed class ViewState {
@@ -86,16 +84,6 @@ class MainViewModel(app: Application) : ViewModel(), Observable {
 
     private val _logoutState = MutableLiveData(false)
     val logoutState: LiveData<Boolean> get() = _logoutState
-
-    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
-
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.add(callback)
-    }
-
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.remove(callback)
-    }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

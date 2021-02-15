@@ -22,7 +22,7 @@ import java.io.File
  * Image path helper,
  * this will show the picture if it in the right path show another or hide the image otherwise.
  *
- * [R.id.cover_image] & [R.id.thumbnail] will cover up the `no-image-available` placeholder when image is set correctly
+ * [R.id.cover_image] & [R.id.thumbnail_container] will cover up the `no-image-available` placeholder when image is set correctly
  */
 @BindingAdapter("imagePath")
 fun ImageView.imagePath(e: String?) {

@@ -28,9 +28,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
             android:text="@{isUsername ? @string/enter_username : @string/enter_company}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/enter_username" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/input_field"

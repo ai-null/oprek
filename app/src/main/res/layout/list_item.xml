@@ -13,7 +13,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite2"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        android:elevation="0dp"
+        android:background="@drawable/background_list_item"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground">
@@ -28,35 +30,35 @@
             app:layout_constraintTop_toTopOf="parent"
             app:status="@{project.status}" />
 
-        <TextView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thumbnail_container"
             android:layout_width="@dimen/thumbnail_size"
             android:layout_height="@dimen/thumbnail_size"
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/medium_margin"
             android:layout_marginBottom="@dimen/medium_margin"
-            android:background="@color/colorGray"
-            android:gravity="center"
-            android:text="@string/img_none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/status_tag"
-            app:layout_constraintVertical_bias="1" />
+            app:cardCornerRadius="4dp"
+            app:layout_constraintVertical_bias="1">
 
-        <ImageView
-            android:scaleType="centerCrop"
-            android:id="@+id/thumbnail"
-            android:layout_width="@dimen/thumbnail_size"
-            android:layout_height="@dimen/thumbnail_size"
-            android:layout_marginTop="@dimen/margin"
-            android:layout_marginEnd="@dimen/medium_margin"
-            android:layout_marginBottom="@dimen/medium_margin"
-            app:imagePath="@{project.deviceImage}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_tag"
-            app:layout_constraintVertical_bias="1"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_launcher_background" />
+            <TextView
+                android:layout_width="@dimen/thumbnail_size"
+                android:layout_height="@dimen/thumbnail_size"
+                android:background="@color/colorGray"
+                android:gravity="center"
+                android:text="@string/img_none" />
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="@dimen/thumbnail_size"
+                android:layout_height="@dimen/thumbnail_size"
+                android:scaleType="centerCrop"
+                app:imagePath="@{project.deviceImage}"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_launcher_background" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:id="@+id/data_container"
@@ -65,10 +67,10 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginEnd="@dimen/medium_margin"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/thumbnail"
-            app:layout_constraintEnd_toStartOf="@id/thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail_container"
+            app:layout_constraintEnd_toStartOf="@id/thumbnail_container"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/thumbnail">
+            app:layout_constraintTop_toTopOf="@id/thumbnail_container">
 
             <TextView
                 android:id="@+id/device"
@@ -107,12 +109,12 @@
                 tools:text="@string/sample_description" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorGray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/data_container"
-            app:layout_constraintVertical_bias="1" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/colorGray"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/data_container"-->
+<!--            app:layout_constraintVertical_bias="1" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
