@@ -45,6 +45,7 @@
         <activity
             android:name=".ui.activities.ProfileActivity"
             android:label="@string/profile"
+            android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

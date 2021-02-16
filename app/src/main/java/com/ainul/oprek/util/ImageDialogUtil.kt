@@ -25,14 +25,41 @@ class ImageDialogUtil(private val activity: Activity, private val fragment: Frag
     private val packageManager = activity.packageManager
 
     /**
+     * show choose image dialog
+     * this method purposed only to show the dialog, all actions handled by [chooseImage].
+     */
+//    fun showChooseImageDialog() {
+//        val dialog = AlertDialog.Builder(context)
+//
+//        // dialog xml resource
+//        val view = activity.layoutInflater.inflate(
+//            R.layout.dialog_choose_image,
+//            activity.findViewById(R.id.choose_image_container)
+//        )
+//
+//        // set view & create dialog
+//        dialog.setView(view)
+//        val chooseImageDialog = dialog.create()
+//
+//        // show dialog
+//        chooseImageDialog.window?.run {
+//            setBackgroundDrawable(ColorDrawable(0))
+//            chooseImageDialog.show()
+//        }
+//
+//        chooseImage(chooseImageDialog, view)
+//    }
+
+    /**
      * This method below handle [R.layout.dialog_choose_image] clickListener
-     * it takes [dialog] to hide the dialog after being clicked
-     * and [view] to get the elements from layout
+     * it takes [dialog] to hide the dialog after being clicked and [view] to get the elements from layout.
+     * -
+     * When item is clicked, it will execute [Util.isPermitted] to check whether permission is already
+     * allowed or not.
+     * If allowed proceed to select an image from gallery or launch camera to take a picture.
+     * If not proceed to request the permission from the user.
      *
-     * @param dialog
-     * @param view [View]
-     *
-     * @see [selectImage]
+     * @param dialog dialog created with [AlertDialog.Builder]
      */
     fun chooseImage(dialog: AlertDialog, view: View) {
         val itemChooseImage: LinearLayout = view.findViewById(R.id.dialog_item_choose_image)

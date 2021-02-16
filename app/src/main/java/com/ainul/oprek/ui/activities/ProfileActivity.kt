@@ -1,12 +1,12 @@
 package com.ainul.oprek.ui.activities
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -31,9 +31,20 @@ class ProfileActivity : AppCompatActivity() {
     }
     private lateinit var binding: ActivityProfileBinding
 
+    // chooseImage/camera handler utility
+    private lateinit var imageDialogUtil: ImageDialogUtil
+
+    // BottomSheet dialog
+    private val dialog: BottomSheetDialog by lazy {
+        BottomSheetDialog(this, R.style.AppTheme_BottomSheetDialog)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
+
+        // set imageDialogUtil to extends this activity
+        imageDialogUtil = ImageDialogUtil(this)
 
         // set custom toolbar
         val toolbar: Toolbar = findViewById(R.id.profile_toolbar)
@@ -53,29 +64,26 @@ class ProfileActivity : AppCompatActivity() {
             }
         })
 
+        // when data (one/more field from User) is updated,
+        // send a signal to update current data to parent intent
         viewmodel.dataUpdated.observe(this, {
             if (it) setResult(Constants.RESULT_CODE_UPDATED)
         })
 
-        // Edit username
+        // Update username
         binding.inputUsernameLayout.setEndIconOnClickListener {
             showBottomDialog(DataToUpdate.USERNAME)
         }
 
-        // Edit company
+        // Update company name
         binding.inputCompanyLayout.setEndIconOnClickListener {
             showBottomDialog(DataToUpdate.COMPANY)
         }
 
-        // Edit profile picture
+        // Update profile picture
         binding.editPictureFab.setOnClickListener {
             showChooseImageDialog()
         }
-    }
-
-
-    private val dialog: BottomSheetDialog by lazy {
-        BottomSheetDialog(this, R.style.AppTheme_BottomSheetDialog)
     }
 
     private fun showBottomDialog(dataToUpdate: DataToUpdate) {
@@ -111,11 +119,6 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    // Image handle utility
-    private val imageDialogUtil: ImageDialogUtil by lazy {
-        ImageDialogUtil(this)
     }
 
     private fun showChooseImageDialog() {
