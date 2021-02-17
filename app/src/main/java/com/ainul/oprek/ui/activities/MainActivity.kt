@@ -1,9 +1,13 @@
 package com.ainul.oprek.ui.activities
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +18,7 @@ import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.databinding.ActivityMainBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
 import com.ainul.oprek.util.Constants
+
 
 class MainActivity : AppCompatActivity(), ListItemListener {
 
@@ -27,6 +32,9 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     // Adapter used for recyclerView
     private lateinit var adapter: ListItemAdapter
+
+    private lateinit var searchView: SearchView
+    private lateinit var queryTextListener: SearchView.OnQueryTextListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +78,28 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.dashboard_menu, menu)
+
+        val searchItem: MenuItem? = menu?.findItem(R.id.item_search)
+        val searchManager = this.getSystemService(Context.SEARCH_SERVICE) as (SearchManager)
+
+        if (searchItem != null) {
+            searchView = searchItem.actionView as SearchView
+        }
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.componentName))
+        queryTextListener = object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.i("onQueryTextSubmit", "$query")
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+
+        }
+
         return true
     }
 
@@ -88,6 +118,8 @@ class MainActivity : AppCompatActivity(), ListItemListener {
                 viewmodel.logout()
             }
         }
+
+        searchView.setOnQueryTextListener(queryTextListener)
 
         return super.onOptionsItemSelected(item)
     }

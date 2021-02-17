@@ -5,7 +5,7 @@ import androidx.room.*
 import com.ainul.oprek.database.entities.User
 import com.ainul.oprek.database.entities.Project
 
-@Database(entities = [User::class, Project::class], exportSchema = false, version = 9)
+@Database(entities = [User::class, Project::class], exportSchema = false, version = 10)
 abstract class OprekDatabase : RoomDatabase() {
     abstract val oprekDao: OprekDao
 
