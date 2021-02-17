@@ -40,7 +40,7 @@ class MainViewModel(app: Application) : ViewModel() {
     }
 
     companion object {
-        enum class DataToUpdate() {
+        enum class DataToUpdate {
             USERNAME,
             COMPANY,
             PROFILE_PICTURE
@@ -50,6 +50,8 @@ class MainViewModel(app: Application) : ViewModel() {
     private val _dataUpdated = MutableLiveData<Boolean>()
     val dataUpdated: LiveData<Boolean> get() = _dataUpdated
 
+    private val userId = userSession.userId
+
     /**
      * update user data, [dataToUpdate] will decide where the newValue should be saved into
      * @param newValue new data which will be updated
@@ -58,9 +60,9 @@ class MainViewModel(app: Application) : ViewModel() {
         uiScope.launch {
             repository.run {
                 when (dataToUpdate) {
-                    DataToUpdate.USERNAME -> updateUsername(userSession.userId, newValue)
-                    DataToUpdate.COMPANY -> updateCompany(userSession.userId, newValue)
-                    DataToUpdate.PROFILE_PICTURE -> updateProfilePicture(userSession.userId, newValue)
+                    DataToUpdate.USERNAME -> updateUsername(userId, newValue)
+                    DataToUpdate.COMPANY -> updateCompany(userId, newValue)
+                    DataToUpdate.PROFILE_PICTURE -> updateProfilePicture(userId, newValue)
                 }
             }.also {
                 refresh()
@@ -72,7 +74,7 @@ class MainViewModel(app: Application) : ViewModel() {
     // no need to make this into a method in repo, since it returns LiveData
     // LiveData will automatically handle the project from background-thread
     val projects: LiveData<List<Project>?> by lazy {
-        database.oprekDao.getProjects(userSession.userId)
+        database.oprekDao.getProjects(userId)
     }
 
     /**
@@ -80,7 +82,6 @@ class MainViewModel(app: Application) : ViewModel() {
      * count how many projects filtered by its status
      *
      * @param projectList list of [Project], it is nullable in case there's no project yet
-     * @param status [Status]
      * @return String
      */
     fun projectCount(projectList: List<Project>?, status: Status): String {

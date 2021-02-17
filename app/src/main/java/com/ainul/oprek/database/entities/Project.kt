@@ -32,5 +32,5 @@ data class Project(
     val description: String?,
     @ColumnInfo(name = "due_date")
     val dueDate: String?,
-    val cost: Double? = 0.0
+    val cost: Double = 0.0
 )

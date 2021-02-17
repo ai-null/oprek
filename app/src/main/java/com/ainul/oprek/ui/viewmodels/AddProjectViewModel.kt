@@ -73,19 +73,23 @@ class AddProjectViewModel constructor(
     private val _deviceImage = MutableLiveData<String?>(null)
     val deviceImage: LiveData<String?> get() = _deviceImage
 
+    private fun setValue(project: Project) {
+        project.let {
+            deviceName = it.deviceName
+            description = it.description
+            customerName = it.customerName
+            phoneNumber = it.phoneNumber
+            cost = it.cost.toString()
+            dueDate = it.dueDate
+
+            _deviceImage.value = it.deviceImage
+        }
+    }
+
     init {
         if (projectId != null) {
             uiScope.launch {
-                repository.getProject(projectId)!!.also {
-                    deviceName = it.deviceName
-                    description = it.description
-                    customerName = it.customerName
-                    phoneNumber = it.phoneNumber
-                    cost = it.cost.toString()
-                    dueDate = it.dueDate
-
-                    _deviceImage.value = it.deviceImage
-                }
+                setValue(repository.getProject(projectId)!!)
             }
         }
     }
@@ -108,8 +112,6 @@ class AddProjectViewModel constructor(
      */
     fun onClick() {
         if (deviceName.isNotBlank() and customerName.isNotBlank()) {
-            val costCheck = if (cost.isBlank()) 0.0 else cost.toDouble()
-
             saveProject(
                 Project(
                     id = projectId ?: 0L,
@@ -120,7 +122,7 @@ class AddProjectViewModel constructor(
                     description = description,
                     phoneNumber = phoneNumber,
                     dueDate = dueDate,
-                    cost = costCheck
+                    cost = cost.toDouble()
                 )
             )
         } else {
