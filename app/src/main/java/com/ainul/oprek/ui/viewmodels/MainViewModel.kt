@@ -1,6 +1,7 @@
 package com.ainul.oprek.ui.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
+import java.util.*
 
 class MainViewModel(app: Application) : ViewModel() {
     private val database = OprekDatabase.getDatabase(app)
@@ -75,6 +77,28 @@ class MainViewModel(app: Application) : ViewModel() {
     // LiveData will automatically handle the project from background-thread
     val projects: LiveData<List<Project>?> by lazy {
         database.oprekDao.getProjects(userId)
+    }
+
+    private val _filteredList = MutableLiveData<List<Project>>()
+    val filteredList: LiveData<List<Project>> get() = _filteredList
+
+    fun filterProjects(query: String): Boolean {
+        val listOfProjects = projects.value
+
+        val text = query.toLowerCase(Locale.ROOT)
+
+        if (query.isEmpty()) {
+            _filteredList.value = listOfProjects
+        } else {
+            if (listOfProjects != null) {
+                val filtered =
+                    listOfProjects.filter { it.customerName.toLowerCase(Locale.ROOT).contains(text) || it.deviceName.toLowerCase(Locale.ROOT).contains(text) }
+                _filteredList.value = filtered
+                Log.i("filtered", "$filtered")
+            }
+        }
+
+        return true
     }
 
     /**

@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
@@ -74,13 +73,19 @@ class MainActivity : AppCompatActivity(), ListItemListener {
                 adapter.submitList(projects)
             }
         })
+
+        viewmodel.filteredList.observe(this, {
+            it.let { projects ->
+                adapter.submitList(projects)
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.dashboard_menu, menu)
 
         val searchItem: MenuItem? = menu?.findItem(R.id.item_search)
-        val searchManager = this.getSystemService(Context.SEARCH_SERVICE) as (SearchManager)
+        val searchManager: SearchManager = this.getSystemService(Context.SEARCH_SERVICE) as (SearchManager)
 
         if (searchItem != null) {
             searchView = searchItem.actionView as SearchView
@@ -89,14 +94,11 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.componentName))
         queryTextListener = object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Log.i("onQueryTextSubmit", "$query")
-
+                if (query != null) viewmodel.filterProjects(query)
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
+            override fun onQueryTextChange(newText: String?): Boolean = true
 
         }
 
