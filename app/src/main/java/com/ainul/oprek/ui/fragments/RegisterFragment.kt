@@ -24,13 +24,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
-    private val viewmodel: RegisterViewModel by lazy {
-        val application = requireNotNull(activity).application
-        ViewModelProvider(
-            this,
-            RegisterViewModel.Factory(application)
-        ).get(RegisterViewModel::class.java)
-    }
+    private lateinit var viewmodel: RegisterViewModel
 
     private lateinit var imageDialogUtil: ImageDialogUtil
 
@@ -40,8 +34,6 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.model = viewmodel
 
         // Screen navigation animations
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
@@ -56,6 +48,17 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val application = requireNotNull(activity).application
+        viewmodel = ViewModelProvider(
+            this,
+            RegisterViewModel.Factory(application)
+        ).get(RegisterViewModel::class.java)
+
+        // define viewmodel and and lifecycleOwner
+        binding.model = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         val activity = requireNotNull(activity)
         imageDialogUtil = ImageDialogUtil(activity, this)
 

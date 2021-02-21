@@ -32,14 +32,18 @@ class MainActivity : AppCompatActivity(), ListItemListener {
     // Adapter used for recyclerView
     private lateinit var adapter: ListItemAdapter
 
+    // SearchView
     private lateinit var searchView: SearchView
     private lateinit var queryTextListener: SearchView.OnQueryTextListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+    }
+
+    override fun onStart() {
+        super.onStart()
         binding.viewmodel = viewmodel
 
         // set up adapter for recyclerView & attach the adapter to the View
@@ -48,12 +52,16 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
         // FloatingActionButton to add project clickListener
         binding.addProjectFab.setOnClickListener {
-            val intent = Intent(this, AddProjectActivity::class.java)
-            startActivity(intent)
+            goToAddProject()
         }
 
         // state-change watcher
         updateLiveData()
+    }
+
+    private fun goToAddProject() {
+        val intent = Intent(this, AddProjectActivity::class.java)
+        startActivity(intent)
     }
 
     private fun updateLiveData() {

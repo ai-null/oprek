@@ -1,6 +1,5 @@
 package com.ainul.oprek.ui.activities
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -18,6 +17,7 @@ import com.ainul.oprek.databinding.ActivityDetailProjectBinding
 import com.ainul.oprek.ui.viewmodels.DetailViewModel
 import com.ainul.oprek.util.Constants
 import com.ainul.oprek.util.Constants.Status
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class DetailProjectActivity : AppCompatActivity() {
 
@@ -58,26 +58,25 @@ class DetailProjectActivity : AppCompatActivity() {
     }
 
     private fun showUpdateStatusDialog() {
-        val dialog = AlertDialog.Builder(this)
+        val dialog = BottomSheetDialog(this, R.style.AppTheme_BottomSheetDialog)
         val view = LayoutInflater.from(this).inflate(
-            R.layout.dialog_status,
+            R.layout.bottom_sheet_edit_status,
             findViewById(R.id.dialog_container)
         )
 
         // set view to dialog & create dialog from the inflated layout
-        dialog.setView(view)
-        val updateDialog = dialog.create()
+        dialog.setContentView(view)
 
         // show dialog
-        updateDialog.window?.run {
+        dialog.window?.run {
             setBackgroundDrawable(ColorDrawable(0))
-            updateDialog.show()
+            dialog.show()
         }
 
-        updateStatus(updateDialog ,view)
+        updateStatus(dialog, view)
     }
 
-    private fun updateStatus(dialog: AlertDialog, view: View) {
+    private fun updateStatus(dialog: BottomSheetDialog, view: View) {
         val itemDone: LinearLayout = view.findViewById(R.id.dialog_item_done)
         val itemCancel: LinearLayout = view.findViewById(R.id.dialog_item_cancel)
         val itemProgress: LinearLayout = view.findViewById(R.id.dialog_item_progress)

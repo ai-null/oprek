@@ -122,7 +122,7 @@ class AddProjectViewModel constructor(
                     description = description,
                     phoneNumber = phoneNumber,
                     dueDate = dueDate,
-                    cost = cost.toDouble()
+                    cost = if (cost.isNotBlank()) cost.toDouble() else 0.0
                 )
             )
         } else {

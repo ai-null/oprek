@@ -18,13 +18,7 @@ import com.ainul.oprek.ui.viewmodels.LoginViewModel.Companion.AuthenticationStat
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private val viewmodel: LoginViewModel by lazy {
-        val application = requireNotNull(activity).application
-        ViewModelProvider(
-            this,
-            LoginViewModel.Factory(application)
-        ).get(LoginViewModel::class.java)
-    }
+    private lateinit var viewmodel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,13 +26,21 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater)
-        binding.viewmodel = viewmodel
-        binding.lifecycleOwner = viewLifecycleOwner
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val application = requireNotNull(activity).application
+        viewmodel = ViewModelProvider(
+            this,
+            LoginViewModel.Factory(application)
+        ).get(LoginViewModel::class.java)
+
+        // define viewmodel and lifecycleOwner
+        binding.viewmodel = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         // Error watcher
         viewmodel.error.observe(viewLifecycleOwner, {
             it?.let { message ->
@@ -67,12 +69,14 @@ class LoginFragment : Fragment() {
 
     private fun navigateToRegister() {
         // Screen navigation animations
+        val defaultTransitionDuration = resources.getInteger(R.integer.default_transitionDuration).toLong()
+
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
-            duration = resources.getInteger(R.integer.default_transitionDuration).toLong()
+            duration = defaultTransitionDuration
         }
 
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            duration = resources.getInteger(R.integer.default_transitionDuration).toLong()
+            duration = defaultTransitionDuration
         }
 
         findNavController().navigate(R.id.action_loginFragment_to_registerFragment)

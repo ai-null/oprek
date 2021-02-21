@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_bottom_sheet"
+    android:orientation="vertical"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    tools:layout_gravity="bottom">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:text="@string/dialog_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/dialog_item_done"
+        style="@style/selectable_item_layout"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_done"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            android:text="@string/done" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_item_cancel"
+        style="@style/selectable_item_layout"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            android:text="@string/cancel" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_item_progress"
+        style="@style/selectable_item_layout"
+        android:layout_marginBottom="@dimen/medium_margin"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_progress"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            android:text="@string/progress" />
+    </LinearLayout>
+</LinearLayout>
