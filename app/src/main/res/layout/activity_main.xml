@@ -14,15 +14,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:menu="@menu/dashboard_menu"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="@string/app_name" />
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             tools:context=".ui.activities.MainActivity">
 
             <LinearLayout
-                android:background="@color/colorWhite2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorWhite2"
                 android:orientation="vertical">
 
                 <include
@@ -42,42 +61,42 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    app:showMessage="@{viewmodel.projects}"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/large_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:visibility="gone"
+                    app:showMessage="@{viewmodel.projects}">
 
                     <ImageView
-                        tools:ignore="contentDescription"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:src="@drawable/ic_receipt_add" />
+                        android:src="@drawable/ic_receipt_add"
+                        tools:ignore="contentDescription" />
 
                     <TextView
-                        android:layout_marginTop="@dimen/margin"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin"
+                        android:text="@string/no_project_title"
                         android:textColor="@color/colorBlack2"
-                        android:textStyle="bold"
-                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/no_project_title"/>
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="@dimen/small_margin"
                         style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:text="@string/no_project_subtitle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:text="@string/no_project_subtitle" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginBottom="@dimen/medium_margin"
                     android:id="@+id/recent_projects_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/medium_margin"
                     app:fastScrollEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"

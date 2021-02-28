@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
@@ -40,6 +41,10 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+
+        // setup action bar
+        val toolbar: Toolbar = binding.mainToolbar
+        setSupportActionBar(toolbar)
     }
 
     override fun onStart() {
