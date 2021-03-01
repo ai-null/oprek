@@ -155,10 +155,5 @@
 
 
     <string name="dialog_alert_message">%s name can\'t be empty!</string>
-    <string name="title_activity_search">SearchActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
+    <string name="title_activity_search">Search project</string>
 </resources>

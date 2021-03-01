@@ -1,12 +1,9 @@
 package com.ainul.oprek.ui.activities
 
-import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -32,10 +29,6 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     // Adapter used for recyclerView
     private lateinit var adapter: ListItemAdapter
-
-    // SearchView
-    private lateinit var searchView: SearchView
-    private lateinit var queryTextListener: SearchView.OnQueryTextListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +62,10 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         startActivity(intent)
     }
 
+    /**
+     * this method used to observe state-change by viewmodel,
+     * all LiveData observer must be put here
+     */
     private fun updateLiveData() {
         // called after state change from logout menu clicked
         viewmodel.logoutState.observe(this, {
@@ -96,36 +93,12 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.dashboard_menu, menu)
-
-        val searchItem: MenuItem? = menu?.findItem(R.id.item_search)
-        val searchManager: SearchManager =
-            this.getSystemService(Context.SEARCH_SERVICE) as (SearchManager)
-
-        if (searchItem != null) {
-            searchView = searchItem.actionView as SearchView
-        }
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.componentName))
-        queryTextListener = object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null && query.isNotBlank()) {
-                    val searchActivity = Intent(this@MainActivity, SearchActivity::class.java)
-
-                    searchActivity.putExtra(Constants.QUERY, query)
-                    startActivityForResult(searchActivity, Constants.REQUEST_CODE_SEARCH_ACTIVITY)
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean = true
-
-        }
-
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // navigate to profileActivity
             R.id.item_profile -> {
                 startActivityForResult(
                     Intent(this, ProfileActivity::class.java),
@@ -133,17 +106,24 @@ class MainActivity : AppCompatActivity(), ListItemListener {
                 )
             }
 
+            // navigate to searchActivity
+            R.id.item_search -> {
+                val searchActivity = Intent(this@MainActivity, SearchActivity::class.java)
+                startActivityForResult(searchActivity, Constants.REQUEST_CODE_SEARCH_ACTIVITY)
+            }
+
             // navigate to login screen. called logout method in the viewmodel, update state,
             // tell the state-change watcher to proceed to logout
             R.id.item_logout -> viewmodel.logout()
         }
 
-        // assign the listener created before
-        searchView.setOnQueryTextListener(queryTextListener)
-
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * list item clickListener,
+     * it will put an extra [Constants.PROJECT_ID] which contain projectId to navigate to DetailActivity
+     */
     override fun mainClickListener(project: Project) {
         val intent = Intent(this, DetailProjectActivity::class.java)
         intent.putExtra(Constants.PROJECT_ID, project.id)

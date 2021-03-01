@@ -8,8 +8,7 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search"
         android:tooltipText="Search project"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="ifRoom"
         tools:ignore="UnusedAttribute" />
     <item
         android:icon="@drawable/ic_baseline_more_vert_24"

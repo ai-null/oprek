@@ -30,12 +30,21 @@ class DetailProjectActivity : AppCompatActivity() {
         // defines data binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_project)
 
-        // get the userId, assign it to the viewmodel
-        projectId = intent.extras!!.getLong(Constants.PROJECT_ID)
-        viewmodel = ViewModelProvider(
-            this,
-            DetailViewModel.Factory(application, projectId)
-        ).get(DetailViewModel::class.java)
+        if (intent.hasExtra(Constants.PROJECT_ID) &&
+            intent.extras?.getLong(Constants.PROJECT_ID) !== null
+        ) {
+            projectId = intent.extras!!.getLong(Constants.PROJECT_ID)
+
+            // get the projectId, assign it to the viewmodel
+            viewmodel = ViewModelProvider(
+                this,
+                DetailViewModel.Factory(application, projectId)
+            ).get(DetailViewModel::class.java)
+        } else {
+            // nothing to show, finish activity
+            Toast.makeText(this, "Error getting project data", Toast.LENGTH_SHORT).show()
+            finish()
+        }
 
         // set the viewmodel in the xml, and attach the activity as lifecycleOwner
         binding.viewmodel = viewmodel

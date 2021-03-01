@@ -32,20 +32,10 @@ class SearchActivity : AppCompatActivity(), ListItemListener {
     private lateinit var searchView: SearchView
     private lateinit var queryTextListener: SearchView.OnQueryTextListener
 
-    // searchQuery
-    private var query = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
         binding.lifecycleOwner = this
-
-        if (intent!!.hasExtra(Constants.QUERY)) {
-            query = intent.extras?.getString(Constants.QUERY)!!
-            supportActionBar?.title = query
-        } else {
-            finish()
-        }
     }
 
     override fun onStart() {
@@ -64,7 +54,6 @@ class SearchActivity : AppCompatActivity(), ListItemListener {
 
         viewmodel.filteredList.observe(this, {
             it.let { projects ->
-                Log.i("triggered", "$projects")
                 adapter.submitList(projects)
             }
         })
@@ -86,7 +75,6 @@ class SearchActivity : AppCompatActivity(), ListItemListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null && query.isNotBlank()) {
                     viewmodel.filterProjects(query)
-                    Log.i("filter?", "$query")
                 }
                 return true
             }
@@ -94,27 +82,15 @@ class SearchActivity : AppCompatActivity(), ListItemListener {
             override fun onQueryTextChange(newText: String?): Boolean = true
         }
 
-//        searchItem?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-//            override fun onMenuItemActionExpand(item: MenuItem?): Boolean = true
-//
-//            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-//                finish()
-//                return true
-//            }
-//        })
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null && query.isNotBlank()) {
-                    viewmodel.filterProjects(query)
-                    Log.i("filter?", "$query")
-                    return true
-                }
-
-                return false
+                return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean = true
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) viewmodel.filterProjects(newText)
+                return true
+            }
 
         })
 
