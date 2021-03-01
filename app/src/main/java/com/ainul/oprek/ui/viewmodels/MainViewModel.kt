@@ -91,10 +91,10 @@ class MainViewModel(app: Application) : ViewModel() {
             _filteredList.value = listOfProjects
         } else {
             if (listOfProjects != null) {
-                val filtered =
-                    listOfProjects.filter { it.customerName.toLowerCase(Locale.ROOT).contains(text) || it.deviceName.toLowerCase(Locale.ROOT).contains(text) }
-                _filteredList.value = filtered
-                Log.i("filtered", "$filtered")
+                _filteredList.value = listOfProjects.filter {
+                    it.customerName.toLowerCase(Locale.ROOT).contains(text) ||
+                            it.deviceName.toLowerCase(Locale.ROOT).contains(text)
+                }
             }
         }
 

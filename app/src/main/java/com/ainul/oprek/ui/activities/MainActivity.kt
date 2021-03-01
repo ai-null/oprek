@@ -98,16 +98,22 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         menuInflater.inflate(R.menu.dashboard_menu, menu)
 
         val searchItem: MenuItem? = menu?.findItem(R.id.item_search)
-        val searchManager: SearchManager = this.getSystemService(Context.SEARCH_SERVICE) as (SearchManager)
+        val searchManager: SearchManager =
+            this.getSystemService(Context.SEARCH_SERVICE) as (SearchManager)
 
         if (searchItem != null) {
             searchView = searchItem.actionView as SearchView
         }
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.componentName))
-        queryTextListener = object: SearchView.OnQueryTextListener {
+        queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) viewmodel.filterProjects(query)
+                if (query != null && query.isNotBlank()) {
+                    val searchActivity = Intent(this@MainActivity, SearchActivity::class.java)
+
+                    searchActivity.putExtra(Constants.QUERY, query)
+                    startActivityForResult(searchActivity, Constants.REQUEST_CODE_SEARCH_ACTIVITY)
+                }
                 return true
             }
 
@@ -127,19 +133,18 @@ class MainActivity : AppCompatActivity(), ListItemListener {
                 )
             }
 
-            R.id.item_logout -> {
-                // navigate to login screen. called logout method in the viewmodel, update state,
-                // tell the state-change watcher to proceed to logout
-                viewmodel.logout()
-            }
+            // navigate to login screen. called logout method in the viewmodel, update state,
+            // tell the state-change watcher to proceed to logout
+            R.id.item_logout -> viewmodel.logout()
         }
 
+        // assign the listener created before
         searchView.setOnQueryTextListener(queryTextListener)
 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClick(project: Project) {
+    override fun mainClickListener(project: Project) {
         val intent = Intent(this, DetailProjectActivity::class.java)
         intent.putExtra(Constants.PROJECT_ID, project.id)
 

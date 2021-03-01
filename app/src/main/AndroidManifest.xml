@@ -19,7 +19,6 @@
             android:authorities="com.ainul.oprek.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -34,8 +33,12 @@
         </activity>
         <activity
             android:name=".ui.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".ui.activities.DetailProjectActivity"
             android:label="@string/detail_project"
@@ -47,7 +50,7 @@
             android:name=".ui.activities.ProfileActivity"
             android:label="@string/profile"
             android:parentActivityName=".ui.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

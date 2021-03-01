@@ -34,7 +34,7 @@ class ListItemAdapter(private val clickListener: ListItemListener) :
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            clickListener.onClick(item)
+            clickListener.mainClickListener(item)
         }
     }
 

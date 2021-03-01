@@ -12,6 +12,7 @@ object Constants {
     const val REQUEST_CODE_CHOOSE_IMAGE = 2
     const val REQUEST_CODE_TAKE_PICTURE = 3
     const val REQUEST_CODE_PROFILE_ACTIVITY = 1
+    const val REQUEST_CODE_SEARCH_ACTIVITY = 5
 
     // Screen navigation result code
     const val RESULT_CODE_UPDATED = 4
@@ -20,6 +21,7 @@ object Constants {
     // const val USER_ID = "USER_ID"
     const val PROJECT_ID = "PROJECT_ID"
     const val IMAGE_PATH = "image_path"
+    const val QUERY = "QUERY"
 
     // AddProjectSave status
     // this will tell whether addProject just updated existing data or create new data
