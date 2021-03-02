@@ -183,7 +183,7 @@
                                 tools:ignore="contentDescription" />
 
                             <TextView
-                                style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+                                style="@style/TextAppearance.AppCompat.Button.selectableItemText.bold"
                                 android:text="@string/log_out"
                                 android:textColor="@color/textRed" />
                         </LinearLayout>

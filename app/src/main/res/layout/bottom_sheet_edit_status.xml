@@ -32,7 +32,7 @@
             tools:ignore="contentDescription" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText.bold"
             android:text="@string/done" />
     </LinearLayout>
 
@@ -48,7 +48,7 @@
             tools:ignore="contentDescription" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText.bold"
             android:text="@string/cancel" />
     </LinearLayout>
 
@@ -65,7 +65,7 @@
             tools:ignore="contentDescription" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Button.selectableItemText"
+            style="@style/TextAppearance.AppCompat.Button.selectableItemText.bold"
             android:text="@string/progress" />
     </LinearLayout>
 </LinearLayout>

@@ -17,6 +17,7 @@ import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.util.Constants.Status
 import com.bumptech.glide.Glide
 import java.io.File
+import java.text.DecimalFormat
 
 /**
  * Image path helper,
@@ -50,6 +51,11 @@ fun View.showMessage(project: List<Project>?) {
     project?.let {
         if (project.isEmpty()) this.visibility = View.VISIBLE else this.visibility = View.GONE
     }
+}
+
+@BindingAdapter("formatPrice")
+fun View.formatPrice(price: Double) {
+    DecimalFormat("#")
 }
 
 // set background of LinearLayout from [status_tag.xml]
