@@ -8,6 +8,7 @@
     <string name="detail_project">Detail project</string>
     <string name="add_project">Add new project</string>
     <string name="update_project">Update project</string>
+    <string name="title_activity_search">Search project</string>
 
     <!--  placeholders  -->
     <string name="pin_password">Pin password</string>
@@ -26,11 +27,14 @@
     <string name="regist_form_title1">User profile</string>
     <string name="regist_form_title2">Account information</string>
     <string name="add_project_subhead2">Customer information</string>
+    <string name="enter_username">Enter your name</string>
+    <string name="enter_company">Company you working at</string>
 
     <!--  Misc.  -->
     <string name="done">Done</string>
     <string name="pending">Pending</string>
     <string name="cancel">Cancel</string>
+    <string name="company">Company</string>
     <string name="progress">Progress</string>
     <string name="description">Description</string>
     <string name="update">Update</string>
@@ -55,6 +59,7 @@
     <string name="sample_customer_name">Muhammad Ainul Yaqin</string>
     <string name="sample_description">Kerusakan LCD dan keyboard yang tidak terdetect oleh perangkat</string>
     <string name="sample_costs">Rp. 200.000</string>
+    <string name="sample_company">CV. Jaya Abadi</string>
     <string name="sample_due_date">Due date at 02 January</string>
     <string name="sample_customer_phone">+62 822 6485 4113</string>
     <string name="sample_income">Rp. 3,000,000</string>
@@ -141,8 +146,6 @@
     <!--  Update status dialog  -->
     <string name="dialog_title">Update status</string>
     <string name="img_none">Image not available</string>
-    <string name="sample_company">CV. Jaya Abadi</string>
-    <string name="company">Company</string>
 
     <!--  No project message  -->
     <string name="no_project_title">There is no project.</string>
@@ -150,10 +153,5 @@
     <string name="profile">Profile</string>
     <string name="sample_email">ainul.y9b@gmail.com</string>
 
-    <string name="enter_username">Enter your name</string>
-    <string name="enter_company">Company you working at</string>
-
-
     <string name="dialog_alert_message">%s name can\'t be empty!</string>
-    <string name="title_activity_search">Search project</string>
 </resources>
