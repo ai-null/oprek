@@ -7,17 +7,25 @@ import android.database.Cursor
 import android.net.Uri
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.databinding.InverseMethod
 import com.google.android.material.snackbar.Snackbar
+import java.text.DecimalFormat
 
 class Util {
     companion object {
-        @JvmStatic
         fun showSnackBar(view: View, message: String) {
             Snackbar.make(
                 view,
                 message,
                 Snackbar.LENGTH_SHORT
             ).show()
+        }
+
+        @JvmStatic
+        fun currencyFormat(amount: Double): String {
+            val formatter = DecimalFormat("###,###,###")
+
+            return formatter.format(amount)
         }
 
         // Check app's permission, returns true if its granted and false otherwise

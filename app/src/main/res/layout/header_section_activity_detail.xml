@@ -113,7 +113,7 @@
                 <TextView
                     android:id="@+id/cost"
                     style="@style/section_text"
-                    android:text="@{String.valueOf(project.cost)}"
+                    app:formatPrice="@{project.cost}"
                     tools:text="@string/sample_costs" />
             </LinearLayout>
 

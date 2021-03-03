@@ -17,7 +17,6 @@ import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.util.Constants.Status
 import com.bumptech.glide.Glide
 import java.io.File
-import java.text.DecimalFormat
 
 /**
  * Image path helper,
@@ -54,8 +53,8 @@ fun View.showMessage(project: List<Project>?) {
 }
 
 @BindingAdapter("formatPrice")
-fun View.formatPrice(price: Double) {
-    DecimalFormat("#")
+fun TextView.formatPrice(amount: Double) {
+    text = if (amount == 0.0) "Cost is not set yet" else "Rp. ${Util.currencyFormat(amount)}"
 }
 
 // set background of LinearLayout from [status_tag.xml]
