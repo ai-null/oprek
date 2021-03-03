@@ -77,6 +77,7 @@
                         android:layout_height="match_parent"
                         android:hint="@string/device_name"
                         android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
                         android:text="@={viewmodel.deviceName}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -103,6 +104,7 @@
                         android:layout_height="match_parent"
                         android:gravity="start"
                         android:hint="@string/description"
+                        android:inputType="textImeMultiLine"
                         android:lines="3"
                         android:maxLines="3"
                         android:text="@={viewmodel.description}" />
@@ -151,6 +153,7 @@
                         android:gravity="start"
                         android:hint="@string/customer_name"
                         android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
                         android:lines="1"
                         android:maxLines="1"
                         android:text="@={viewmodel.customerName}" />
@@ -234,6 +237,8 @@
                         android:layout_height="match_parent"
                         android:gravity="start"
                         android:hint="@string/cost"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
                         android:lines="1"
                         android:maxLines="1"
                         android:text="@={viewmodel.cost}" />
@@ -249,14 +254,15 @@
                 android:layout_marginTop="@dimen/margin"
                 app:endIconDrawable="@drawable/ic_round_event_24"
                 app:endIconMode="custom"
-                app:layout_constraintTop_toBottomOf="@id/cost_layout"
-                app:placeholderText="DD/MM/YYYY">
+                app:layout_constraintTop_toBottomOf="@id/cost_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/due_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:enabled="false"
                     android:gravity="start"
+                    android:textColor="@color/colorBlack2"
                     android:hint="@string/due"
                     android:lines="1"
                     android:maxLines="1"
@@ -265,10 +271,10 @@
 
             <View
                 android:id="@+id/due_clicklistener"
-                android:background="@drawable/background_ripple_mask"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/input_no_icon_margin"
+                android:background="@drawable/background_ripple_mask"
                 android:clickable="true"
                 android:focusable="true"
                 android:paddingTop="4dp"
