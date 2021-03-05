@@ -104,7 +104,7 @@
                         android:layout_height="match_parent"
                         android:gravity="start"
                         android:hint="@string/description"
-                        android:inputType="textImeMultiLine"
+                        android:inputType="textMultiLine"
                         android:lines="3"
                         android:maxLines="3"
                         android:text="@={viewmodel.description}" />
@@ -190,7 +190,7 @@
                         android:gravity="start"
                         android:hint="@string/phone_number"
                         android:imeOptions="actionNext"
-                        android:inputType="number"
+                        android:inputType="number|phone"
                         android:lines="1"
                         android:maxLines="1"
                         android:text="@={viewmodel.phoneNumber}" />
@@ -238,7 +238,7 @@
                         android:gravity="start"
                         android:hint="@string/cost"
                         android:imeOptions="actionDone"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:lines="1"
                         android:maxLines="1"
                         android:text="@={viewmodel.cost}" />

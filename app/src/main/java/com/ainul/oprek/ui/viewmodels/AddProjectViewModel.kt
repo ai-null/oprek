@@ -12,6 +12,7 @@ import com.ainul.oprek.database.entities.Project
 import com.ainul.oprek.repository.DatabaseRepository
 import com.ainul.oprek.util.Constants
 import com.ainul.oprek.util.EncryptManager
+import com.ainul.oprek.util.Util
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -79,7 +80,7 @@ class AddProjectViewModel constructor(
             description = it.description
             customerName = it.customerName
             phoneNumber = it.phoneNumber
-            cost = it.cost.toString()
+            cost = Util.currencyFormat(it.cost).replace("[,]".toRegex(), ".")
             dueDate = it.dueDate
 
             _deviceImage.value = it.deviceImage
@@ -112,6 +113,12 @@ class AddProjectViewModel constructor(
      */
     fun onClick() {
         if (deviceName.isNotBlank() and customerName.isNotBlank()) {
+
+            // 20,000 or 20.000 parsed to 20000.0 as Double
+            val formattedCost: Double = if (cost.isNotBlank()) {
+                cost.replace("[$,.]".toRegex(), "").toDouble()
+            } else 0.0
+
             saveProject(
                 Project(
                     id = projectId ?: 0L,
@@ -122,7 +129,7 @@ class AddProjectViewModel constructor(
                     description = description,
                     phoneNumber = phoneNumber,
                     dueDate = dueDate,
-                    cost = if (cost.isNotBlank()) cost.toDouble() else 0.0
+                    cost = formattedCost
                 )
             )
         } else {

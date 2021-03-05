@@ -7,7 +7,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.databinding.InverseMethod
 import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 
@@ -21,7 +20,6 @@ class Util {
             ).show()
         }
 
-        @JvmStatic
         fun currencyFormat(amount: Double): String {
             val formatter = DecimalFormat("###,###,###")
 
