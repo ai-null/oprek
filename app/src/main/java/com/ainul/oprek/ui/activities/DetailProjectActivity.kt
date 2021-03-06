@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.R
+import com.ainul.oprek.database.entities.User
 import com.ainul.oprek.databinding.ActivityDetailProjectBinding
 import com.ainul.oprek.ui.viewmodels.DetailViewModel
 import com.ainul.oprek.util.Constants
@@ -34,15 +35,16 @@ class DetailProjectActivity : AppCompatActivity() {
             intent.extras?.getLong(Constants.PROJECT_ID) !== null
         ) {
             projectId = intent.extras!!.getLong(Constants.PROJECT_ID)
+            val user: User = intent.extras!!.getParcelable(Constants.USER)!!
 
             // get the projectId, assign it to the viewmodel
             viewmodel = ViewModelProvider(
                 this,
-                DetailViewModel.Factory(application, projectId)
+                DetailViewModel.Factory(application, projectId, user)
             ).get(DetailViewModel::class.java)
         } else {
             // nothing to show, finish activity
-            Toast.makeText(this, "Error getting project data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error getting information", Toast.LENGTH_SHORT).show()
             finish()
         }
 

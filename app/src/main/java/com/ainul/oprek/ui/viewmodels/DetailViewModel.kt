@@ -7,11 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ainul.oprek.database.OprekDatabase
 import com.ainul.oprek.database.entities.Project
+import com.ainul.oprek.database.entities.User
 import com.ainul.oprek.repository.DatabaseRepository
+import com.ainul.oprek.util.Constants
 import kotlinx.coroutines.*
 import java.lang.IllegalArgumentException
 
-class DetailViewModel constructor(app: Application, private val projectId: Long) : ViewModel() {
+class DetailViewModel constructor(
+    app: Application,
+    private val projectId: Long,
+    private val user: User
+) : ViewModel() {
     private val database = OprekDatabase.getDatabase(app)
     private val repository = DatabaseRepository(database)
 
@@ -59,6 +65,12 @@ class DetailViewModel constructor(app: Application, private val projectId: Long)
     fun updateStatus(status: Int) {
         uiScope.launch {
             repository.updateStatus(projectId, status)
+
+            if (status == Constants.Status.DONE.value) {
+                val income: Double = user.addIncome(_projectData.value!!.cost)
+                repository.addIncome(user.id, income)
+            }
+
             refresh() // refresh data after status updated
         }
     }
@@ -67,12 +79,12 @@ class DetailViewModel constructor(app: Application, private val projectId: Long)
     private val _navigateBack = MutableLiveData(false)
     val navigateBack: LiveData<Boolean> get() = _navigateBack
 
-    class Factory(private val app: Application, private val userId: Long) :
+    class Factory(private val app: Application, private val projectId: Long, private val user: User) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return DetailViewModel(app, userId) as T
+                return DetailViewModel(app, projectId, user) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

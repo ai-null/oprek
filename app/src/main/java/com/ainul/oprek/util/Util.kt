@@ -20,6 +20,7 @@ class Util {
             ).show()
         }
 
+        @JvmStatic
         fun currencyFormat(amount: Double): String {
             val formatter = DecimalFormat("###,###,###")
 

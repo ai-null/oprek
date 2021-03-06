@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.ainul.oprek.database.entities.User
 import com.ainul.oprek.database.entities.Project
-
-// TODO: Add Delete account and update user profile
+import com.ainul.oprek.util.Constants
 
 @Dao
 interface OprekDao {
@@ -35,6 +34,9 @@ interface OprekDao {
     @Query("UPDATE table_user SET profile_picture = :path WHERE id = :id")
     fun updateProfilePicture(id: Long, path: String)
 
+    @Query("UPDATE table_user SET income = :values WHERE id = :id")
+    fun addIncome(id: Long, values: Double)
+
     // ===== PROJECT =====
 
     @Insert
@@ -61,4 +63,7 @@ interface OprekDao {
      */
     @Query("SELECT * FROM table_project WHERE user_id = :userId ORDER BY id DESC")
     fun getProjects(userId: Long): LiveData<List<Project>?>
+
+    @Query("SELECT * FROM table_project WHERE user_id = :userId AND status = :status ORDER BY id DESC")
+    fun filterProject(userId: Long, status: Int): LiveData<List<Project>>
 }

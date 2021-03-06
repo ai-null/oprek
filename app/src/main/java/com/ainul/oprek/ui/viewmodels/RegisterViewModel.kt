@@ -82,7 +82,8 @@ class RegisterViewModel(app: Application) : ViewModel(), Observable {
                         email = email,
                         pin = pin.toInt(),
                         company = company,
-                        profilePicture = _profilePicture.value
+                        profilePicture = _profilePicture.value,
+                        income = 0.0
                     )
                 )
 

@@ -12,6 +12,7 @@ import com.ainul.oprek.R
 import com.ainul.oprek.adapter.ListItemAdapter
 import com.ainul.oprek.adapter.listener.ListItemListener
 import com.ainul.oprek.database.entities.Project
+import com.ainul.oprek.database.entities.User
 import com.ainul.oprek.databinding.ActivityMainBinding
 import com.ainul.oprek.ui.viewmodels.MainViewModel
 import com.ainul.oprek.util.Constants
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity(), ListItemListener {
 
     // Adapter used for recyclerView
     private lateinit var adapter: ListItemAdapter
+
+    // User id
+    private var userId : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,10 @@ class MainActivity : AppCompatActivity(), ListItemListener {
         // FloatingActionButton to add project clickListener
         binding.addProjectFab.setOnClickListener {
             goToAddProject()
+        }
+
+        binding.header.buttonHistory.setOnClickListener {
+            goToHistory()
         }
 
         // state-change watcher
@@ -89,6 +97,19 @@ class MainActivity : AppCompatActivity(), ListItemListener {
                 adapter.submitList(projects)
             }
         })
+
+        viewmodel.user.observe(this, {
+            userId = it
+        })
+    }
+
+    private fun goToHistory() {
+        userId?.let {
+            val historyIntent = Intent(this, HistoryActivity::class.java)
+            historyIntent.putExtra(Constants.USER_ID, it.id)
+
+            startActivity(historyIntent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -125,10 +146,13 @@ class MainActivity : AppCompatActivity(), ListItemListener {
      * it will put an extra [Constants.PROJECT_ID] which contain projectId to navigate to DetailActivity
      */
     override fun mainClickListener(project: Project) {
-        val intent = Intent(this, DetailProjectActivity::class.java)
-        intent.putExtra(Constants.PROJECT_ID, project.id)
+        userId?.let {
+            val intent = Intent(this, DetailProjectActivity::class.java)
+            intent.putExtra(Constants.PROJECT_ID, project.id)
+            intent.putExtra(Constants.USER, it)
 
-        startActivity(intent)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

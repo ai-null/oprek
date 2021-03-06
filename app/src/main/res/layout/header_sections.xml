@@ -8,6 +8,7 @@
             type="com.ainul.oprek.ui.viewmodels.MainViewModel" />
 
         <import type="com.ainul.oprek.util.Constants.Status" />
+        <import type="com.ainul.oprek.util.Util" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -116,7 +117,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/small_margin"
-                        android:text="@string/sample_costs"
+                        tools:text="@string/sample_costs"
+                        app:formatPrice="@{viewmodel.user.income}"
                         android:textColor="@color/colorBlack2" />
                 </LinearLayout>
 

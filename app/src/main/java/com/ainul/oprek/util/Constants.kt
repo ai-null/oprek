@@ -18,10 +18,9 @@ object Constants {
     const val RESULT_CODE_UPDATED = 4
 
     // Screen data pass id
-    // const val USER_ID = "USER_ID"
+    const val USER = "USER"
+    const val USER_ID = "USER_ID"
     const val PROJECT_ID = "PROJECT_ID"
-    const val IMAGE_PATH = "image_path"
-    const val QUERY = "QUERY"
 
     // AddProjectSave status
     // this will tell whether addProject just updated existing data or create new data

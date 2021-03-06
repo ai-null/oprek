@@ -40,6 +40,12 @@ class DatabaseRepository(database: OprekDatabase) {
         }
     }
 
+    suspend fun addIncome(id: Long, values: Double) {
+        withContext(Dispatchers.IO) {
+            dao.addIncome(id, values)
+        }
+    }
+
     /**
      * this method used to check email of new user, if it same as other
      * returns `false`, otherwise `true`

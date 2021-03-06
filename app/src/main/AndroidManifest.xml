@@ -51,6 +51,10 @@
             android:label="@string/profile"
             android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.HistoryActivity"
+            android:label="@string/history"
+            android:parentActivityName=".ui.activities.MainActivity" />
     </application>
 
 </manifest>

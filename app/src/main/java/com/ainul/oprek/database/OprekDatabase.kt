@@ -5,11 +5,12 @@ import androidx.room.*
 import com.ainul.oprek.database.entities.User
 import com.ainul.oprek.database.entities.Project
 
-@Database(entities = [User::class, Project::class], exportSchema = false, version = 10)
+@Database(entities = [User::class, Project::class], exportSchema = false, version = 11)
 abstract class OprekDatabase : RoomDatabase() {
     abstract val oprekDao: OprekDao
 
     companion object {
+        @Volatile
         private lateinit var instance: OprekDatabase
 
         fun getDatabase(context: Context): OprekDatabase {
@@ -19,7 +20,7 @@ abstract class OprekDatabase : RoomDatabase() {
                         context.applicationContext,
                         OprekDatabase::class.java,
                         "oprek_database"
-                    ).fallbackToDestructiveMigration().build()
+                    ).addMigrations(MIGRATION_10_11).build()
                 }
 
                 return instance
