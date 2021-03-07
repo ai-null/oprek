@@ -35,7 +35,7 @@ interface OprekDao {
     fun updateProfilePicture(id: Long, path: String)
 
     @Query("UPDATE table_user SET income = :values WHERE id = :id")
-    fun addIncome(id: Long, values: Double)
+    fun updateIncome(id: Long, values: Double)
 
     // ===== PROJECT =====
 

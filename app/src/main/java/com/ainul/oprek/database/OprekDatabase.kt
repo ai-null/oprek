@@ -20,7 +20,7 @@ abstract class OprekDatabase : RoomDatabase() {
                         context.applicationContext,
                         OprekDatabase::class.java,
                         "oprek_database"
-                    ).addMigrations(MIGRATION_10_11).build()
+                    ).build()
                 }
 
                 return instance

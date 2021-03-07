@@ -40,9 +40,9 @@ class DatabaseRepository(database: OprekDatabase) {
         }
     }
 
-    suspend fun addIncome(id: Long, values: Double) {
+    suspend fun updateIncome(id: Long, values: Double) {
         withContext(Dispatchers.IO) {
-            dao.addIncome(id, values)
+            dao.updateIncome(id, values)
         }
     }
 
