@@ -63,6 +63,12 @@ class DetailProjectActivity : AppCompatActivity() {
             }
         })
 
+        viewmodel.updateIncome.observe(this, {
+            if (it) {
+                setResult(Constants.RESULT_CODE_UPDATED)
+            }
+        })
+
         binding.updateStatusFab.setOnClickListener {
             showUpdateStatusDialog()
         }

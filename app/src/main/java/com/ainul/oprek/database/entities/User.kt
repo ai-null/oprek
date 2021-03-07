@@ -50,6 +50,10 @@ data class User(
         return values + income
     }
 
+    fun removeIncome(values: Double): Double {
+        return income - values
+    }
+
     override fun describeContents(): Int {
         return 0
     }

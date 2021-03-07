@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity(), ListItemListener {
             // navigate to searchActivity
             R.id.item_search -> {
                 val searchActivity = Intent(this@MainActivity, SearchActivity::class.java)
-                startActivityForResult(searchActivity, Constants.REQUEST_CODE_SEARCH_ACTIVITY)
+                startActivity(searchActivity)
             }
 
             // navigate to login screen. called logout method in the viewmodel, update state,
@@ -151,16 +151,14 @@ class MainActivity : AppCompatActivity(), ListItemListener {
             intent.putExtra(Constants.PROJECT_ID, project.id)
             intent.putExtra(Constants.USER, it)
 
-            startActivity(intent)
+            startActivityForResult(intent, Constants.REQUEST_CODE_DETAIL_ACTIVITY)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == Constants.REQUEST_CODE_PROFILE_ACTIVITY
-            && resultCode == Constants.RESULT_CODE_UPDATED
-        ) {
+        if (resultCode == Constants.RESULT_CODE_UPDATED) {
             viewmodel.refresh()
         }
     }

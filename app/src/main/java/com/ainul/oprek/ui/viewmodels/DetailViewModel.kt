@@ -62,14 +62,28 @@ class DetailViewModel constructor(
         }
     }
 
+    private val _updateIncome = MutableLiveData<Boolean>()
+    val updateIncome: LiveData<Boolean> get() = _updateIncome
+
     fun updateStatus(status: Int) {
         uiScope.launch {
-            repository.updateStatus(projectId, status)
-
-            if (status == Constants.Status.DONE.value) {
-                val income: Double = user.addIncome(_projectData.value!!.cost)
-                repository.addIncome(user.id, income)
+            val statusDone = Constants.Status.DONE.value
+            val data = _projectData.value!!
+            if (status == statusDone) {
+                // If done is clicked, add income to the User
+                val payload: Double = user.addIncome(data.cost)
+                repository.updateIncome(user.id, payload)
+                _updateIncome.value = true
+            } else {
+                // otherwise, when other were clicked when project was done then reduce income
+                if (data.status == statusDone) {
+                    val payload: Double = user.removeIncome(data.cost)
+                    repository.updateIncome(user.id, payload)
+                    _updateIncome.value = true
+                }
             }
+
+            repository.updateStatus(projectId, status)
 
             refresh() // refresh data after status updated
         }
@@ -79,7 +93,11 @@ class DetailViewModel constructor(
     private val _navigateBack = MutableLiveData(false)
     val navigateBack: LiveData<Boolean> get() = _navigateBack
 
-    class Factory(private val app: Application, private val projectId: Long, private val user: User) :
+    class Factory(
+        private val app: Application,
+        private val projectId: Long,
+        private val user: User
+    ) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {

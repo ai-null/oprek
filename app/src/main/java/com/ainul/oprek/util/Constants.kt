@@ -12,7 +12,7 @@ object Constants {
     const val REQUEST_CODE_CHOOSE_IMAGE = 2
     const val REQUEST_CODE_TAKE_PICTURE = 3
     const val REQUEST_CODE_PROFILE_ACTIVITY = 1
-    const val REQUEST_CODE_SEARCH_ACTIVITY = 5
+    const val REQUEST_CODE_DETAIL_ACTIVITY = 5
 
     // Screen navigation result code
     const val RESULT_CODE_UPDATED = 4
