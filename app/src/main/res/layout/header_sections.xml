@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/small_margin"
                         tools:text="@string/sample_costs"
-                        app:formatPrice="@{viewmodel.user.income}"
+                        android:text="@{Util.currencyFormat(viewmodel.user.income, false)}"
                         android:textColor="@color/colorBlack2" />
                 </LinearLayout>
 

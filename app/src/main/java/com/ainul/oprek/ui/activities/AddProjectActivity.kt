@@ -19,7 +19,7 @@ import com.ainul.oprek.ui.viewmodels.AddProjectViewModel
 import com.ainul.oprek.util.Constants
 import com.ainul.oprek.util.ImageDialogUtil
 import com.ainul.oprek.util.Util
-import com.ainul.oprek.util.Util.Companion.getSelectedImagePath
+import com.ainul.oprek.util.Util.getSelectedImagePath
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            app:formatPrice="@{project.cost}"
+            android:text="@{Util.currencyFormat(project.cost, false)}"
             android:textColor="@color/textGreen"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
