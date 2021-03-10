@@ -21,10 +21,10 @@ class Util {
         }
 
         @JvmStatic
-        fun currencyFormat(amount: Double): String {
-            val formatter = DecimalFormat("###,###,###")
+        fun currencyFormat(amount: Double, raw: Boolean = false): String {
+            val formatted = DecimalFormat("###,###,###").format(amount)
 
-            return formatter.format(amount)
+            return if (raw) formatted else "Rp. $formatted"
         }
 
         // Check app's permission, returns true if its granted and false otherwise

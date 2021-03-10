@@ -52,11 +52,6 @@ fun View.showMessage(project: List<Project>?) {
     }
 }
 
-@BindingAdapter("formatPrice")
-fun TextView.formatPrice(amount: Double) {
-    text = if (amount == 0.0) "Cost is not set yet" else "Rp. ${Util.currencyFormat(amount)}"
-}
-
 // set background of LinearLayout from [status_tag.xml]
 @BindingAdapter("statusBackground")
 fun LinearLayout.statusBackground(status: Int) {

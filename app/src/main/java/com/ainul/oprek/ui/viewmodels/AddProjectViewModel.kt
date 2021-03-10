@@ -80,7 +80,7 @@ class AddProjectViewModel constructor(
             description = it.description
             customerName = it.customerName
             phoneNumber = it.phoneNumber
-            cost = Util.currencyFormat(it.cost).replace("[,]".toRegex(), ".")
+            cost = Util.currencyFormat(it.cost, true).replace("[,]".toRegex(), ".")
             dueDate = it.dueDate
 
             _deviceImage.value = it.deviceImage
