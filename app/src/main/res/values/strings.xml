@@ -155,4 +155,5 @@
 
     <string name="dialog_alert_message">%s name can\'t be empty!</string>
     <string name="history">History</string>
+    <string name="statistics">Statistics</string>
 </resources>

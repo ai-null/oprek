@@ -14,7 +14,7 @@ import androidx.security.crypto.MasterKey
 class EncryptManager(context: Context) {
 
     // this will be our private key for the app, also with the schema to encrypt
-    private val masterKey = MasterKey.Builder(context, "oprek-master-key")
+    private val masterKey = MasterKey.Builder(context, Constants.MASTER_KEY)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
 

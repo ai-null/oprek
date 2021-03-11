@@ -7,6 +7,8 @@ object Constants {
         CANCEL(-1);
     }
 
+    const val MASTER_KEY = "oprek-master-key"
+
     // Screen navigation request code
     const val REQUEST_CODE_UPDATE_PROJECT = 1
     const val REQUEST_CODE_CHOOSE_IMAGE = 2
