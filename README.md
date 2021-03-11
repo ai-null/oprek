@@ -5,7 +5,7 @@
 <h1 align="center">Oprek</h1>
 
 <p align="center">
-Oprek is a simple project management application made with Kotlin. The illustration used in this app can be found at <b><a href="https://opendoodles.com/">OpenDoodles</a></b>.
+Oprek is a simple project management application made with Kotlin. <br /> The illustration used in this app can be found at <b><a href="https://opendoodles.com/">OpenDoodles</a></b>.
 </p>
 
 <p align="center">
