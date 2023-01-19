@@ -9,12 +9,7 @@ Oprek is a simple project management application made with Kotlin. <br /> The il
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/ai-null/oprek/dev/demo/Login%20and%20Registration%20Page.png" />
-<img src="https://raw.githubusercontent.com/ai-null/oprek/dev/demo/Profile%20page.png" />
-<img src="https://raw.githubusercontent.com/ai-null/oprek/dev/demo/Add%20Project%20page.png" />
-<img src="https://raw.githubusercontent.com/ai-null/oprek/dev/demo/Detail%20Project%20and%20Transaction%20page.png" />
-
-[//]: # (<img src="https://raw.githubusercontent.com/ai-null/oprek/dev/demo/screens-removebg-min.png" />)
+<img src="https://raw.githubusercontent.com/ai-null/oprek/dev/demo/screens-removebg-min.png" />
 </p>
 
 ___
