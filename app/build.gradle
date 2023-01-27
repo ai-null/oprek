@@ -55,9 +55,10 @@ dependencies {
     implementation "androidx.security:security-crypto:1.1.0-alpha03"
 
     // room (database)
-    implementation "androidx.room:room-runtime:2.5.0"
-    annotationProcessor "androidx.room:room-compiler:2.5.0"
-    kapt 'androidx.room:room-compiler:2.5.0'
+    def room_version = "2.2.5"
+    //noinspection GradleDependency
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Image processing & size compressor for android
     def glideVersion = "4.11.0"
